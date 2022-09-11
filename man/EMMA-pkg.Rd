@@ -4,3 +4,7 @@
 \name{EMMA-pkg}
 \alias{EMMA-pkg}
 \title{EMMA}
+\description{
+EMMA stands for Enrichment Methods Matter.
+And EMMA stands to help you in realizing it.
+}
