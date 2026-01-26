@@ -14,7 +14,9 @@ EMMA_show(res)
 A list of the recorded information
 }
 \description{
-EMMA_show
+This function prints the EMMA record associated with a functional enrichment
+analysis object, including the executed call, parameters, and provenance
+information.
 }
 \examples{
 res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))

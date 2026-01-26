@@ -18,7 +18,9 @@ Functional enrichment analysis results in the native format
 returned by the original \code{expr}
 }
 \description{
-EMMA_run
+This function executes functional enrichment analysis using existing tools
+and captures the associated parameters and provenance information for the
+analysis during runtime.
 }
 \examples{
 EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))

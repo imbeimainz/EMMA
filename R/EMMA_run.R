@@ -1,5 +1,8 @@
 #' EMMA_run
-#'
+#' 
+#' This function executes functional enrichment analysis using existing tools
+#' and captures the associated parameters and provenance information for the
+#' analysis during runtime.
 #' @param expr A function call that performs functional enrichment analysis.
 #' The call is captured and executed by EMMA to record analysis parameters and
 #' provenance information
@@ -85,8 +88,6 @@ Consider using the corresponding parameter for your call.",
     gene_set_library = NA, #placeholder
     gene_set_library_version = NA,
     organism = NA,
-    App = NA, #could be filled manually if user used an external web app?
-    App_version = NA,
     runtime = start_time, 
     session = sessionInfo()
   )
