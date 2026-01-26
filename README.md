@@ -1,58 +1,50 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # EMMA
 
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of EMMA is to …
+EMMA aims to explicitly capture analytical parameters during functional
+enrichment analysis runtime, while returning native enrichment results together
+with structured metadata.
 
 ## Installation
 
-You can install the development version of EMMA like so:
+You can install the development version of `EMMA` from GitHub with
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+library("remotes")
+remotes::install_github("imbeimainz/EMMA",
+                        dependencies = TRUE,
+                        build_vignettes = TRUE)
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
 ``` r
 library(EMMA)
-## basic example code
+# load data
+data("de_res_IFNg_vs_naive", package = "EMMA")
+data("universe", package = "EMMA")
+
+# run analysis
+fea_results <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+                        universe = universe,
+                        keyType = "ENSEMBL",
+                        OrgDb = org.Hs.eg.db,
+                        ont = "BP") |> 
+               EMMA_run()
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## Development
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+If you encounter a bug, have usage questions, or want to share ideas and
+functionality to make this package better, feel free to file an
+[issue](https://github.com/imbeimainz/EMMA/issues).
 
 ## Code of Conduct
 
 Please note that the EMMA project is released with a [Contributor Code
-of
-Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+## License
+
+MIT

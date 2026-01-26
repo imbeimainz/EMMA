@@ -1,19 +1,270 @@
 ---
-title: "Introduction_to_EMMA"
-output: rmarkdown::html_vignette
+title: >
+  The `EMMA` User's Guide
+author:
+- name: Najla Abassi
+  affiliation: 
+  - Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz
+  email: abassina@uni-mainz.de
+- name: Annekathrin Nedwed
+  affiliation: 
+  - Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz
+  email: anneludt@uni-mainz.de
+- name: Federico Marini
+  affiliation: 
+  - Institute of Medical Biostatistics, Epidemiology and Informatics (IMBEI), Mainz
+  - Research Center for Immunotherapy (FZI), Mainz
+  email: marinif@uni-mainz.de
+date: "`r BiocStyle::doc_date()`"
+package: "`r BiocStyle::pkg_ver('EMMA')`"
+output: 
+  BiocStyle::html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+    code_download: yes
 vignette: >
   %\VignetteIndexEntry{Introduction_to_EMMA}
+  %\VignetteEncoding{UTF-8}  
+  %\VignettePackage{EMMA}
+  %\VignetteKeywords{Pathways, GeneSetEnrichment, Annotation, ReproducibleResearch, Transcriptomics}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+editor_options: 
+  chunk_output_type: console
+bibliography: EMMA_bibliography.bib
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  comment  = "#>",
+  error    = FALSE,
+  warning  = FALSE,
+  eval     = FALSE,
+  message  = FALSE
 )
 ```
 
-```{r setup}
-library(EMMA)
+# Introduction {#introduction}
+
+This vignette describes how to use the `r BiocStyle::Biocpkg("EMMA")`
+package to perform Functional Enrichment Analysis using existing tools (e.g.
+`clusterProfiler`, `topGO`, `Enrichr`, `gprofiler2`), while systematically
+capturing analysis parameters and provenance information during runtime.
+
+# Getting started {#gettingstarted}
+
+To install the development version of this package, start R and enter:
+
+```{r install, eval = FALSE}
+library("remotes")
+remotes::install_github("imbeimainz/EMMA",
+                        dependencies = TRUE,
+                        build_vignettes = TRUE)
 ```
+
+Once installed, the package can be loaded and attached to the current workspace
+as follows:
+
+```{r setup}
+library("EMMA")
+```
+
+# `EMMA` on the `macrophage` dataset
+
+In the remainder of this vignette, we will illustrate the main features of `r BiocStyle::Biocpkg("EMMA")` on a publicly available dataset from
+Alasoo, et al. "Shared genetic effects on chromatin and gene expression indicate
+a role for enhancer priming in immune response", published in Nature Genetics,
+January 2018 
+[@Alasoo2018] [doi:10.1038/s41588-018-0046-7](https://doi.org/10.1038/s41588-018-0046-7).
+
+The data is made available via the `r BiocStyle::Biocpkg("macrophage")`
+Bioconductor package, which contains the files output from the Salmon
+quantification (version 0.12.0, with GENCODE v29 reference), as well as the
+values summarized at the gene level, which we will use to exemplify.
+
+In the `macrophage` experimental setting, the samples are available from 6
+different donors, in 4 different conditions (naive, treated with Interferon
+gamma, with SL1344, or with a combination of Interferon gamma and SL1344).
+
+Let's start by loading all the necessary packages:
+
+```{r loadlibraries}
+library("EMMA")
+
+library("macrophage")
+library("DESeq2")
+library("org.Hs.eg.db")
+library("clusterProfiler")
+```
+
+We will show an example of how  `r BiocStyle::Biocpkg("EMMA")` fits into a
+regular bulk RNA-seq data analysis workflow.
+
+# Get a list of Differentially Expressed Genes
+
+For this, we will load the `macrophage` data and perform Differential Expression
+Analysis with `r BiocStyle::Biocpkg("DESeq2")`
+
+```{r dds}
+# load data
+data(gse, "macrophage")
+# set up design
+dds_macrophage <- DESeqDataSet(gse, design = ~ line + condition)
+# preprocess
+rownames(dds_macrophage) <- substr(rownames(dds_macrophage), 1, 15)
+keep <- rowSums(counts(dds_macrophage) >= 10) >= 6
+
+dds_macrophage <- dds_macrophage[keep, ]
+dds_macrophage
+```
+
+We then run the main `DESeq()` function and check the `resultsNames` being
+generated:
+
+```{r run_deseq}
+# run DESeq
+dds_macrophage <- DESeq(dds_macrophage)
+# contrasts
+resultsNames(dds_macrophage)
+```
+
+Let's extract the DE results for each contrast. We will do three contrasts:
+
+```{r get_de_res}
+# get de res for 1st contrast
+IFNg_vs_naive <- results(dds_macrophage,
+                         contrast = c("condition", "IFNg", "naive"),
+                         lfcThreshold = 1, alpha = 0.05)
+IFNg_vs_naive <- lfcShrink(dds_macrophage, coef = "condition_IFNg_vs_naive",
+                           res = IFNg_vs_naive,
+                           type = "apeglm")
+IFNg_vs_naive$SYMBOL <- rowData(dds_macrophage)$SYMBOL
+IFNg_vs_naive
+
+# get de res for 2nd contrast
+Salm_vs_naive <- results(dds_macrophage,
+                         contrast = c("condition", "SL1344", "naive"),
+                         lfcThreshold = 1, alpha = 0.05)
+Salm_vs_naive <- lfcShrink(dds_macrophage, coef = "condition_SL1344_vs_naive",
+                           res = Salm_vs_naive,
+                           type = "apeglm")
+Salm_vs_naive$SYMBOL <- rowData(dds_macrophage)$SYMBOL
+Salm_vs_naive
+
+# get de res for 3rd contrast
+Both_vs_naive <- results(dds_macrophage,
+                         contrast = c("condition", "IFNg_SL1344", "naive"),
+                         lfcThreshold = 1, alpha = 0.05)
+Both_vs_naive <- lfcShrink(dds_macrophage,
+                           coef = "condition_IFNg_SL1344_vs_naive",
+                           res = Both_vs_naive,
+                           type = "apeglm")
+Both_vs_naive$SYMBOL <- rowData(dds_macrophage)$SYMBOL
+Both_vs_naive
+```
+
+Now let's sort the results based on the adjusted p-value:
+
+```{r}
+# have a list of de results per contrast
+contrast_list <- list(IFNg_vs_naive = IFNg_vs_naive,
+                      Salm_vs_naive = Salm_vs_naive,
+                      Both_vs_naive = Both_vs_naive)
+
+de_res_list <- list()
+# sort
+for (i in names(contrast_list)) {
+  de_res <- as.data.frame(contrast_list[[i]])
+  de_res <- de_res[order(de_res$padj), ]
+  de_res <- de_res[!(is.na(de_res$padj)) & de_res$padj <= 0.05, ]
+  
+  de_res_list[[i]] <- de_res
+}
+
+# set universe
+universe <- rownames(dds_macrophage)
+```
+
+# Perform Functional Enrichment Analysis (FEA)
+
+Now that we have a list of DE genes for each contrast, we can perform Functional
+Enrichment Analysis. For the first contrast `IFNg_vs_naive`, we will use the
+function `enrichGO()` from `r BiocStyle::Biocpkg("clusterProfiler")`
+
+`EMMA_run()` accepts a function call (e.g. `enrichGO(...)`) and executes it as
+it is, while capturing the associated parameters and provenance information:
+
+```{r EMMA_run_1}
+# get de res from the list
+de_res_IFNg_vs_naive <- de_res_list$IFNg_vs_naive
+
+# perform FEA, but with EMMA!
+fea_res <- enrichGO(gene = de_res_IFNg_vs_naive$SYMBOL,
+                    keyType = "SYMBOL",
+                    OrgDb = org.Hs.eg.db,
+                    ont = "BP",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff = 0.05,
+                    qvalueCutoff = 0.1) |> 
+  EMMA_run() # simply pipe your call to EMMA_run()
+```
+
+... or you can simply wrap `EMMA_run()` around your call:
+
+```{r EMMA_run_2}
+fea_res <- EMMA_run(enrichGO(gene = de_res_IFNg_vs_naive$SYMBOL,
+                    keyType = "ENSEMBL",
+                    OrgDb = org.Hs.eg.db,
+                    ont = "BP",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff = 0.05,
+                    qvalueCutoff = 0.1,
+                    readable = TRUE))
+
+# check res
+fea_res
+```
+
+As you can see, EMMA returns the FEA results in their **native/standard** format.
+EMMA also warns you about good practices when performing FEA, like in this
+example, we didn't define a list of background genes, so we get warned about that.
+
+To check what EMMA captured while we ran the analysis, we use `EMMA_show()`:
+
+```{r EMMA_show}
+EMMA_show(fea_res)
+```
+
+EMMA aims to capture the following elements:
+ 
+ * the full call used to perform the FEA
+ * the package used and its version
+ * the evaluated arguments used
+ * the gene set library (GO, KEGG, Reactome ...) and its version
+ * the organism type
+ * the runtime, i.e. when the analysis started
+ * Information about the current R session (`sessionInfo`)
+
+`EMMA_freeze()` records the R environment during analysis runtime and generates
+a lockfile that can be used with tools such as `renv`, to facilitate
+reproducible reconstruction of the analysis environment.
+
+```{r EMMA_freeze}
+EMMA_freeze()
+```
+
+`EMMA_explain()` generates a human-readable description of the FEA, similar
+to a Materials and Methods section of a paper, by summarizing the executed call,
+the parameters, software context, and reference databases used.
+
+```{r EMMA_explain}
+EMMA_explain(fea_res)
+```
+
+# Session info {.unnumbered .smaller}
+
+```{r sessioinfo}
+sessionInfo()
+```
+
+# References {.unnumbered}

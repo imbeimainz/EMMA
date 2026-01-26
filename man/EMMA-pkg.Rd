@@ -2,9 +2,29 @@
 % Please edit documentation in R/EMMA-pkg.R
 \docType{package}
 \name{EMMA-pkg}
+\alias{EMMA}
+\alias{EMMA-package}
 \alias{EMMA-pkg}
 \title{EMMA}
 \description{
 EMMA stands for Enrichment Methods Matter.
 And EMMA stands to help you in realizing it.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/imbeimainz/EMMA}
+  \item Report bugs at \url{https://github.com/imbeimainz/EMMA/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Najla Abassi \email{abassi.nejla96@gmail.com} (\href{https://orcid.org/0000-0001-8357-0938}{ORCID})
+
+Authors:
+\itemize{
+  \item Annekathrin Nedwed \email{anneludt@uni-mainz.de} (\href{https://orcid.org/0000-0002-2475-4945}{ORCID})
+  \item Federico Marini \email{marinif@uni-mainz.de} (\href{https://orcid.org/0000-0003-3252-7758}{ORCID})
+}
+
 }
