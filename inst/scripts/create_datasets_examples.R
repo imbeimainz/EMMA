@@ -43,39 +43,5 @@ universe <- rownames(dds_macrophage)
 save(de_res_IFNg_vs_naive, file = "de_res_IFNg_vs_naive.RData", compress = "xz")
 save(universe, file = "universe.RData", compress = "xz")
 
-######
-# library("clusterProfiler")
-# 
-# fea_res <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-#                     universe = rownames(dds_macrophage),
-#                     keyType = "ENSEMBL",
-#                     OrgDb = org.Hs.eg.db,
-#                     ont = "BP",
-#                     pAdjustMethod = "BH",
-#                     pvalueCutoff = 0.05,
-#                     qvalueCutoff = 0.1,
-#                     minGSSize = 5,
-#                     maxGSSize = 500,
-#                     readable = TRUE)
-# 
-# 
-# 
-# 
-# 
-# library(ReactomePA)
-# data(geneList, package="DOSE")
-# de <- names(geneList)[abs(geneList) > 1.5]
-# 
-# x <- enrichPathway(gene=de, pvalueCutoff = 0.05, readable=TRUE)
-
-
-
-
-
-
-
-
-
-
 
 
