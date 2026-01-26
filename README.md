@@ -29,7 +29,7 @@ fea_results <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                         keyType = "ENSEMBL",
                         OrgDb = org.Hs.eg.db,
                         ont = "BP") |> 
-                        EMMA_run()
+               EMMA_run()
 
 ```
 
