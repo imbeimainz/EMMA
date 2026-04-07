@@ -14,7 +14,7 @@ dds_macrophage
 
 # set seed for reproducibility
 set.seed(42)
-# sample randomly for 1k genes
+# sample randomly for 2k genes
 selected_genes <- sample(rownames(dds_macrophage), 2000)
 
 dds_macrophage <- dds_macrophage[selected_genes, ]
