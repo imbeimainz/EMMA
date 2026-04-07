@@ -6,6 +6,11 @@
 \usage{
 EMMA_explain(res)
 }
+\arguments{
+\item{res}{A functional enrichment analysis results object as returned by
+\code{EMMA_run()}. Its attributes contain \code{EMMA_record} of class \code{EMMARecord}, which
+contains all provenance information of the performed FEA}
+}
 \description{
 This function generates a human-readable description of the FEA, similar
 to a Materials and Methods section of a paper, by summarizing the executed

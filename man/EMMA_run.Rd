@@ -4,7 +4,12 @@
 \alias{EMMA_run}
 \title{EMMA_run}
 \usage{
-EMMA_run(expr, envir = parent.frame())
+EMMA_run(
+  expr,
+  envir = parent.frame(),
+  session = TRUE,
+  args_form = c("evaluated", "unevaluated")
+)
 }
 \arguments{
 \item{expr}{A function call that performs functional enrichment analysis.
@@ -12,6 +17,12 @@ The call is captured and executed by EMMA to record analysis parameters and
 provenance information}
 
 \item{envir}{An environment in which to evaluate \code{expr}}
+
+\item{session}{Logical, indicating whether to store sessionInfo or not.
+It defaults to (\code{TRUE}) saving the session}
+
+\item{args_form}{A character string indicating whether to store the evaluated
+or the unevaluated arguments. It default to store the evaluated arguments}
 }
 \value{
 Functional enrichment analysis results in the native format
@@ -20,8 +31,12 @@ returned by the original \code{expr}
 \description{
 This function executes functional enrichment analysis using existing tools
 and captures the associated parameters and provenance information for the
-analysis during runtime.
+analysis when available during runtime.
 }
 \examples{
-EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))
+data("de_res_IFNg_vs_naive", package = "EMMA")
+data("universe", package = "EMMA")
+EMMA_run(clusterProfiler::enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
+ont = "BP"))
 }
