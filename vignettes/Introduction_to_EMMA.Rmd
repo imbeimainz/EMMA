@@ -46,6 +46,8 @@ knitr::opts_chunk$set(
 
 # Introduction {#introduction}
 
+TODO: add a paragraph of why we need this pkg, and which gap is this filling
+
 This vignette describes how to use the `r BiocStyle::Biocpkg("EMMA")`
 package to perform Functional Enrichment Analysis using existing tools (e.g.
 `clusterProfiler`, `topGO`, `Enrichr`, `gprofiler2`), while systematically
@@ -176,7 +178,7 @@ de_res_list <- list()
 for (i in names(contrast_list)) {
   de_res <- as.data.frame(contrast_list[[i]])
   de_res <- de_res[order(de_res$padj), ]
-  de_res <- de_res[!(is.na(de_res$padj)) & de_res$padj <= 0.05, ]
+  #de_res <- de_res[!(is.na(de_res$padj)) & de_res$padj <= 0.05, ]
   
   de_res_list[[i]] <- de_res
 }
@@ -199,20 +201,21 @@ it is, while capturing the associated parameters and provenance information:
 de_res_IFNg_vs_naive <- de_res_list$IFNg_vs_naive
 
 # perform FEA, but with EMMA!
-fea_res <- enrichGO(gene = de_res_IFNg_vs_naive$SYMBOL,
-                    keyType = "SYMBOL",
+fea_res <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+                    keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
                     ont = "BP",
                     pAdjustMethod = "BH",
                     pvalueCutoff = 0.05,
-                    qvalueCutoff = 0.1) |> 
+                    qvalueCutoff = 0.1,
+                    universe = universe) |> 
   EMMA_run() # simply pipe your call to EMMA_run()
 ```
 
 ... or you can simply wrap `EMMA_run()` around your call:
 
 ```{r EMMA_run_2}
-fea_res <- EMMA_run(enrichGO(gene = de_res_IFNg_vs_naive$SYMBOL,
+fea_res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                     keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
                     ont = "BP",
