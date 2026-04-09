@@ -46,12 +46,28 @@ knitr::opts_chunk$set(
 
 # Introduction {#introduction}
 
-TODO: add a paragraph of why we need this pkg, and which gap is this filling
+Functional Enrichment Analysis (FEA) is a key downstream step in omics workflows,
+commonly applied after differential expression analysis to support biological
+interpretation and generate pathway-level hypotheses. A wide range of tools and
+methods are available, leading to substantial heterogeneity in analytical choices
+and reported results.
 
-This vignette describes how to use the `r BiocStyle::Biocpkg("EMMA")`
-package to perform Functional Enrichment Analysis using existing tools (e.g.
-`clusterProfiler`, `topGO`, `Enrichr`, `gprofiler2`), while systematically
-capturing analysis parameters and provenance information during runtime.
+Despite its widespread use, FEA is often insufficiently documented. Critical
+parameters such as background gene sets or multiple testing correction methods
+are frequently missing or inconsistently reported in scientific papers,
+limiting reproducibility and interpretability. Currently, no standardized method
+exists to ensure transparent and reproducible documentation of FEA workflows.
+
+To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")`, a framework
+that automatically captures key analytical parameters and provenance information
+during the execution of FEA methods.
+
+This vignette demonstrates how `EMMA` integrates with existing tools
+(e.g. `clusterProfiler`, `topGO`, `Enrichr`, `gprofiler2`) to execute enrichment
+analyses while systematically capturing analysis parameters and provenance
+information during runtime, and returning enrichment results in their native
+format alongside structured and reusable metadata.
+
 
 # Getting started {#gettingstarted}
 
@@ -215,6 +231,8 @@ fea_res <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
 ... or you can simply wrap `EMMA_run()` around your call:
 
 ```{r EMMA_run_2}
+# you can also pass the function name and its namespace
+# e.g. `clusterProfiler::enrichGO(...)`
 fea_res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                     keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
@@ -228,25 +246,72 @@ fea_res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
 fea_res
 ```
 
-As you can see, EMMA returns the FEA results in their **native/standard** format.
-EMMA also warns you about good practices when performing FEA, like in this
+As you can see, `EMMA` returns the FEA results in their **native/standard** format.
+`EMMA` also warns you about good practices when performing FEA, like in this
 example, we didn't define a list of background genes, so we get warned about that.
 
-To check what EMMA captured while we ran the analysis, we use `EMMA_show()`:
+To get a quick summary of what `EMMA` captured while we ran the analysis, we use
+`EMMA_show()`:
 
 ```{r EMMA_show}
 EMMA_show(fea_res)
 ```
 
-EMMA aims to capture the following elements:
- 
- * the full call used to perform the FEA
- * the package used and its version
- * the evaluated arguments used
- * the gene set library (GO, KEGG, Reactome ...) and its version
- * the organism type
- * the runtime, i.e. when the analysis started
- * Information about the current R session (`sessionInfo`)
+`EMMA` stores the captured metadata within the attributes of the results object.
+That's why it is always a good practice to save the original results, and not
+only the subsets of interest.
+To see the full recorded information, we use `getEMMARecord()`:
+
+```{r getEMMARecord}
+emma_record <- getEMMARecord(fea_res)
+
+emma_record
+```
+
+`EMMA` aims to capture the following elements:
+
+```
+├── EMMA_record
+│   ├── method
+│   │   ├── call
+│   │   └── function_name
+│   │   └── package_name
+│   │   └── package_version
+│   └── input
+│   │   └── arguments
+│   └── annotation
+│   │   ├── organism
+│   │   └── gene_set_db
+│   │   └── gene_set_db_version
+│   └── timestamp
+│   └── session_info
+│   └── user_metadata # the user can pass any extra metadata freely in this field
+│   ├── emma_version
+```
+
+As we can see a lot of information was recorded. With `EMMA_run()`, we can decide
+whether we want to save the value of arguments used in our call or not. For this,
+we can use the argument `args_form`:
+
+```{r argument_form}
+fea_res_no_param <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+                             universe = universe,
+                             keyType = "ENSEMBL",
+                             OrgDb = org.Hs.eg.db,
+                             ont = "BP",
+                             pAdjustMethod = "BH",
+                             pvalueCutoff = 0.05,
+                             qvalueCutoff = 0.1,
+                             readable = TRUE) |> 
+  EMMA_run(args_form = "unevaluated") # if we don't want the values stored
+                                      # else set to evaluated (default)
+
+# check
+getEMMARecord(fea_res_no_param)
+```
+
+We can also choose whether to save the session info with the record using the 
+argument `session`, which defaults to true.
 
 `EMMA_freeze()` records the R environment during analysis runtime and generates
 a lockfile that can be used with tools such as `renv`, to facilitate
