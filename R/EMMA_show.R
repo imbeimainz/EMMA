@@ -32,12 +32,12 @@ EMMA_show <- function(res){
       cat("Number of Pathways: ", NROW(res), "\n")
     }
     
-    pkg_info <- emma_rec$method
+    method_info <- emma_rec$method
     db_info <- emma_rec$annotation
     
-    cat("Call: ", paste(deparse(emma_rec$call), collapse = " "), " \n")
-    cat("Package: ", paste(pkg_info$package_name , "v.",
-                           pkg_info$package_version), " \n")
+    cat("Call: ", paste(deparse(method_info$call), collapse = " "), " \n")
+    cat("Package: ", paste(method_info$package_name , "v.",
+                           method_info$package_version), " \n")
     cat("Organism : ", db_info$organism, " \n")
     cat("Gene set library : ", paste(db_info$gene_set_db, collapse = ", "), " \n")
     cat("Gene set library version : ",db_info$gene_set_db_version, " \n")
