@@ -1,7 +1,7 @@
 Package: EMMA
 Title: EMMA: Enrichment Methods Matter for enabeling fully reproducible and 
     provenance-aware pathway analysis
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     c(
         person(
@@ -43,6 +43,6 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/imbeimainz/EMMA
 BugReports: https://github.com/imbeimainz/EMMA/issues
-biocViews:  Pathways, GO, KEGG, GeneSetEnrichment, Annotation, ImmunoOncology,
-    ReproducibleResearch, Transcriptomics, SingleCell, Software
+biocViews:  Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
+    ReproducibleResearch, Transcriptomics, SingleCell
 Config/testthat/edition: 3
