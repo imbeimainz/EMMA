@@ -47,4 +47,6 @@ EMMA_show <- function(res){
     warning("No `EMMA_record` attribute was found")
   }
   
+  invisible(NULL)
+  
 }
