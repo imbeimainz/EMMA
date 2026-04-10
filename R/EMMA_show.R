@@ -6,7 +6,7 @@
 #' @param res A functional enrichment analysis results object as returned by
 #' `EMMA_run()`
 #'
-#' @returns NULL
+#' @returns A summary of the executed FEA
 #' @export
 #'
 #' @examples
@@ -21,9 +21,6 @@ EMMA_show <- function(res){
   if ("EMMA_record" %in% names(attributes(res))) {
     message("Found EMMA record!!")
     emma_rec <- attr(res, "EMMA_record")
-    if (!is.list(emma_rec)) {
-      stop("'EMMA_record' must be a list!")
-    }
     
     if (is.list(res) && "result" %in% names(res)) {
       

@@ -10,6 +10,9 @@ EMMA_show(res)
 \item{res}{A functional enrichment analysis results object as returned by
 \code{EMMA_run()}}
 }
+\value{
+A summary of the executed FEA
+}
 \description{
 This function prints the EMMA record associated with a functional enrichment
 analysis object, including the executed call, parameters, and provenance
