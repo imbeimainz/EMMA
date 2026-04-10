@@ -36,13 +36,16 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
+    macrophage,
+    DESeq2,
     clusterProfiler,
     gprofiler2,
     org.Hs.eg.db,
+    mosdef,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/imbeimainz/EMMA
 BugReports: https://github.com/imbeimainz/EMMA/issues
-biocViews:  Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
+biocViews: Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
     ReproducibleResearch, Transcriptomics, SingleCell
 Config/testthat/edition: 3
