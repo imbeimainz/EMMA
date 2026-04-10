@@ -39,7 +39,7 @@ knitr::opts_chunk$set(
   comment  = "#>",
   error    = FALSE,
   warning  = FALSE,
-  eval     = FALSE,
+  eval     = TRUE,
   message  = FALSE
 )
 ```
@@ -183,7 +183,7 @@ Both_vs_naive
 
 Now let's sort the results based on the adjusted p-value:
 
-```{r}
+```{r DEGs}
 # have a list of de results per contrast
 contrast_list <- list(IFNg_vs_naive = IFNg_vs_naive,
                       Salm_vs_naive = Salm_vs_naive,
@@ -311,14 +311,14 @@ getEMMARecord(fea_res_no_param)
 ```
 
 We can also choose whether to save the session info with the record using the 
-argument `session`, which defaults to true.
+argument `session`, which defaults to `TRUE`.
 
 `EMMA_freeze()` records the R environment during analysis runtime and generates
 a lockfile that can be used with tools such as `renv`, to facilitate
 reproducible reconstruction of the analysis environment.
 
 ```{r EMMA_freeze}
-EMMA_freeze()
+#EMMA_freeze()
 ```
 
 `EMMA_explain()` generates a human-readable description of the FEA, similar
