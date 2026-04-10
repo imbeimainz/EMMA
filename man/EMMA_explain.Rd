@@ -8,11 +8,25 @@ EMMA_explain(res)
 }
 \arguments{
 \item{res}{A functional enrichment analysis results object as returned by
-\code{EMMA_run()}. Its attributes contain \code{EMMA_record} of class \code{EMMARecord}, which
+\code{EMMA_run()}. Its attributes contain \code{EMMA_record}, which
 contains all provenance information of the performed FEA}
+}
+\value{
+A character string describing how the FEA was performed using the
+recorded metadata
 }
 \description{
 This function generates a human-readable description of the FEA, similar
 to a Materials and Methods section of a paper, by summarizing the executed
 call, the parameters, software context, and reference databases used.
+}
+\examples{
+data("de_res_IFNg_vs_naive", package = "EMMA")
+data("universe", package = "EMMA")
+library("clusterProfiler")
+res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
+ont = "BP", pAdjustMethod = "BH"))
+EMMA_explain(res)
+
 }

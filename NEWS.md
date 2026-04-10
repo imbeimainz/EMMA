@@ -9,6 +9,7 @@ result object as attribute.
 * Added `getEMMARecord()` to fetch all metadata stored in the attributes of an
 object returned by `EMMA_run()`.
 * Added toy data.
+* Added the initial implementation of `EMMA_explain`.
 
 
 # EMMA 0.0.1
