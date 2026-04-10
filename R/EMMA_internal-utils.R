@@ -3,7 +3,7 @@
 #' the method
 #' 
 #' @noRd
-.EMMA_empty_metadata <- function() {
+EMMA_empty_metadata <- function() {
   list(
     organism = NA_character_,
     gene_set_db = NA_character_,
@@ -21,15 +21,15 @@
 #' function call to perform FEA 
 #'
 #' @noRd
-.EMMA_get_metadata <- function(function_name,
+EMMA_get_metadata <- function(function_name,
                                package_name,
                                args) {
   switch(
     package_name,
-    clusterProfiler = .EMMA_get_clusterprofiler_metadata(function_name, args),
-    gprofiler2      = .EMMA_get_gprofiler2_metadata(args),
-    mosdef          = .EMMA_cp_GO_metadata(args$mapping),
-    .EMMA_empty_metadata()
+    clusterProfiler = EMMA_get_clusterprofiler_metadata(function_name, args),
+    gprofiler2      = EMMA_get_gprofiler2_metadata(args),
+    mosdef          = EMMA_cp_GO_metadata(args$mapping),
+    EMMA_empty_metadata()
   )
 }
 
@@ -41,15 +41,15 @@
 #' function call to perform FEA 
 #'
 #' @noRd
-.EMMA_get_clusterprofiler_metadata <- function(function_name, args) {
+EMMA_get_clusterprofiler_metadata <- function(function_name, args) {
   switch(
     function_name,
-    enrichGO   = .EMMA_cp_GO_metadata(args$OrgDb),
-    gseGO = .EMMA_cp_GO_metadata(args$OrgDb),
-    groupGO = .EMMA_cp_GO_metadata(args$OrgDb),
-    enrichKEGG = .EMMA_cp_KEGG_metadata(args),
-    gseKEGG = .EMMA_cp_KEGG_metadata(args),
-    .EMMA_empty_metadata()
+    enrichGO   = EMMA_cp_GO_metadata(args$OrgDb),
+    gseGO = EMMA_cp_GO_metadata(args$OrgDb),
+    groupGO = EMMA_cp_GO_metadata(args$OrgDb),
+    enrichKEGG = EMMA_cp_KEGG_metadata(args),
+    gseKEGG = EMMA_cp_KEGG_metadata(args),
+    EMMA_empty_metadata()
   )
 }
 
@@ -57,7 +57,7 @@
 #' @param orgdb Organism object from org.*.eg.db packages
 #'
 #' @noRd
-.EMMA_get_organism_from_OrgDb <- function(orgdb) {
+EMMA_get_organism_from_OrgDb <- function(orgdb) {
   
   if (is.null(orgdb)) {
     return(NA_character_)
@@ -87,10 +87,10 @@
 #' @param org 
 #'
 #' @noRd
-.EMMA_cp_GO_metadata <- function(org) {
+EMMA_cp_GO_metadata <- function(org) {
   meta <- list()
   
-  meta$organism <- .EMMA_get_organism_from_OrgDb(org)
+  meta$organism <- EMMA_get_organism_from_OrgDb(org)
   meta$gene_set_db <- "GO"
   meta$gene_set_db_version <- if (requireNamespace("GO.db", quietly = TRUE)) {
     as.character(utils::packageVersion("GO.db"))
@@ -110,7 +110,7 @@
 #' function call to perform FEA 
 #'
 #' @noRd
-.EMMA_cp_KEGG_metadata <- function(args) {
+EMMA_cp_KEGG_metadata <- function(args) {
   meta <- list()
   
   meta$organism <- args$organism
@@ -126,7 +126,7 @@
 #' function call to perform FEA 
 #'
 #' @noRd
-.EMMA_get_gprofiler2_metadata <- function(args) {
+EMMA_get_gprofiler2_metadata <- function(args) {
   meta <- list()
   
   version_info <- gprofiler2::get_version_info()
@@ -160,7 +160,7 @@
 
 # call capture ---------------------
 #' @noRd
-.EMMA_capture_call_info <- function(call, envir = parent.frame()) {
+EMMA_capture_call_info <- function(call, envir = parent.frame()) {
   
   # param checks
   if (!is.call(call)) {
@@ -220,7 +220,7 @@
 
 # build EMMA_record -----------
 #' @noRd
-.EMMA_build_record <- function(call, function_name, package_name,
+EMMA_build_record <- function(call, function_name, package_name,
                                package_version, args, arg_list, 
                                args_form, metadata,
                                start_time,session) {
@@ -251,7 +251,7 @@
 
 # good practice warnings ---------
 #' @noRd
-.EMMA_warnings <- function(arg_names, function_name){
+EMMA_warnings <- function(arg_names, function_name){
   checks <- list(
     list(
       params = c("pAdjustMethod", "correction_method", "do_padj"),

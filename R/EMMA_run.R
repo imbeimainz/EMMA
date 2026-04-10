@@ -36,7 +36,7 @@ EMMA_run <- function(expr, envir = parent.frame(), session = TRUE,
   }
   
   # capture call information
-  info_call <- .EMMA_capture_call_info(call = call)
+  info_call <- EMMA_capture_call_info(call = call)
   function_name <- info_call$function_name
   package_name <- info_call$package_name
   package_version <- info_call$package_version
@@ -47,7 +47,7 @@ EMMA_run <- function(expr, envir = parent.frame(), session = TRUE,
   
   # some good practice warning, i.e. when multiple testing correction is skipped
   # or bg geneset not set
-  .EMMA_warnings(arg_names = arg_names,
+  EMMA_warnings(arg_names = arg_names,
                        function_name = function_name)
   
   #capture analysis time
@@ -64,14 +64,14 @@ EMMA_run <- function(expr, envir = parent.frame(), session = TRUE,
   results <- do.call(fun, args)
   
   # capture metadata from the used function and arguments
-  metadata <- .EMMA_get_metadata(
+  metadata <- EMMA_get_metadata(
     function_name = function_name,
     package_name = package_name,
     args = args
   )
   
   # record everything in EMMA_record
-  EMMA_record <- .EMMA_build_record(call, function_name, package_name,
+  EMMA_record <- EMMA_build_record(call, function_name, package_name,
                                     package_version, args,
                                     arg_list, args_form, metadata,
                                     start_time, session)
