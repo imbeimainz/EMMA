@@ -183,10 +183,15 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
       as.character(packageVersion(package_name))}
     else NA_character_
     
+    # capture args (unevaluated)
+    arg_list <- as.list(call)[-1]
+    
     return(list(
+      call = call,
       function_name = function_name,
       package_name = package_name,
-      package_version = pkg_version
+      package_version = pkg_version,
+      arg_list = arg_list
     ))
   }
   
@@ -203,10 +208,15 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
       NA_character_
     }
     
+    # capture args (unevaluated)
+    arg_list <- as.list(call)[-1]
+    
     return(list(
+      call = call,
       function_name = function_name,
       package_name = package_name,
-      package_version = pkg_version
+      package_version = pkg_version,
+      arg_list = arg_list
     ))
   }
   
@@ -220,19 +230,18 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
 
 # build EMMA_record -----------
 #' @noRd
-EMMA_build_record <- function(call, function_name, package_name,
-                               package_version, args, arg_list, 
-                               args_form, metadata,
+EMMA_build_record <- function(info_call, args_form, metadata,
                                start_time,session) {
   emma_rec <- list(
                    method = list(
-                     call = call,
-                     function_name = function_name,
-                     package_name = package_name,
-                     package_version = package_version
+                     call = info_call$call,
+                     function_name = info_call$function_name,
+                     package_name = info_call$package_name,
+                     package_version = info_call$package_version
                    ),
                    input = list(
-                     arguments = if (args_form == "evaluated") args else arg_list
+                     arguments = if (args_form == "evaluated") info_call$args 
+                     else info_call$arg_list
                    ),
                    annotation = list(
                      organism = metadata$organism,
