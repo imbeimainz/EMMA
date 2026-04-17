@@ -11,12 +11,11 @@ EMMA_show(res)
 \code{EMMA_run()}}
 }
 \value{
-A summary of the executed FEA
+Returns \code{base::invisible()}
 }
 \description{
-This function prints the EMMA record associated with a functional enrichment
-analysis object, including the executed call, parameters, and provenance
-information.
+This function displays a human-readable summary of the \code{EMMA_record} attribute
+attached to a result object produced by \code{EMMA_run()}
 }
 \examples{
 data("de_res_IFNg_vs_naive", package = "EMMA")

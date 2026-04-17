@@ -120,10 +120,12 @@ EMMA_cp_KEGG_metadata <- function(args) {
   return(meta)
 }
 
-#' assemble metadata element from gprofiler2
+#' This function assembles annotation metadata from a `gprofiler2` enrichment call
 #' 
 #' @param args A list containing the evaluated arguments passed into the
-#' function call to perform FEA 
+#' function call to perform FEA
+#' 
+#' @return A named list 
 #'
 #' @noRd
 EMMA_get_gprofiler2_metadata <- function(args) {
@@ -158,34 +160,39 @@ EMMA_get_gprofiler2_metadata <- function(args) {
   return(meta)
 }
 
-# call capture ---------------------
+# call capture -----------------------------------------------------------------
+
+#' EMMA_capture_call_info
+#' 
+#' This function extracts call related metadata. It handles two call
+#' formats: bare function calls (e.g. `enrichGO(...)`) and namespace-qualified
+#' calls (e.g. `clusterProfiler::enrichGO(...)`).
+#'
+#' @param call A call object
+#' @param envir The environment in which to look up the function when a bare
+#' call is used. Defaults to `base::parent.frame()`.
+#'
+#' @return A named list
 #' @noRd
 EMMA_capture_call_info <- function(call, envir = parent.frame()) {
-  
   # param checks
   if (!is.call(call)) {
     stop("`call` must be a function call", call. = FALSE)
   }
-  
   # capture function name
   call_name <- call[[1]]
-  
   # when we only use function name e.g. enrichGO(...)
   if (is.symbol(call_name)) {
     function_name <- as.character(call_name)
-    
     fun <- get(function_name, envir = envir, mode = "function")
-    
     pkg <- utils::packageName(environment(fun))
     package_name <- if (is.null(pkg) || pkg == "" ) NA_character_ else pkg
-
     pkg_version <- if (!is.na(package_name)) {
       as.character(packageVersion(package_name))}
     else NA_character_
-    
     # capture args (unevaluated)
     arg_list <- as.list(call)[-1]
-    
+
     return(list(
       call = call,
       function_name = function_name,
@@ -199,7 +206,6 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
   if (is.call(call_name) &&
       length(call_name) == 3L &&
       identical(call_name[[1]], as.symbol("::"))) {
-    
     package_name <- as.character(call_name[[2]])
     function_name <- as.character(call_name[[3]])
     pkg_version <- if (!is.na(package_name)) {
@@ -207,7 +213,6 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
     } else {
       NA_character_
     }
-    
     # capture args (unevaluated)
     arg_list <- as.list(call)[-1]
     
@@ -222,16 +227,30 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
   
   stop(
     "Unsupported call format. Use a direct function call like `enrichGO(...)` or `pkg::fun(...)`",
-    call. = FALSE
-  )
+    call. = FALSE)
 }
 
 
+# build EMMA record ------------------------------------------------------------
 
-# build EMMA_record -----------
+#' EMMA_build_record
+#' 
+#' This function assembles the structured provenance record that is stored as
+#' an attribute on the FEA results object.
+#' 
+#' @param info_call A list returned by `EMMA_capture_call_info()`
+#' @param args_form A character string, either `"evaluated"` or `"unevaluated"`
+#' to decide how to store the arguments
+#' @param metadata A list returned by `EMMA_get_metadata()`
+#' @param start_time A timestamp marking when the enrichment analysis started
+#' @param session Logical. If `TRUE`, `sessionInfo()` is captured and stored in
+#' the record; if `FALSE` the `session_info` slot is `NULL`
+#'  
+#' @return A named list of the recorded metadata
+#'   
 #' @noRd
 EMMA_build_record <- function(info_call, args_form, metadata,
-                               start_time,session) {
+                               start_time, session) {
   emma_rec <- list(
                    method = list(
                      call = info_call$call,
@@ -258,7 +277,20 @@ EMMA_build_record <- function(info_call, args_form, metadata,
   
 }
 
-# good practice warnings ---------
+# good practice warnings -------------------------------------------------------
+
+#' EMMA_warnings
+#' 
+#' This function warns about missing good-practice arguments in enrichment calls.
+#' A warning is raised if none of the synonyms for a given category appear
+#' in `arg_names`
+#' 
+#' @param arg_names A character vector of argument names as written in the
+#' user's call, obtained within `EMMA_run()`
+#' @param function_name A character corresponding to the name of the enrichment
+#' function called, used only for constructing the warning message
+#' 
+#' @return `base::invisible()`
 #' @noRd
 EMMA_warnings <- function(arg_names, function_name){
   checks <- list(

@@ -1,12 +1,11 @@
 #' EMMA_show
 #' 
-#' This function prints the EMMA record associated with a functional enrichment
-#' analysis object, including the executed call, parameters, and provenance
-#' information.
+#' This function displays a human-readable summary of the `EMMA_record` attribute
+#' attached to a result object produced by `EMMA_run()`
 #' @param res A functional enrichment analysis results object as returned by
 #' `EMMA_run()`
 #'
-#' @returns A summary of the executed FEA
+#' @returns Returns `base::invisible()`
 #' @export
 #'
 #' @examples
@@ -44,6 +43,6 @@ EMMA_show <- function(res){
     warning("No `EMMA_record` attribute was found")
   }
   
-  invisible(NULL)
+  invisible()
   
 }

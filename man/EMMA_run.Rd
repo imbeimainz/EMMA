@@ -14,24 +14,29 @@ EMMA_run(
 \arguments{
 \item{expr}{A function call that performs functional enrichment analysis.
 The call is captured and executed by EMMA to record analysis parameters and
-provenance information}
+provenance information. Both bare calls (\code{enrichGO(...)}) and namespace-qualified
+calls (\code{clusterProfiler::enrichGO(...)}) are supported. Any other form
+(e.g. \code{do.call}, \code{get()}) will raise an error}
 
 \item{envir}{An environment in which to evaluate \code{expr}}
 
-\item{session}{Logical, indicating whether to store sessionInfo or not.
-It defaults to (\code{TRUE}) saving the session}
+\item{session}{Logical, indicating whether to store the output of
+\code{sessionInfo()} or not. If \code{TRUE} (default), the session is stored in the
+provenance record}
 
 \item{args_form}{A character string indicating whether to store the evaluated
-or the unevaluated arguments. It default to store the evaluated arguments}
+or the unevaluated arguments in the provenance record. It default to \code{"evaluated"}}
 }
 \value{
-Functional enrichment analysis results in the native format
-returned by the original \code{expr}
+The result object returned by the enrichment function in \code{expr},
+unmodified except for an added \code{EMMA_record} attribute containing the
+provenance information. Use \code{getEMMARecord()} to access it
 }
 \description{
-This function executes functional enrichment analysis using existing tools
-and captures the associated parameters and provenance information for the
-analysis when available during runtime.
+This function executes any supported functional enrichment analysis function
+and automatically captures the call, its associated parameters and provenance
+information when available during runtime as an \code{EMMA_record} attribute
+on the returned results object.
 }
 \examples{
 data("de_res_IFNg_vs_naive", package = "EMMA")

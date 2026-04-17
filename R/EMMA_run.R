@@ -1,20 +1,25 @@
 #' EMMA_run
 #' 
-#' This function executes functional enrichment analysis using existing tools
-#' and captures the associated parameters and provenance information for the
-#' analysis when available during runtime.
+#' This function executes any supported functional enrichment analysis function
+#' and automatically captures the call, its associated parameters and provenance
+#' information when available during runtime as an `EMMA_record` attribute
+#' on the returned results object.
 #'
 #' @param expr A function call that performs functional enrichment analysis.
 #' The call is captured and executed by EMMA to record analysis parameters and
-#' provenance information
+#' provenance information. Both bare calls (`enrichGO(...)`) and namespace-qualified
+#' calls (`clusterProfiler::enrichGO(...)`) are supported. Any other form
+#' (e.g. `do.call`, `get()`) will raise an error
 #' @param envir An environment in which to evaluate `expr`
-#' @param session Logical, indicating whether to store sessionInfo or not.
-#' It defaults to (`TRUE`) saving the session
+#' @param session Logical, indicating whether to store the output of
+#' `sessionInfo()` or not. If `TRUE` (default), the session is stored in the
+#' provenance record
 #' @param args_form A character string indicating whether to store the evaluated
-#' or the unevaluated arguments. It default to store the evaluated arguments
+#' or the unevaluated arguments in the provenance record. It default to `"evaluated"`
 #'
-#' @returns Functional enrichment analysis results in the native format
-#' returned by the original `expr`
+#' @returns The result object returned by the enrichment function in `expr`,
+#'   unmodified except for an added `EMMA_record` attribute containing the
+#'   provenance information. Use `getEMMARecord()` to access it
 #' @export
 #'
 #' @examples
