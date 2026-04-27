@@ -1,3 +1,12 @@
+# EMMA 0.2.0
+
+* `EMMA_run()` can accept custom functions and wrappers and collect metadata
+based on which function was used in the wrapper.
+* Added `EMMA_add_custom_metadata()` to give the user manual/easy access to modify
+`user_metdata` field in `EMMA_record`.
+* Added a fully runnable vignette.
+
+
 # EMMA 0.1.0
 
 * `EMMA_run()` captures a function call, executes the FEA analysis, and returns
