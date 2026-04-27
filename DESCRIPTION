@@ -1,7 +1,7 @@
 Package: EMMA
 Title: EMMA: Enrichment Methods Matter for enabeling fully reproducible and 
     provenance-aware pathway analysis
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     c(
         person(
@@ -42,6 +42,7 @@ Suggests:
     gprofiler2,
     org.Hs.eg.db,
     mosdef,
+    topGO,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/imbeimainz/EMMA
