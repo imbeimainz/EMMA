@@ -11,7 +11,7 @@ EMMA_show(res)
 \code{EMMA_run()}}
 }
 \value{
-Returns \code{base::invisible()}
+\code{base::invisible()}
 }
 \description{
 This function displays a human-readable summary of the \code{EMMA_record} attribute

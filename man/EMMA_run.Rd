@@ -14,9 +14,8 @@ EMMA_run(
 \arguments{
 \item{expr}{A function call that performs functional enrichment analysis.
 The call is captured and executed by EMMA to record analysis parameters and
-provenance information. Both bare calls (\code{enrichGO(...)}) and namespace-qualified
-calls (\code{clusterProfiler::enrichGO(...)}) are supported. Any other form
-(e.g. \code{do.call}, \code{get()}) will raise an error}
+provenance information. Both bare calls (\code{enrichGO(...)}) and
+namespace-qualified calls (\code{clusterProfiler::enrichGO(...)}) are supported.}
 
 \item{envir}{An environment in which to evaluate \code{expr}}
 
@@ -25,18 +24,25 @@ calls (\code{clusterProfiler::enrichGO(...)}) are supported. Any other form
 provenance record}
 
 \item{args_form}{A character string indicating whether to store the evaluated
-or the unevaluated arguments in the provenance record. It default to \code{"evaluated"}}
+or the unevaluated arguments in the provenance record. It default to
+\code{"evaluated"}}
 }
 \value{
 The result object returned by the enrichment function in \code{expr},
-unmodified except for an added \code{EMMA_record} attribute containing the
-provenance information. Use \code{getEMMARecord()} to access it
+in standard format, with an additional \code{EMMA_record} attribute containing the
+provenance information. Use \code{getEMMARecord()} to retrieve this record
 }
 \description{
-This function executes any supported functional enrichment analysis function
-and automatically captures the call, its associated parameters and provenance
-information when available during runtime as an \code{EMMA_record} attribute
-on the returned results object.
+This function executes any functional enrichment analysis function and
+attaches a provenance record (\code{EMMA_record}) describing the analysis. The
+captured record includes the original call, metadata derived from the call
+and its arguments, runtime information, and optionally the current session
+information.
+}
+\details{
+\code{EMMA_run()} accepts both direct calls to known enrichment functions
+(\code{enrichGO()}, \code{GSEA()}, \code{fgsea()} ...) and calls to wrapper functions that
+internally invoke a know enrichment function.
 }
 \examples{
 data("de_res_IFNg_vs_naive", package = "EMMA")
