@@ -15,8 +15,16 @@
 #' ont = "BP"))
 #' getEMMARecord(res)
 getEMMARecord <- function(res){
-  if(is.null(attr(res, "EMMA_record"))) {
-    stop("No EMMA record was found! Try running `EMMA_run()` first.")
+  
+  rec <- attr(res, "EMMA_record")
+  
+  if (is.null(rec)) {
+    stop("No `EMMA_record` was found. Try running `EMMA_run()` first.")
   }
+  
+  if (!is.list(rec)) {
+    stop("Invalid structure. `EMMA_record` must be a `list`")
+  }
+  
   attr(res, "EMMA_record")
 }
