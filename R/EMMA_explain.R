@@ -32,10 +32,15 @@ EMMA_explain <- function(res){
   args <- emma_rec$input$arguments
   arg_names <- names(args)
   
-  message("You can always grab information using `getEMMARecord()` to complete the text with any addition metadata of your choice!")
+  message("You can always complete your text with additional information from `getEMMARecord()`!")
   
-  text <- paste0("Functional Enrichment Analysis was performed using the ",
-                         function_name, "() function")
+  if (emma_rec$method$wrapper) {
+    text <- paste0("Functional Enrichment Analysis was performed using a wrapper function ",
+                   function_name, "()")
+  } else {
+    text <- paste0("Functional Enrichment Analysis was performed using the ",
+                   function_name, "() function")
+  }
   
   # checks to avoid text with NA
   if (!is.null(pkg_name) && !is.na(pkg_name)) {
@@ -69,9 +74,11 @@ EMMA_explain <- function(res){
         length(args[[bg_arg]]),
         ")."
       )
-    } else {
-      text <- paste0(text, " A custom background gene set was provided.")
-    }
+  } else if (length(bg_arg) > 1L) {
+    text <- paste0(text, " A custom background gene set was provided.")
+  } else {
+    text <- paste0(text, " No custom background gene set was recorded.")
+  }
   
   
   ### info abt the fdr correction
