@@ -1,8 +1,9 @@
 # EMMA
 
-EMMA aims to explicitly capture analytical parameters during functional
-enrichment analysis runtime, while returning native enrichment results together
-with structured metadata.
+EMMA enables the execution of Functional Enrichment Analyses using existing
+tools (e.g. `clusterProfiler`, `topGO`, `gprofiler2`) while systematically capturing
+analysis parameters and provenance information during runtime, and returning
+enrichment results in their standard format alongside structured and reusable metadata.
 
 ## Installation
 
