@@ -2,10 +2,11 @@
 #' 
 #' This function displays a human-readable summary of the `EMMA_record` attribute
 #' attached to a result object produced by `EMMA_run()`
+#' 
 #' @param res A functional enrichment analysis results object as returned by
 #' `EMMA_run()`
 #'
-#' @returns Returns `base::invisible()`
+#' @returns `base::invisible()`
 #' @export
 #'
 #' @examples
@@ -17,13 +18,26 @@
 #' ont = "BP"))
 #' EMMA_show(res)
 EMMA_show <- function(res){
+  
   if ("EMMA_record" %in% names(attributes(res))) {
-    message("Found EMMA record!!")
-    emma_rec <- attr(res, "EMMA_record")
+    message("Found EMMA record!")
     
-    if (is.list(res) && "result" %in% names(res)) {
+    emma_rec <- getEMMARecord(res)
+    
+    if (is.list(res) && !is.data.frame(res)) {
+      # let's say if we have of list of FEAs (returned by custom function)
+      cat("Number of FEAs: ", length(res), "\n")
       
-      cat("Number of Pathways: ", NROW(res$result), "\n")
+      nms <- names(res)
+      if (is.null(nms) || any(nms == "")) {
+        nms <- paste0("FEA_", seq_along(res))
+      }
+        
+      for (i in seq_along(res)) {
+        # check the number of pathways for each element of the list
+        cat(" -", nms[i], ": ", NROW(res[[i]]), " pathways\n")
+      }
+      
     } else {
       cat("Number of Pathways: ", NROW(res), "\n")
     }
@@ -32,6 +46,7 @@ EMMA_show <- function(res){
     db_info <- emma_rec$annotation
     
     cat("Call: ", paste(deparse(method_info$call), collapse = " "), " \n")
+    cat("Wrapper: ", method_info$wrapper, " \n")
     cat("Package: ", paste(method_info$package_name , "v.",
                            method_info$package_version), " \n")
     cat("Organism : ", db_info$organism, " \n")
