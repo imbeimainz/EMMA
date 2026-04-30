@@ -24,9 +24,13 @@ call, the parameters, software context, and reference databases used.
 data("de_res_IFNg_vs_naive", package = "EMMA")
 data("universe", package = "EMMA")
 library("clusterProfiler")
-res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-ont = "BP", pAdjustMethod = "BH"))
+res <- EMMA_run(
+  enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+    universe = universe, keyType = "ENSEMBL",
+    OrgDb = org.Hs.eg.db::org.Hs.eg.db,
+    ont = "BP", pAdjustMethod = "BH"
+  )
+)
 EMMA_explain(res)
 
 }

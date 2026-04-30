@@ -11,7 +11,7 @@ EMMA_freeze(project = getwd(), file = "renv.lock", pkgs = loadedNamespaces())
 directory where the lockfile should be written. If the directory does not
 exist, it will be created. It defaults to the current working directory}
 
-\item{file}{Character string refering to the name of the lockfile to generate.
+\item{file}{Character string referring to the name of the lockfile to generate.
 It defaults to "renv.lock"}
 
 \item{pkgs}{Character vector of package names to snapshot. It defaults to all
@@ -32,11 +32,11 @@ recreate the same package environment.
 }
 \examples{
 \dontrun{
-# Create a lockfile in a separate directory
-EMMA_freeze(project = "emma_env")
+  # Create a lockfile in a separate directory
+  EMMA_freeze(project = "emma_env")
 
-# Restore later with renv
-renv::restore(project = "emma_env")
+  # Restore later with renv
+  renv::restore(project = "emma_env")
 }
 }
 \seealso{
