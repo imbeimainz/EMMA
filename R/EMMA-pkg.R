@@ -3,8 +3,6 @@
 #' EMMA stands for Enrichment Methods Matter.
 #' And EMMA stands to help you in realizing it.
 #'
-#' @import methods
-#' @import GO.db
 #' @importFrom AnnotationDbi metadata
 #' @importFrom utils packageVersion sessionInfo
 #' @importFrom cli cli_alert_info
