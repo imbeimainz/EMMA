@@ -16,7 +16,7 @@
 #' provenance information. Both bare calls (`enrichGO(...)`) and
 #' namespace-qualified calls (`clusterProfiler::enrichGO(...)`) are supported.
 #' @param envir An environment in which to evaluate `expr`
-#' @param session Logical, indicating whether to store the output of
+#' @param store_session_info Logical, indicating whether to store the output of
 #' `sessionInfo()` or not. If `TRUE` (default), the session is stored in the
 #' provenance record
 #' @param args_form A character string indicating whether to store the evaluated
@@ -25,19 +25,21 @@
 #'
 #' @returns The result object returned by the enrichment function in `expr`,
 #' in standard format, with an additional `EMMA_record` attribute containing the
-#' provenance information. Use `getEMMARecord()` to retrieve this record
+#' provenance information. Use `EMMA_get_record()` to retrieve this record
 #' 
 #' @export
 #'
 #' @examples
 #' data("de_res_IFNg_vs_naive", package = "EMMA")
 #' data("universe", package = "EMMA")
-#' EMMA_run(clusterProfiler::enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-#' universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-#' ont = "BP"))
+#' library(gprofiler2)
+#' 
+#' EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
+#' correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+#' store_session_info = FALSE, args_form = "unevaluated")
 EMMA_run <- function(expr,
                      envir = parent.frame(),
-                     session = TRUE,
+                     store_session_info = TRUE,
                      args_form = c("evaluated", "unevaluated")) {
   
   args_form <- match.arg(args_form)
@@ -54,8 +56,8 @@ EMMA_run <- function(expr,
     stop("`envir` must be an environment!")
   }
   
-  if (!is.logical(session) || length(session) != 1L || is.na(session)) {
-    stop("`session` must be a single TRUE or FALSE value")
+  if (!is.logical(store_session_info) || length(store_session_info) != 1L || is.na(store_session_info)) {
+    stop("`store_session_info` must be a single TRUE or FALSE value")
   }
   
   # decide whether we are dealing with a known function or a wrapper
@@ -101,7 +103,7 @@ EMMA_run <- function(expr,
   # record everything in EMMA_record
   EMMA_record <- .EMMA_build_record(info_call, args_form, metadata, 
                                    wrapped_original,wrapper,
-                                   start_time, session)
+                                   start_time, store_session_info)
     
   # attach EMMA_record as attribute of the results obj
   attr(results, "EMMA_record") <- EMMA_record
