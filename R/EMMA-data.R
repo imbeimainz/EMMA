@@ -13,7 +13,6 @@
 #'
 #' @format A `data.frame` object
 #'
-#'
 #' @references Alasoo, et al. "Shared genetic effects on chromatin and gene
 #' expression indicate a role for enhancer priming in immune response",
 #' Nature Genetics, January 2018 doi: 10.1038/s41588-018-0046-7.
@@ -25,7 +24,7 @@ NULL
 #' A sample `character vector` containing the background gene list used to
 #' perform FEA on the `macrophage` dataset
 #'
-#' @details This `character vector` object that contains the assay's `rownames`
+#' @details This `character vector` object contains the assay's `rownames`
 #' of the `macrophage` data
 #'
 #' The code to create said object can be found in the folder `/inst/scripts` in
@@ -42,5 +41,30 @@ NULL
 #' Nature Genetics, January 2018 doi: 10.1038/s41588-018-0046-7.
 #'
 #' @name universe
+#' @docType data
+NULL
+
+#' A sample `list` containing Functional Enrichment Analysis results,
+#' generated with `gprofiler2`
+#'
+#' @details This `list` object contains the result table and metadata of the
+#' functional enrichment analysis (FEA) performed on the `macrophage` data,
+#' specifically using the `gost()` function from the `gprofiler2` package, and
+#' wrapped in `EMMA_run()`
+#'
+#' The code to create said object can be found in the folder `/inst/scripts` in
+#' the EMMA package, the file is called `create_datasets_examples.R`.
+#'
+#' @return A sample `list` containing the FEA results `result` and `metadata`.
+#' This results object has the `EMMA_record` attribute.
+#'
+#' @format A `list`
+#'
+#'
+#' @references Alasoo, et al. "Shared genetic effects on chromatin and gene
+#' expression indicate a role for enhancer priming in immune response",
+#' Nature Genetics, January 2018 doi: 10.1038/s41588-018-0046-7.
+#'
+#' @name fea_res
 #' @docType data
 NULL
