@@ -5,23 +5,22 @@
 #' call, the parameters, software context, and reference databases used.
 #'
 #' @param res A functional enrichment analysis results object as returned by
-#' `EMMA_run()`. Its attributes contain `EMMA_record`, which
-#' contains all provenance information of the performed FEA
+#' `EMMA_run()`. Its attributes contain `EMMA_record`, which contains all 
+#' provenance information of the performed FEA
+#' @param get_citation Logical indicating whether to display the citations of
+#' the packages used in the FEA. It only prints the citations in an interactive
+#' session (e.g console). Defaults to `TRUE`
 #' @returns A character string describing how the FEA was performed using the
-#' recorded metadata
+#' recorded metadata 
+#' 
 #' @export
 #' @examples
-#' data("de_res_IFNg_vs_naive", package = "EMMA")
-#' data("universe", package = "EMMA")
-#' library("clusterProfiler")
-#' res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-#' universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-#' ont = "BP", pAdjustMethod = "BH"))
-#' EMMA_explain(res)
+#' data("fea_res", package = "EMMA")
+#' EMMA_explain(fea_res)
 #' 
-EMMA_explain <- function(res){
+EMMA_explain <- function(res, get_citation = TRUE){
   
-  emma_rec <- getEMMARecord(res)
+  emma_rec <- EMMA_get_record(res)
   
   function_name <- emma_rec$method$function_name
   pkg_name <- emma_rec$method$package_name
@@ -37,7 +36,7 @@ EMMA_explain <- function(res){
   )
   
   
-  if (emma_rec$method$wrapper) {
+  if (isTRUE(emma_rec$method$wrapper)) {
     text <- paste0("Functional Enrichment Analysis was performed using a wrapper function ",
                    function_name, "()")
   } else {
@@ -72,13 +71,19 @@ EMMA_explain <- function(res){
   fdr_arg <- intersect(c("correction_method", "pAdjustMethod"), arg_names)
   
   if (length(bg_arg) == 1) {
+    bg_value <- args[[bg_arg]]
+    
+    if (length(bg_value) > 1) {
+      # evaluated arguments
       text <- paste0(text,
-        " A custom background gene set was provided (n = ",
-        length(args[[bg_arg]]),
-        ")."
-      )
-  } else if (length(bg_arg) > 1L) {
-    text <- paste0(text, " A custom background gene set was provided.")
+                     " A custom background gene set was provided (n = ",
+                     length(bg_value),").")
+      
+    } else if (length(bg_value) == 1) {
+      # unevaluated arguments.
+      text <- paste0(text, " A custom background gene set was provided.")
+    }
+      
   } else {
     text <- paste0(text, " No custom background gene set was recorded.")
   }
@@ -86,9 +91,10 @@ EMMA_explain <- function(res){
   
   ### info abt the fdr correction
   if (length(fdr_arg) == 1) {
+    fdr_value <- args[[fdr_arg]]
     text <- paste0(text,
       " Multiple testing correction was performed using the ",
-      args[[fdr_arg]], " method."
+      fdr_value, " method."
     )
   } else if ("do_padj" %in% arg_names) {
     if (isTRUE(args[["do_padj"]])) {
@@ -97,6 +103,23 @@ EMMA_explain <- function(res){
       text <- paste0(text, " Multiple testing correction was not applied.")
     }
   }
+
+  ### get citations
   
+  if (get_citation) {
+    pkgs <- unique(stats::na.omit(c(
+      emma_rec$method$package_name,
+      emma_rec$method$wrapped_package
+    )))
+    
+    if (length(pkgs) > 0L) {
+      cli::cli_alert_info("References:")
+      for (pkg in pkgs) {
+          cli::cli_verbatim(paste(format(utils::citation(pkg)),
+                                  collapse = "\n"))
+      }
+    }
+    
+  }
   return(text)
 }
