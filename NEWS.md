@@ -1,3 +1,12 @@
+# EMMA 0.3.0
+
+* Added the initial implementation of `EMMA_freeze()`.
+* `EMMA_explain()` now returns also citations of the used packages.
+* Renamed `getEMMARecord()` to `EMMA_get_record()` for consistency.
+* Resizing toy data to speed up examples.
+* Updated the vignette.
+* Updating unit tests.
+
 # EMMA 0.2.0
 
 * `EMMA_run()` can accept custom functions and wrappers and collect metadata
