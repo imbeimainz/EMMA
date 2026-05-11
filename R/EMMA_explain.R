@@ -21,55 +21,56 @@
 EMMA_explain <- function(res, get_citation = TRUE){
   
   emma_rec <- EMMA_get_record(res)
-  
+
   function_name <- emma_rec$method$function_name
   pkg_name <- emma_rec$method$package_name
   pkg_version <- emma_rec$method$package_version
   db <- emma_rec$annotation$gene_set_db
   db_version <- emma_rec$annotation$gene_set_db_version
-  
+
   args <- emma_rec$input$arguments
   arg_names <- names(args)
   
   cli::cli_alert_info(
-    "You can always complete your text with additional information from `getEMMARecord()`!"
+    "You can always complete your text with additional information from `EMMA_get_record()`!"
   )
   
   
   if (isTRUE(emma_rec$method$wrapper)) {
+
     text <- paste0("Functional Enrichment Analysis was performed using a wrapper function ",
                    function_name, "()")
   } else {
     text <- paste0("Functional Enrichment Analysis was performed using the ",
                    function_name, "() function")
   }
-  
+
   # checks to avoid text with NA
   if (!is.null(pkg_name) && !is.na(pkg_name)) {
     text <- paste0(text, " from the ", pkg_name, " package")
   }
-  
+
   if (!is.null(pkg_version) && !is.na(pkg_version)) {
     text <- paste0(text, " (version ", pkg_version, ")")
   }
-  
+
   if (!is.null(db) && !all(is.na(db))) {
     text <- paste0(text, " with the ",
                   paste(db, collapse = ", "), " database")
   }
-  
+
   if (!is.null(db_version) && !all(is.na(db_version))) {
     text <- paste0(text, " (version ",
                   paste(db_version, collapse = ", "),")")
   }
-  
+
   text <- paste0(text, ".")
-  
+
   ### info abt bg genes
   bg_arg <- intersect(c("universe", "background", "custom_bg", "bg_genes"),
                       arg_names)
   fdr_arg <- intersect(c("correction_method", "pAdjustMethod"), arg_names)
-  
+
   if (length(bg_arg) == 1) {
     bg_value <- args[[bg_arg]]
     
@@ -87,8 +88,8 @@ EMMA_explain <- function(res, get_citation = TRUE){
   } else {
     text <- paste0(text, " No custom background gene set was recorded.")
   }
-  
-  
+
+
   ### info abt the fdr correction
   if (length(fdr_arg) == 1) {
     fdr_value <- args[[fdr_arg]]
@@ -121,5 +122,6 @@ EMMA_explain <- function(res, get_citation = TRUE){
     }
     
   }
+
   return(text)
 }

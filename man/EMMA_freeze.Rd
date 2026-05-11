@@ -17,7 +17,7 @@ EMMA_freeze(
 directory where the lockfile should be written. If the directory does not
 exist, it will be created. It defaults to the current working directory}
 
-\item{file}{Character string refering to the name of the lockfile to generate.
+\item{file}{Character string referring to the name of the lockfile to generate.
 It defaults to "renv.lock"}
 
 \item{pkgs}{Character vector of package names to snapshot. It defaults to all
@@ -35,8 +35,9 @@ The lockfile is written in JSON format and can be used with \code{renv::restore(
 to recreate the package environment
 }
 \description{
-This function records the R environment at the time of analysis and generates
-a lockfile that can be used with tools such as \code{renv}
+This function records the R environment during analysis runtime and generates
+a lockfile that can be used with tools such as \code{renv}.
+By default, all currently loaded namespaces are recorded.
 }
 \details{
 This function calls \code{renv::snapshot()} with the specified packages.

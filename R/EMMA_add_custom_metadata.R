@@ -1,5 +1,5 @@
 #' EMMA_add_custom_metadata
-#' 
+#'
 #' Append or replace the `extra` field in the `EMMA_record` attribute
 #' of a result object returned by `EMMA_run()`. This allows users to manually
 #' provide additional annotation or contextual information that could not be
@@ -19,11 +19,11 @@
 #' list(note = "The background gene set list was all expressed genes in the assay"))
 EMMA_add_custom_metadata <- function(res,
                                      extra = list()) {
-  
+
   if (!is.list(extra)) {
     stop("`extra` must be a list!")
   }
-  
+
   if (length(extra) > 0L && is.null(names(extra))) {
     stop("`extra` must be a named list!")
   }
@@ -31,9 +31,9 @@ EMMA_add_custom_metadata <- function(res,
   emma_rec <- EMMA_get_record(res = res)
   
   emma_rec$extra <- extra
-  
+
   # update
   attr(res, "EMMA_record") <- emma_rec
-  
+
   return(res)
 }
