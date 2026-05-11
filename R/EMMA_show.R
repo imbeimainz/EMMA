@@ -10,34 +10,33 @@
 #' @export
 #'
 #' @examples
-#' data("de_res_IFNg_vs_naive", package = "EMMA")
-#' data("universe", package = "EMMA")
-#' library("clusterProfiler")
-#' res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-#' universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-#' ont = "BP"))
-#' EMMA_show(res)
+#' data("fea_res", package = "EMMA")
+#' EMMA_show(fea_res)
 EMMA_show <- function(res){
   
   if ("EMMA_record" %in% names(attributes(res))) {
     cli::cli_alert_info("Found EMMA record!")
     
-    emma_rec <- getEMMARecord(res)
+    emma_rec <- EMMA_get_record(res)
     
     if (is.list(res) && !is.data.frame(res)) {
-      # let's say if we have of list of FEAs (returned by custom function)
-      cat("Number of FEAs: ", length(res), "\n")
-      
-      nms <- names(res)
-      if (is.null(nms) || any(nms == "")) {
-        nms <- paste0("FEA_", seq_along(res))
-      }
+      # e.g. case of gost, returns a list but it's 1 FEA (result)
+      if ("result" %in% names(res)) {
+        cat("Number of Pathways: ", NROW(res$result), "\n")
+      } else {
+        # let's say if we have of list of FEAs (returned by custom function)
+        cat("Number of FEAs: ", length(res), "\n")
         
-      for (i in seq_along(res)) {
-        # check the number of pathways for each element of the list
-        cat(" -", nms[i], ": ", NROW(res[[i]]), " pathways\n")
+        nms <- names(res)
+        if (is.null(nms) || any(nms == "")) {
+          nms <- paste0("FEA_", seq_along(res))
+        }
+        
+        for (i in seq_along(res)) {
+          # check the number of pathways for each element of the list
+          cat(" -", nms[i], ": ", NROW(res[[i]]), " pathways\n")
+        }
       }
-      
     } else {
       cat("Number of Pathways: ", NROW(res), "\n")
     }
