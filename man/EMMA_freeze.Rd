@@ -4,7 +4,13 @@
 \alias{EMMA_freeze}
 \title{EMMA_freeze}
 \usage{
-EMMA_freeze(project = getwd(), file = "renv.lock", pkgs = loadedNamespaces())
+EMMA_freeze(
+  project = getwd(),
+  file = "renv.lock",
+  pkgs = loadedNamespaces(),
+  prompt = interactive(),
+  force = TRUE
+)
 }
 \arguments{
 \item{project}{Character string corresponding to the path to the project
@@ -16,27 +22,43 @@ It defaults to "renv.lock"}
 
 \item{pkgs}{Character vector of package names to snapshot. It defaults to all
 currently loaded namespaces via \code{loadedNamespaces()}}
+
+\item{prompt}{Logical indicating whether to prompt before taking actions.
+Defaults to \code{interactive()}}
+
+\item{force}{Logical indicating whether to force creation of the lockfile.
+Defaults to \code{TRUE}}
 }
 \value{
-TODO json file like to create a lock.file?
+Invisibly returns the path to the generated lockfile.
+The lockfile is written in JSON format and can be used with \code{renv::restore()}
+to recreate the package environment
 }
 \description{
-This function records the R environment during analysis runtime and generates
-a lockfile that can be used with tools such as \code{renv}.
-By default, all currently loaded namespaces are recorded.
+This function records the R environment at the time of analysis and generates
+a lockfile that can be used with tools such as \code{renv}
 }
 \details{
 This function calls \code{renv::snapshot()} with the specified packages.
 The resulting lockfile can later be restored with \code{renv::restore()} to
 recreate the same package environment.
+
+By default, the lockfile is created with \code{force = TRUE}, allowing snapshot
+creation even if inconsistencies are detected in the environment.
 }
 \examples{
-\dontrun{
-# Create a lockfile in a separate directory
-EMMA_freeze(project = "emma_env")
+# create a lockfile
+if (requireNamespace("renv", quietly = TRUE)) {
+tmp <- tempfile("emma_env")
+dir.create(tmp)
 
-# Restore later with renv
-renv::restore(project = "emma_env")
+EMMA_freeze(project = tmp)
+
+# inspect generated files
+list.files(tmp)
+
+# to restore the environment later
+# renv::restore(project = tmp)
 }
 }
 \seealso{

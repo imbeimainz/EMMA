@@ -7,7 +7,7 @@
 EMMA_run(
   expr,
   envir = parent.frame(),
-  session = TRUE,
+  store_session_info = TRUE,
   args_form = c("evaluated", "unevaluated")
 )
 }
@@ -19,7 +19,7 @@ namespace-qualified calls (\code{clusterProfiler::enrichGO(...)}) are supported.
 
 \item{envir}{An environment in which to evaluate \code{expr}}
 
-\item{session}{Logical, indicating whether to store the output of
+\item{store_session_info}{Logical, indicating whether to store the output of
 \code{sessionInfo()} or not. If \code{TRUE} (default), the session is stored in the
 provenance record}
 
@@ -30,7 +30,7 @@ or the unevaluated arguments in the provenance record. It default to
 \value{
 The result object returned by the enrichment function in \code{expr},
 in standard format, with an additional \code{EMMA_record} attribute containing the
-provenance information. Use \code{getEMMARecord()} to retrieve this record
+provenance information. Use \code{EMMA_get_record()} to retrieve this record
 }
 \description{
 This function executes any functional enrichment analysis function and
@@ -47,7 +47,9 @@ internally invoke a know enrichment function.
 \examples{
 data("de_res_IFNg_vs_naive", package = "EMMA")
 data("universe", package = "EMMA")
-EMMA_run(clusterProfiler::enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-ont = "BP"))
+library(gprofiler2)
+
+EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
+correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+store_session_info = FALSE, args_form = "unevaluated")
 }

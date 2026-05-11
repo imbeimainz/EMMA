@@ -23,12 +23,7 @@ provide additional annotation or contextual information that could not be
 captured automatically
 }
 \examples{
-data("de_res_IFNg_vs_naive", package = "EMMA")
-data("universe", package = "EMMA")
-library("clusterProfiler")
-res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-ont = "BP"))
-res <- EMMA_add_custom_metadata(res, extra =
+data("fea_res", package = "EMMA")
+fea_res <- EMMA_add_custom_metadata(fea_res, extra =
 list(note = "The background gene set list was all expressed genes in the assay"))
 }

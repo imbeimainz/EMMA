@@ -4,12 +4,16 @@
 \alias{EMMA_explain}
 \title{EMMA_explain}
 \usage{
-EMMA_explain(res)
+EMMA_explain(res, get_citation = TRUE)
 }
 \arguments{
 \item{res}{A functional enrichment analysis results object as returned by
-\code{EMMA_run()}. Its attributes contain \code{EMMA_record}, which
-contains all provenance information of the performed FEA}
+\code{EMMA_run()}. Its attributes contain \code{EMMA_record}, which contains all
+provenance information of the performed FEA}
+
+\item{get_citation}{Logical indicating whether to display the citations of
+the packages used in the FEA. It only prints the citations in an interactive
+session (e.g console). Defaults to \code{TRUE}}
 }
 \value{
 A character string describing how the FEA was performed using the
@@ -21,12 +25,7 @@ to a Materials and Methods section of a paper, by summarizing the executed
 call, the parameters, software context, and reference databases used.
 }
 \examples{
-data("de_res_IFNg_vs_naive", package = "EMMA")
-data("universe", package = "EMMA")
-library("clusterProfiler")
-res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db::org.Hs.eg.db,
-ont = "BP", pAdjustMethod = "BH"))
-EMMA_explain(res)
+data("fea_res", package = "EMMA")
+EMMA_explain(fea_res)
 
 }

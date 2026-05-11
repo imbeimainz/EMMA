@@ -17,7 +17,7 @@ A sample \verb{character vector} containing the background gene list used to
 perform FEA on the \code{macrophage} dataset
 }
 \details{
-This \verb{character vector} object that contains the assay's \code{rownames}
+This \verb{character vector} object contains the assay's \code{rownames}
 of the \code{macrophage} data
 
 The code to create said object can be found in the folder \verb{/inst/scripts} in
