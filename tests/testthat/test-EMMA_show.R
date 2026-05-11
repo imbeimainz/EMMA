@@ -54,4 +54,28 @@ test_that("EMMA_show", {
   expect_output(EMMA_show(fea2), "- FEA_1")
   expect_output(EMMA_show(fea2),"FEA_2")
   
+  
+  fea_gost <- fea2
+  names(fea_gost)[2] <- "result"
+  
+  attr(fea_gost, "EMMA_record") <- list(
+    method = list(
+      call = substitute(gost(query = de_res_IFNg_vs_naive$SYMBOL,
+                             organism = "hsapiens",
+                             correction_method = "fdr", custom_bg = universe,
+                             sources = "GO:BP")),
+      wrapper = FALSE,
+      package_name = "gprofiler2",
+      package_version = NA
+    ),
+    annotation = list(
+      organism = "Homo sapiens",
+      gene_set_db = "GO",
+      gene_set_db_version = NA
+    )
+  )
+  
+  expect_output(EMMA_show(fea_gost), "Number of Pathways:  2")
+  
+  
 })

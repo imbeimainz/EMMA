@@ -16,7 +16,7 @@ test_that("EMMA_run", {
   
   expect_true(length(attr(fea_res, "EMMA_record")) == 7)
   
-  info <- EMMA_capture_call_info(substitute(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
+  info <- .EMMA_capture_call_info(substitute(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                                                      keyType = "ENSEMBL",
                                                      OrgDb = org.Hs.eg.db,
                                                      pAdjustMethod = "BH",
@@ -77,7 +77,7 @@ test_that("EMMA_run", {
                                 OrgDb = org.Hs.eg.db,
                                 keyType = "ENSEMBL",
                                 ont = "CC",
-                                level = 2), session = "yes"))
+                                level = 2), store_session_info = "yes"))
   
 })
 

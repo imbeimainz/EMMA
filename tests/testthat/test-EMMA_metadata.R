@@ -23,14 +23,14 @@ test_that("test metadata content & structure", {
   
   expect_true(emma_rec$method$wrapper)
   
-  expect_null(EMMA_find_original_wrapped_fun("mosdef::run_cluPro(de_genes = rownames(de_res_IFNg_vs_naive),
+  expect_null(.EMMA_find_original_wrapped_fun("mosdef::run_cluPro(de_genes = rownames(de_res_IFNg_vs_naive),
                                                                 bg_genes = universe,
                                                                 mapping = 'org.Hs.eg.db',
                                                                 keyType = 'ENSEMBL',
                                                                 ont = 'BP')"))
   
   
-  custom <- EMMA_classify_call(substitute(summary(getEMMARecord(fea_res))))
+  custom <- .EMMA_classify_call(substitute(summary(EMMA_get_record(fea_res))))
   
   expect_equal(custom$type, "custom")
   
@@ -46,7 +46,7 @@ test_that("test metadata content & structure", {
                                   extra = list(
                                     note = "The background gene set list was all expressed genes in the assay"))
   
-  rec <- getEMMARecord(res)
+  rec <- EMMA_get_record(res)
   
   expect_equal(
     rec$extra$note,
@@ -68,7 +68,7 @@ test_that("test metadata content & structure", {
                               correction_method = "fdr",
                               custom_bg = universe) |> EMMA_run()
   
-  rec <- getEMMARecord(fea_res)
+  rec <- EMMA_get_record(fea_res)
   
   expect_true(length(rec$annotation$gene_set_db_version) != 1)
   
@@ -87,17 +87,17 @@ test_that("test metadata content & structure", {
   expect_warning(wrapper <- EMMA_run(custom_fun(rownames(de_res_IFNg_vs_naive),
                                                 org.Hs.eg.db)))
 
-  expect_equal(getEMMARecord(wrapper)$method$function_name, "custom_fun")
-  expect_equal(getEMMARecord(wrapper)$method$wrapped_package, "clusterProfiler")
-  expect_equal(getEMMARecord(wrapper)$method$wrapped_function, "groupGO")
-  expect_true(getEMMARecord(wrapper)$method$wrapper) 
+  expect_equal(EMMA_get_record(wrapper)$method$function_name, "custom_fun")
+  expect_equal(EMMA_get_record(wrapper)$method$wrapped_package, "clusterProfiler")
+  expect_equal(EMMA_get_record(wrapper)$method$wrapped_function, "groupGO")
+  expect_true(EMMA_get_record(wrapper)$method$wrapper) 
 
   
   empty <- EMMA_run(summary(rec$method))
   
-  expect_null(getEMMARecord(empty)$annotation$organism)
-  expect_null(getEMMARecord(empty)$annotation$gene_set_db)
-  expect_null(getEMMARecord(empty)$annotation$gene_set_db_version)
+  expect_null(EMMA_get_record(empty)$annotation$organism)
+  expect_null(EMMA_get_record(empty)$annotation$gene_set_db)
+  expect_null(EMMA_get_record(empty)$annotation$gene_set_db_version)
   
   
 })
