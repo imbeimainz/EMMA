@@ -28,11 +28,10 @@ Description: EMMA is a package that provides a provenance-aware execution
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Imports:
-    methods,
     AnnotationDbi,
-    GO.db
+    cli
 Suggests: 
     knitr,
     rmarkdown,
@@ -41,12 +40,15 @@ Suggests:
     clusterProfiler,
     gprofiler2,
     org.Hs.eg.db,
+    GO.db,
     mosdef,
     topGO,
+    renv,
+    DeeDeeExperiment,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/imbeimainz/EMMA
 BugReports: https://github.com/imbeimainz/EMMA/issues
 biocViews: Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
-    ReproducibleResearch, Transcriptomics, SingleCell
+    Transcriptomics, SingleCell, GeneExpression, DifferentialExpression
 Config/testthat/edition: 3
