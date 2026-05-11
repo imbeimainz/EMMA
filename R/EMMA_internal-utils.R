@@ -4,7 +4,7 @@
 #' different enrichment methods and packages
 #' 
 #' @noRd
-EMMA_empty_metadata <- function() { 
+.EMMA_empty_metadata <- function() { 
   list(
     organism = NA_character_,
     gene_set_db = NA_character_,
@@ -29,7 +29,7 @@ EMMA_empty_metadata <- function() {
 #' metadata structure if no package-specific method is available
 #'
 #' @noRd
-EMMA_get_metadata <- function(call_class,
+.EMMA_get_metadata <- function(call_class,
                               args,
                               envir = parent.frame()) {
   info_call <- call_class$info_call
@@ -37,7 +37,7 @@ EMMA_get_metadata <- function(call_class,
   package_name <- info_call$package_name
   call <- info_call$call
   
-  meta <- EMMA_empty_metadata()
+  meta <- .EMMA_empty_metadata()
   
   if (is.null(package_name) || is.na(package_name) || package_name == "") {
     package_name <- "custom"
@@ -45,10 +45,10 @@ EMMA_get_metadata <- function(call_class,
   
   meta <- switch(
     package_name,
-    clusterProfiler = EMMA_get_clusterprofiler_metadata(function_name, args),
-    gprofiler2      = EMMA_get_gprofiler2_metadata(args),
-    mosdef          = EMMA_cp_GO_metadata(args$mapping),
-    custom          = EMMA_get_custom_metadata(call_class,
+    clusterProfiler = .EMMA_get_clusterprofiler_metadata(function_name, args),
+    gprofiler2      = .EMMA_get_gprofiler2_metadata(args),
+    mosdef          = .EMMA_cp_GO_metadata(args$mapping),
+    custom          = .EMMA_get_custom_metadata(call_class,
                                                args,
                                                envir = parent.frame())
   )
@@ -71,15 +71,15 @@ EMMA_get_metadata <- function(call_class,
 #' and its version), depending on the underlying database used (e.g. GO vs KEGG)
 #'
 #' @noRd
-EMMA_get_clusterprofiler_metadata <- function(function_name, args) {
+.EMMA_get_clusterprofiler_metadata <- function(function_name, args) {
   switch(
     function_name,
-    enrichGO   = EMMA_cp_GO_metadata(args$OrgDb),
-    gseGO = EMMA_cp_GO_metadata(args$OrgDb),
-    groupGO = EMMA_cp_GO_metadata(args$OrgDb),
-    enrichKEGG = EMMA_cp_KEGG_metadata(args),
-    gseKEGG = EMMA_cp_KEGG_metadata(args),
-    EMMA_empty_metadata()
+    enrichGO   = .EMMA_cp_GO_metadata(args$OrgDb),
+    gseGO = .EMMA_cp_GO_metadata(args$OrgDb),
+    groupGO = .EMMA_cp_GO_metadata(args$OrgDb),
+    enrichKEGG = .EMMA_cp_KEGG_metadata(args),
+    gseKEGG = .EMMA_cp_KEGG_metadata(args),
+    .EMMA_empty_metadata()
     # more to be added
   )
 }
@@ -93,7 +93,7 @@ EMMA_get_clusterprofiler_metadata <- function(function_name, args) {
 #' and returns `NA_character_` if the organism cannot be determined
 #'
 #' @noRd
-EMMA_get_organism_from_OrgDb <- function(orgdb) {
+.EMMA_get_organism_from_OrgDb <- function(orgdb) {
   
   if (is.null(orgdb)) {
     return(NA_character_)
@@ -129,10 +129,10 @@ EMMA_get_organism_from_OrgDb <- function(orgdb) {
 #' geneset database and its version
 #'
 #' @noRd
-EMMA_cp_GO_metadata <- function(org) {
-  meta <- EMMA_empty_metadata()
+.EMMA_cp_GO_metadata <- function(org) {
+  meta <- .EMMA_empty_metadata()
   
-  meta$organism <- EMMA_get_organism_from_OrgDb(org)
+  meta$organism <- .EMMA_get_organism_from_OrgDb(org)
   meta$gene_set_db <- "GO"
   meta$gene_set_db_version <- if (requireNamespace("GO.db", quietly = TRUE)) {
     as.character(utils::packageVersion("GO.db"))
@@ -158,8 +158,8 @@ EMMA_cp_GO_metadata <- function(org) {
 #' geneset database and its version
 #'
 #' @noRd
-EMMA_cp_KEGG_metadata <- function(args) {
-  meta <- EMMA_empty_metadata()
+.EMMA_cp_KEGG_metadata <- function(args) {
+  meta <- .EMMA_empty_metadata()
   
   meta$organism <- args$organism
   meta$gene_set_db <- "KEGG"
@@ -179,8 +179,8 @@ EMMA_cp_KEGG_metadata <- function(args) {
 #' geneset database and its version
 #'
 #' @noRd
-EMMA_get_gprofiler2_metadata <- function(args) {
-  meta <- EMMA_empty_metadata()
+.EMMA_get_gprofiler2_metadata <- function(args) {
+  meta <- .EMMA_empty_metadata()
   
   version_info <- gprofiler2::get_version_info()
   
@@ -214,10 +214,10 @@ EMMA_get_gprofiler2_metadata <- function(args) {
 
 #' 
 #' @noRd
-EMMA_get_custom_metadata <- function(call_class, args,
+.EMMA_get_custom_metadata <- function(call_class, args,
                                      envir = parent.frame()) {
   
-  meta <- EMMA_empty_metadata()
+  meta <- .EMMA_empty_metadata()
   
   if (call_class$type == "wrapper") {
     # get all known functions used in the wrapper
@@ -225,19 +225,19 @@ EMMA_get_custom_metadata <- function(call_class, args,
     
     go_funs <- c("enrichGO", "gseGO", "groupGO")
     kegg_funs <- c("enrichKEGG", "gseKEGG")
-    # dont use EMMA_get_clusterprofiler_metadata cause the switch wont work with
+    # dont use .EMMA_get_clusterprofiler_metadata cause the switch wont work with
     # more than 1 wrapped fun
     meta_list <- list()
     if (any(wrapped_fun %in% go_funs)) {
-      meta_list$GO <- EMMA_cp_GO_metadata(args$OrgDb)
+      meta_list$GO <- .EMMA_cp_GO_metadata(args$OrgDb)
     }
     
     if (any(wrapped_fun %in% kegg_funs)) {
-      meta_list$KEGG <- EMMA_cp_KEGG_metadata(args)
+      meta_list$KEGG <- .EMMA_cp_KEGG_metadata(args)
     }
     
     if (any(wrapped_fun %in% c("gost"))) {
-      meta_list$gprofiler2 <- EMMA_get_gprofiler2_metadata(args)
+      meta_list$gprofiler2 <- .EMMA_get_gprofiler2_metadata(args)
     }
     
     if (length(meta_list) == 0L) {
@@ -277,10 +277,10 @@ EMMA_get_custom_metadata <- function(call_class, args,
 #'
 #' @return A named list
 #' @noRd
-EMMA_capture_call_info <- function(call, envir = parent.frame()) {
+.EMMA_capture_call_info <- function(call, envir = parent.frame()) {
   # param checks
   if (!is.call(call)) {
-    stop("`call` must be a function call", call. = FALSE)
+    stop("`call` must be a function call")
   }
   # capture function name
   call_name <- call[[1]]
@@ -335,12 +335,11 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
   }
   
   stop(
-    "Unsupported call format. Use a direct function call like `fun(...)` or `pkg::fun(...)`",
-    call. = FALSE)
+    "Unsupported call format. Use a direct function call like `fun(...)` or `pkg::fun(...)`")
 }
 
 
-#' This function, used in in `EMMA_walk()`, converts the head of a call into a character
+#' This function, used in in `.EMMA_walk()`, converts the head of a call into a character
 #' string representing the function being called. It supports both bare calls
 #' (e.g. `fun`) and namespace-qualified calls (e.g. `pkg::fun`)
 #'
@@ -349,7 +348,7 @@ EMMA_capture_call_info <- function(call, envir = parent.frame()) {
 #' @return A character string representing the function name
 #'
 #' @noRd
-EMMA_call_name <- function(x) {
+.EMMA_call_name <- function(x) {
   if (is.symbol(x)) {
     return(as.character(x))
   }
@@ -374,12 +373,12 @@ EMMA_call_name <- function(x) {
 #' operators found in `x`, including nested calls
 #' 
 #' @noRd
-EMMA_walk <- function(x) {
+.EMMA_walk <- function(x) {
   out <- character()
   
   if (is.call(x)) {
     # extract function/operator name
-    nm <- EMMA_call_name(x[[1]])
+    nm <- .EMMA_call_name(x[[1]])
     if (!is.null(nm)) {
       out <- c(out, nm)
     }
@@ -388,7 +387,7 @@ EMMA_walk <- function(x) {
   if (is.call(x) || is.pairlist(x) || is.expression(x)) {
     #check children/nested elements
     for (i in seq_along(x)) {
-      out <- c(out, EMMA_walk(x[[i]]))
+      out <- c(out, .EMMA_walk(x[[i]]))
     }
   }
   
@@ -411,7 +410,7 @@ EMMA_walk <- function(x) {
 #' wrapper
 #' 
 #' @noRd
-EMMA_find_original_wrapped_fun <- function(call, envir = parent.frame()) {
+.EMMA_find_original_wrapped_fun <- function(call, envir = parent.frame()) {
   
   if (!is.call(call)) {
     # do i want it to fail here ?
@@ -452,13 +451,12 @@ EMMA_find_original_wrapped_fun <- function(call, envir = parent.frame()) {
     fun <- getExportedValue(pkg, fn)
   } else {
     stop(
-      "Only `fun(...)` and `pkg::fun(...)` are supported",
-      call. = FALSE
+      "Only `fun(...)` and `pkg::fun(...)` are supported"
     )
   }
   
   
-  found <- EMMA_walk(body(fun)) |> unique()
+  found <- .EMMA_walk(body(fun)) |> unique()
   
   matched <- unique(c(
     intersect(found, full_targets),
@@ -482,7 +480,7 @@ EMMA_find_original_wrapped_fun <- function(call, envir = parent.frame()) {
 #' decide if top-level function passed to EMMA_run is a known fun or a wrapper
 #'
 #' @noRd
-EMMA_classify_call <- function(call, envir = parent.frame()) {
+.EMMA_classify_call <- function(call, envir = parent.frame()) {
   # listing all the functions that are not wrappers
   originals <- list(
     clusterProfiler = c("enrichGO", "gseGO", "groupGO", "enrichKEGG", "gseKEGG"),
@@ -497,7 +495,7 @@ EMMA_classify_call <- function(call, envir = parent.frame()) {
                             SIMPLIFY = FALSE) |> unlist(use.names = FALSE)
   
   # capture call information
-  info_call <- EMMA_capture_call_info(call = call, envir = envir)
+  info_call <- .EMMA_capture_call_info(call = call, envir = envir)
   function_name <- info_call$function_name
   package_name <- info_call$package_name
   
@@ -520,7 +518,7 @@ EMMA_classify_call <- function(call, envir = parent.frame()) {
   
   if (!is_original_top_level) {
     # inspect body of expr function, because this could be a wrapper
-    wrapped_original <- EMMA_find_original_wrapped_fun(call = call,
+    wrapped_original <- .EMMA_find_original_wrapped_fun(call = call,
                                                        envir = envir)
     wrapper <- !is.null(wrapped_original)
   }
@@ -550,20 +548,20 @@ EMMA_classify_call <- function(call, envir = parent.frame()) {
 #' This function assembles the structured provenance record that is stored as
 #' an attribute on the FEA results object
 #' 
-#' @param info_call A list returned by `EMMA_capture_call_info()`
+#' @param info_call A list returned by `.EMMA_capture_call_info()`
 #' @param args_form A character string, either `"evaluated"` or `"unevaluated"`
 #' to decide how to store the arguments
-#' @param metadata A list returned by `EMMA_get_metadata()`
+#' @param metadata A list returned by `.EMMA_get_metadata()`
 #' @param start_time A timestamp marking when the enrichment analysis started
-#' @param session Logical. If `TRUE`, `sessionInfo()` is captured and stored in
+#' @param store_session_info Logical. If `TRUE`, `sessionInfo()` is captured and stored in
 #' the record; if `FALSE` the `session_info` slot is `NULL`
 #'  
 #' @return A named list of the recorded metadata
 #'   
 #' @noRd
-EMMA_build_record <- function(info_call, args_form, metadata,
+.EMMA_build_record <- function(info_call, args_form, metadata,
                               wrapped_original, wrapper,
-                              start_time, session) {
+                              start_time, store_session_info) {
   emma_rec <- list(
                    method = list(
                      call = info_call$call,
@@ -586,7 +584,7 @@ EMMA_build_record <- function(info_call, args_form, metadata,
                      gene_set_db_version = metadata$gene_set_db_version
                    ),
                    timestamp = start_time,
-                   session_info = if (isTRUE(session)) sessionInfo() else NULL,
+                   session_info = if (isTRUE(store_session_info)) sessionInfo() else NULL,
                    extra = list(),# free field for extra metadata (added by user)
                    emma_version = as.character(packageVersion(pkg = "EMMA"))
                    )
@@ -609,7 +607,7 @@ EMMA_build_record <- function(info_call, args_form, metadata,
 #' 
 #' @return `base::invisible()`
 #' @noRd
-EMMA_warnings <- function(arg_names, function_name){
+.EMMA_warnings <- function(arg_names, function_name){
   checks <- list(
     list(
       params = c("pAdjustMethod", "correction_method", "do_padj"),
@@ -636,4 +634,3 @@ Consider using the corresponding parameter for your call.",
   }
   invisible()
 }
-

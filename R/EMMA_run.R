@@ -59,7 +59,7 @@ EMMA_run <- function(expr,
   }
   
   # decide whether we are dealing with a known function or a wrapper
-  call_class <- EMMA_classify_call(call, envir = envir)
+  call_class <- .EMMA_classify_call(call, envir = envir)
   info_call <- call_class$info_call
   function_name <- info_call$function_name
   package_name <- info_call$package_name
@@ -72,7 +72,7 @@ EMMA_run <- function(expr,
   
   # some good practice warning, i.e. when multiple testing correction is skipped
   # or bg geneset not set
-  EMMA_warnings(arg_names = arg_names,
+  .EMMA_warnings(arg_names = arg_names,
                 function_name = function_name)
   
   #capture analysis time
@@ -92,14 +92,14 @@ EMMA_run <- function(expr,
   results <- do.call(fun, args)
   
   # capture metadata from the used function and arguments
-  metadata <- EMMA_get_metadata(
+  metadata <- .EMMA_get_metadata(
     call_class,
     args,
     envir = envir
   )
   
   # record everything in EMMA_record
-  EMMA_record <- EMMA_build_record(info_call, args_form, metadata, 
+  EMMA_record <- .EMMA_build_record(info_call, args_form, metadata, 
                                    wrapped_original,wrapper,
                                    start_time, session)
     
