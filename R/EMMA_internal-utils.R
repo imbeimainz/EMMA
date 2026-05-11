@@ -254,9 +254,9 @@ EMMA_get_custom_metadata <- function(call_class, args,
   
   if (call_class$type == "custom") {
     # if 100% custom
-    message("You used a custom function, so `EMMA` wasn't able to record annotation-",
-            "related information. Please consider adding the `organism`, `geneset database`",
-            " and its `version` manually into the `extra` field in EMMA_record.")
+    cli::cli_alert_info(
+      "You used a custom function, so `EMMA` wasn't able to record annotation-related information. Please consider adding the `organism`, `geneset database` and its `version` manually into the `extra` field in EMMA_record using EMMA_add_custom_metadata.")
+    
     return(meta)
   }
   

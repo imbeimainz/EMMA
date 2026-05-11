@@ -77,7 +77,9 @@ EMMA_run <- function(expr,
   
   #capture analysis time
   start_time <- Sys.time()
-  message("Running Enrichment Analysis with ", function_name, " ...") 
+  
+  cli::cli_alert_info(
+    "Running Enrichment Analysis with  {.val {function_name}} ...")
   
   # capture the value of the arguments
   args <- lapply(arg_list, eval, envir = envir)

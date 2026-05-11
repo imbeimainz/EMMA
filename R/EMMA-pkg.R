@@ -7,6 +7,7 @@
 #' @import GO.db
 #' @importFrom AnnotationDbi metadata
 #' @importFrom utils packageVersion sessionInfo
+#' @importFrom cli cli_alert_info
 #' @name EMMA-pkg
 #' @docType package
 "_PACKAGE"

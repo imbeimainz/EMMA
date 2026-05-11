@@ -43,4 +43,6 @@ EMMA_freeze <- function(project = getwd(),
   #   packages = pkgs
   # )
   # 
+  cli::cli_alert_info(
+    "Environment snapshot saved to: {.val {lockfile}}. \nTo recreate this environment, use `renv::restore()`.")
 }

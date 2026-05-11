@@ -32,7 +32,10 @@ EMMA_explain <- function(res){
   args <- emma_rec$input$arguments
   arg_names <- names(args)
   
-  message("You can always complete your text with additional information from `getEMMARecord()`!")
+  cli::cli_alert_info(
+    "You can always complete your text with additional information from `getEMMARecord()`!"
+  )
+  
   
   if (emma_rec$method$wrapper) {
     text <- paste0("Functional Enrichment Analysis was performed using a wrapper function ",

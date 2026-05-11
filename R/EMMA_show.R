@@ -20,7 +20,7 @@
 EMMA_show <- function(res){
   
   if ("EMMA_record" %in% names(attributes(res))) {
-    message("Found EMMA record!")
+    cli::cli_alert_info("Found EMMA record!")
     
     emma_rec <- getEMMARecord(res)
     
