@@ -142,7 +142,7 @@ Maybe a diagram that would show what EMMA puts in and avoids you to take notes o
 In the remainder of this vignette, we will illustrate the main features of `r BiocStyle::Biocpkg("EMMA")` on a publicly available dataset from Alasoo, et al. "Shared genetic effects on chromatin
 and gene expression indicate a role for enhancer priming in immune response",
 published in Nature Genetics, January 2018 
-[@Alasoo2018] [doi:10.1038/s41588-018-0046-7](https://doi.org/10.1038/s41588-018-0046-7).
+[@Alasoo2018].
 
 The data is made available via the `r BiocStyle::Biocpkg("macrophage")`
 Bioconductor package, which contains the files output from the Salmon
