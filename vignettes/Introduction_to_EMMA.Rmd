@@ -255,7 +255,8 @@ fea_res <- EMMA_run(
 As you can see, `EMMA` returns the FEA results in their **native/standard** format.
 `EMMA` also warns you about good practices when performing FEA, like in this
 example, we didn't define a list of background genes (which can influence the 
-results TODO leading to a larger amount of false discoveries as a consequence of smaller p-values, see Wiiesorija again?), so we get warned about that.
+results leading e.g. to a larger amount of false discoveries, as a consequence 
+of over-optimistic smaller p-values [@Wijesooriya2022]), so we get warned about that.
 
 ### `EMMA_show()` : Summarizing the recorded information
 
