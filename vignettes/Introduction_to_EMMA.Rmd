@@ -214,7 +214,7 @@ function `enrichGO()` from `r BiocStyle::Biocpkg("clusterProfiler")`
 
 ```{r withoutemma}
 fea_res <- enrichGO(gene = rownames(de_res),
-                    # TODO add universe, to have the first one "done right"
+                    universe = gene_universe,
                     keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
                     ont = "BP",
@@ -237,7 +237,7 @@ it is, while capturing the associated parameters and provenance information:
 ```{r EMMA_run_1}
 # perform FEA, but with EMMA!
 fea_res <- enrichGO(gene = rownames(de_res),
-                    # TODO add universe, to have the first one "done right"
+                    universe = gene_universe,
                     keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
                     ont = "BP",
@@ -251,11 +251,12 @@ fea_res
 
 ... or you can simply wrap `EMMA_run()` around your call:
 
-```{r EMMA_run_2, eval=FALSE}
+```{r EMMA_run_2}
 # you can also pass the function name and its namespace
 # e.g. `clusterProfiler::enrichGO(...)`
-fea_res <- EMMA_run(
+fea_res_nobg <- EMMA_run(
   clusterProfiler::enrichGO(
+    # no universe set
     gene = rownames(de_res),
     keyType = "ENSEMBL",
     OrgDb = org.Hs.eg.db,
@@ -404,7 +405,6 @@ my_custom_function <- function(gene, universe = NULL,
                                ontology = "BP", id_type = "ENTREZID",
                                org_db_name = "org.Hs.eg.db", 
                                organism = "hsapiens") {
-  # a wrapper of a wrapper :D
   res1 <- mosdef::run_topGO(de_genes = gene,
                             bg_genes = gene_universe,
                             ontology = ontology,
