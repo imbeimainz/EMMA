@@ -53,8 +53,10 @@ the provenance information. Use
 ## Details
 
 `EMMA_run()` accepts both direct calls to known enrichment functions
-(`enrichGO()`, `GSEA()`, `fgsea()` ...) and calls to wrapper functions
-that internally invoke a know enrichment function.
+([`enrichGO()`](https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html),
+[`GSEA()`](https://rdrr.io/pkg/clusterProfiler/man/GSEA.html), `fgsea()`
+...) and calls to wrapper functions that internally invoke a know
+enrichment function.
 
 ## Examples
 
@@ -465,7 +467,7 @@ store_session_info = FALSE, args_form = "unevaluated")
 #> 
 #> 
 #> $meta$timestamp
-#> [1] "2026-05-11T17:16:30.707542+00:00"
+#> [1] "2026-05-12T11:07:34.083326+00:00"
 #> 
 #> $meta$version
 #> [1] "e114_eg62_p19_27110d83"
@@ -528,7 +530,7 @@ store_session_info = FALSE, args_form = "unevaluated")
 #> 
 #> 
 #> attr(,"EMMA_record")$timestamp
-#> [1] "2026-05-11 19:16:30 CEST"
+#> [1] "2026-05-12 13:07:33 CEST"
 #> 
 #> attr(,"EMMA_record")$session_info
 #> NULL

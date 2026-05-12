@@ -1,10 +1,11 @@
-# EMMA
+# EMMA - Enrichment Methods MAtter
 
-EMMA enables the execution of Functional Enrichment Analyses using
-existing tools (e.g. `clusterProfiler`, `topGO`, `gprofiler2`) while
-systematically capturing analysis parameters and provenance information
-during runtime, and returning enrichment results in their standard
-format alongside structured and reusable metadata.
+EMMA enables the execution of Functional Enrichment Analyses using a
+wide range of existing tools (e.g. `clusterProfiler`, `topGO`,
+`gprofiler2` among others) while systematically capturing analysis
+parameters and provenance information during runtime, and returning
+enrichment results in their standard format alongside structured and
+reusable metadata.
 
 ## Installation
 
@@ -36,6 +37,11 @@ fea_results <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                EMMA_run()
 ```
 
+## Usage Overview
+
+You can find the rendered version of the documentation of `EMMA` at the
+project website <https://imbeimainz.github.io/EMMA/>
+
 ## Development
 
 If you encounter a bug, have usage questions, or want to share ideas and
@@ -46,7 +52,7 @@ functionality to make this package better, feel free to file an
 
 Please note that the EMMA project is released with a [Contributor Code
 of
-Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+Conduct](https://contributor-covenant.org/version/3/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 ## License
@@ -92,4 +98,5 @@ MIT
 
 ### All vignettes
 
-- [The \`EMMA\` User's Guide](Introduction_to_EMMA.md) :
+- [The \`EMMA\` User's Guide - Enrichment Method
+  MAtters](Introduction_to_EMMA.md) :

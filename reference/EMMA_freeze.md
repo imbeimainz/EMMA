@@ -87,11 +87,11 @@ list.files(tmp)
 # renv::restore(project = tmp)
 }
 #> The following Bioconductor packages appear to be from a separate Bioconductor release:
-#> - EMMA        [installed 0.3.0   != latest <NA>]
-#> - edgeR       [installed 4.9.9   != latest 4.11.0]
-#> - SparseArray [installed 1.11.13 != latest 1.13.2]
-#> - DESeq2      [installed 1.51.7  != latest 1.53.0]
 #> - IRanges     [installed 2.45.0  != latest 2.47.0]
+#> - EMMA        [installed 0.3.0   != latest <NA>]
+#> - SparseArray [installed 1.11.13 != latest 1.13.2]
+#> - edgeR       [installed 4.9.9   != latest 4.11.0]
+#> - DESeq2      [installed 1.51.7  != latest 1.53.0]
 #> renv may be unable to restore these packages.
 #> Bioconductor version: 3.24
 #> 
@@ -100,6 +100,7 @@ list.files(tmp)
 #> # Bioconductor ---------------------------------------------------------------
 #> - EMMA                   [* -> 0.3.0]
 #> - GO.db                  [* -> 3.23.1]
+#> - org.Hs.eg.db           [* -> 3.23.1]
 #> 
 #> # Bioconductor 3.23 ----------------------------------------------------------
 #> - SparseArray            [* -> 1.11.13]
@@ -113,27 +114,44 @@ list.files(tmp)
 #> - BiocGenerics           [* -> 0.59.0]
 #> - BiocIO                 [* -> 1.23.3]
 #> - BiocParallel           [* -> 1.47.0]
+#> - BiocStyle              [* -> 2.41.0]
 #> - BiocVersion            [* -> 3.24.0]
 #> - Biostrings             [* -> 2.81.1]
 #> - DOSE                   [* -> 4.7.0]
 #> - DeeDeeExperiment       [* -> 1.3.0]
 #> - DelayedArray           [* -> 0.39.1]
 #> - GOSemSim               [* -> 2.39.0]
+#> - GenomeInfoDb           [* -> 1.49.0]
+#> - GenomicAlignments      [* -> 1.49.0]
+#> - GenomicFeatures        [* -> 1.65.0]
 #> - GenomicRanges          [* -> 1.65.0]
 #> - KEGGREST               [* -> 1.53.0]
 #> - MatrixGenerics         [* -> 1.25.0]
+#> - Rhtslib                [* -> 3.9.0]
+#> - Rsamtools              [* -> 2.29.0]
 #> - S4Arrays               [* -> 1.13.0]
 #> - S4Vectors              [* -> 0.51.1]
 #> - Seqinfo                [* -> 1.3.0]
 #> - SingleCellExperiment   [* -> 1.35.0]
 #> - SummarizedExperiment   [* -> 1.43.0]
+#> - UCSC.utils             [* -> 1.9.0]
 #> - XVector                [* -> 0.53.0]
+#> - biomaRt                [* -> 2.69.0]
+#> - cigarillo              [* -> 1.3.0]
 #> - clusterProfiler        [* -> 4.21.0]
 #> - enrichplot             [* -> 1.33.0]
+#> - geneLenDataBase        [* -> 1.49.0]
 #> - ggtree                 [* -> 4.3.0]
+#> - goseq                  [* -> 1.65.0]
+#> - graph                  [* -> 1.91.0]
 #> - limma                  [* -> 3.69.0]
+#> - macrophage             [* -> 1.29.0]
+#> - mosdef                 [* -> 1.9.0]
 #> - qvalue                 [* -> 2.45.0]
+#> - rtracklayer            [* -> 1.73.0]
+#> - topGO                  [* -> 2.65.0]
 #> - treeio                 [* -> 1.37.0]
+#> - txdbmaker              [* -> 1.9.0]
 #> 
 #> # CRAN -----------------------------------------------------------------------
 #> - BH                     [* -> 1.90.0-1]
@@ -150,6 +168,8 @@ list.files(tmp)
 #> - Rcpp                   [* -> 1.1.1-1.1]
 #> - RcppArmadillo          [* -> 15.2.6-1]
 #> - S7                     [* -> 0.2.2]
+#> - SparseM                [* -> 1.84-2]
+#> - XML                    [* -> 3.99-0.23]
 #> - abind                  [* -> 1.4-8]
 #> - aisdk                  [* -> 1.1.0]
 #> - ape                    [* -> 5.8-1]
@@ -160,6 +180,7 @@ list.files(tmp)
 #> - bit64                  [* -> 4.8.0]
 #> - bitops                 [* -> 1.0-9]
 #> - blob                   [* -> 1.3.0]
+#> - bookdown               [* -> 0.46]
 #> - brew                   [* -> 1.0-10]
 #> - brio                   [* -> 1.1.5]
 #> - bslib                  [* -> 0.10.0]
@@ -219,6 +240,7 @@ list.files(tmp)
 #> - gson                   [* -> 0.1.0]
 #> - gtable                 [* -> 0.3.6]
 #> - highr                  [* -> 0.12]
+#> - hms                    [* -> 1.1.4]
 #> - htmltools              [* -> 0.5.9]
 #> - htmlwidgets            [* -> 1.6.4]
 #> - httpuv                 [* -> 1.6.17]
@@ -240,6 +262,7 @@ list.files(tmp)
 #> - magrittr               [* -> 2.0.5]
 #> - matrixStats            [* -> 1.5.0]
 #> - memoise                [* -> 2.0.1]
+#> - mgcv                   [* -> 1.9-4]
 #> - mime                   [* -> 0.13]
 #> - miniUI                 [* -> 0.1.2]
 #> - nlme                   [* -> 3.1-169]
@@ -260,6 +283,7 @@ list.files(tmp)
 #> - prettyunits            [* -> 1.2.0]
 #> - processx               [* -> 3.9.0]
 #> - profvis                [* -> 0.4.0]
+#> - progress               [* -> 1.2.3]
 #> - promises               [* -> 1.5.0]
 #> - ps                     [* -> 1.9.3]
 #> - purrr                  [* -> 1.2.2]
@@ -269,6 +293,8 @@ list.files(tmp)
 #> - remotes                [* -> 2.5.0]
 #> - renv                   [* -> 1.2.2]
 #> - reshape2               [* -> 1.4.5]
+#> - restfulr               [* -> 0.0.16]
+#> - rjson                  [* -> 0.2.23]
 #> - rlang                  [* -> 1.2.0]
 #> - rmarkdown              [* -> 2.31]
 #> - roxygen2               [* -> 8.0.0]
@@ -320,8 +346,8 @@ list.files(tmp)
 #> The version of R recorded in the lockfile will be updated:
 #> - R                      [* -> 4.6.0]
 #> 
-#> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpGOfx0D/emma_env47ab23c0bd1c/renv.lock".
-#> ℹ Environment snapshot saved to: "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpGOfx0D/emma_env47ab23c0bd1c/renv.lock". 
+#> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpGOfx0D/emma_env47ab330afc1b/renv.lock".
+#> ℹ Environment snapshot saved to: "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpGOfx0D/emma_env47ab330afc1b/renv.lock". 
 #> To recreate this environment, use `renv::restore()`.
 #> [1] "renv.lock"
 ```
