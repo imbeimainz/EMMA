@@ -1,6 +1,6 @@
 ---
 title: >
-  The `EMMA` User's Guide
+  The `EMMA` User's Guide - Enrichment Method MAtters
 author:
 - name: Najla Abassi
   affiliation: 
@@ -34,11 +34,6 @@ editor_options:
 bibliography: EMMA_bibliography.bib
 ---
 
-<style type="text/css">
-.smaller {
-  font-size: 10px
-}
-</style>
 
 ```{r knitr, include = FALSE}
 knitr::opts_chunk$set(
@@ -68,8 +63,9 @@ exists to ensure transparent and reproducible documentation of FEA workflows,
 comparable to the MIAME guidelines [@Brazma2001] 
 [doi:10.1038/ng1201-365]( https://doi.org/10.1038/ng1201-365).
 
-To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")`, a framework
-that automatically captures key analytical parameters and provenance information
+To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")` (standing for 
+**E**nrichment **M**ethods **MA**tters), a framework that automatically captures key 
+analytical parameters and provenance information
 during the execution of FEA methods.
 
 This vignette demonstrates how `EMMA` integrates with existing tools
@@ -137,7 +133,8 @@ Like: stepwise with bullet point
 Maybe a diagram that would show what EMMA puts in and avoids you to take notes of?
 
 
-# `EMMA` on the `macrophage` dataset
+
+# Usage example of `EMMA`: the `macrophage` dataset
 
 ## About the data
 
@@ -296,7 +293,18 @@ results, and not only the subsets of interest.
 
 To access the full recorded information, we use `EMMA_get_record()`:
 
+```{css}
+/*| echo: false */
+
+.scrollout {
+max-height: 500px;
+overflow-y: scroll;
+}
+```
+
 ```{r EMMA_get_record}
+#| class-output: scrollout
+
 emma_record <- EMMA_get_record(fea_res)
 
 # get all the record
@@ -338,6 +346,8 @@ used in our call or not. This can be useful, for example, to avoid unnecessarily
 increasing the size of the result object. For this, we can use the argument `args_form`:
 
 ```{r argument_form}
+#| class-output: scrollout
+
 fea_res_no_param <- enrichGO(gene = rownames(de_res),
                              universe = gene_universe,
                              keyType = "ENSEMBL",
@@ -374,6 +384,8 @@ You can also use a custom function that you developed, or a wrapper function
 `EMMA_run()` will attempt to capture as much metadata as possible:
 
 ```{r mosdef_eg}
+#| class-output: scrollout
+
 mosdef_fea_res <- mosdef::run_goseq(de_genes = rownames(de_res),
                                     bg_genes = gene_universe,
                                     mapping = "org.Hs.eg.db",
@@ -387,6 +399,8 @@ EMMA_get_record(mosdef_fea_res)
 ```
 
 ```{r custom_eg}
+#| class-output: scrollout
+
 # a custom function (not from a package)
 my_custom_function <- function(gene, universe = NULL,
                                ontology = "BP", id_type = "ENTREZID",
@@ -431,6 +445,8 @@ capture automatically. To keep everything organized, we can use
 `EMMA_add_custom_metadata()` function
 
 ```{r add_custom_metadata}
+#| class-output: scrollout
+
 frankenstein_fea2 <- EMMA_add_custom_metadata(res = frankenstein_fea,
                                               extra = list(
                                                 wrapped_function_topGO = "runTest",
@@ -446,6 +462,8 @@ their associated provenance information to be stored and managed together,
 facilitating reproducibility, organization, and sharing of complex omics analyses.
 
 ```{r emma_and_dde}
+#| class-output: scrollout
+
 dde <- DeeDeeExperiment::DeeDeeExperiment(sce = dds_macrophage,
                                           de_results = IFNg_vs_naive,
                                           enrich_results =  list(
@@ -479,9 +497,19 @@ if (requireNamespace("renv", quietly = TRUE)) {
 }
 ```
 
-# Session info {.unnumbered .smaller}
+# Session info {.unnumbered}
+
+```{css}
+/*| echo: false */
+
+.smaller {
+  font-size: 10px
+}
+```
 
 ```{r sessioinfo}
+#| class-output: smaller
+
 sessionInfo()
 ```
 
