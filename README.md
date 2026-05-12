@@ -1,9 +1,10 @@
 # EMMA
 
-EMMA enables the execution of Functional Enrichment Analyses using existing
-tools (e.g. `clusterProfiler`, `topGO`, `gprofiler2`) while systematically capturing
-analysis parameters and provenance information during runtime, and returning
-enrichment results in their standard format alongside structured and reusable metadata.
+EMMA enables the execution of Functional Enrichment Analyses using a wide range
+of existing tools (e.g. `clusterProfiler`, `topGO`, `gprofiler2` among others)
+while systematically capturing analysis parameters and provenance information
+during runtime, and returning enrichment results in their standard format
+alongside structured and reusable metadata.
 
 ## Installation
 
@@ -33,6 +34,11 @@ fea_results <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
                EMMA_run()
 
 ```
+
+## Usage Overview
+
+You can find the rendered version of the documentation of `EMMA` at the project
+website https://imbeimainz.github.io/EMMA/
 
 ## Development
 
