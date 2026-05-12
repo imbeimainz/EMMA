@@ -419,7 +419,7 @@ EMMA_get_record(frankenstein_fea2)$extra
 
 Since the `EMMA_record` is attached as attribute to the original results objects,
 it can be preserved when integrating results into structured containers
-such as `DeeDeeExperiment` TODO link with BiocPkg? + link to citation, let's ride the wave!. This enables both FEA results and
+such as `r BiocStyle::Biocpkg("DeeDeeExperiment")` [@Abassi2026]. This enables both FEA results and
 their associated provenance information to be stored and managed together,
 facilitating reproducibility, organization, and sharing of complex omics analyses.
 
@@ -427,7 +427,8 @@ facilitating reproducibility, organization, and sharing of complex omics analyse
 dde <- DeeDeeExperiment::DeeDeeExperiment(sce = dds_macrophage,
                                           de_results = IFNg_vs_naive,
                                           enrich_results =  list(
-                                            IFNg_vs_naive = fea_res_no_param))
+                                            IFNg_vs_naive = fea_res_no_param)
+                                          )
 
 fea <- DeeDeeExperiment::getFEA(dde, format = "original")
 
