@@ -1,4 +1,4 @@
-# EMMA
+# EMMA - Enrichment Methods MAtter
 
 EMMA enables the execution of Functional Enrichment Analyses using a wide range
 of existing tools (e.g. `clusterProfiler`, `topGO`, `gprofiler2` among others)

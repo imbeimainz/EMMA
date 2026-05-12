@@ -1,6 +1,6 @@
 ---
 title: >
-  The `EMMA` User's Guide
+  The `EMMA` User's Guide - Enrichment Method MAtters
 author:
 - name: Najla Abassi
   affiliation: 
@@ -34,11 +34,6 @@ editor_options:
 bibliography: EMMA_bibliography.bib
 ---
 
-<style type="text/css">
-.smaller {
-  font-size: 10px
-}
-</style>
 
 ```{r knitr, include = FALSE}
 knitr::opts_chunk$set(
@@ -55,21 +50,20 @@ knitr::opts_chunk$set(
 Functional Enrichment Analysis (FEA) is a key downstream step in omics workflows,
 commonly applied after differential expression analysis to support biological
 interpretation and generate pathway-level hypotheses. A wide range of tools and
-methods are available, mainly Over-Representation Analysis (ORA) [@Khatri2012] [doi:10.1371/journal.pcbi.1002375](https://doi.org/10.1371/journal.pcbi.1002375)
-and Gene Set Enrichment Analysis (GSEA) [@Subramanian2005] [doi:10.1073/pnas.0506580102](https://doi.org/10.1073/pnas.0506580102), leading
+methods are available, mainly Over-Representation Analysis (ORA) [@Khatri2012] 
+and Gene Set Enrichment Analysis (GSEA) [@Subramanian2005], leading
 to substantial heterogeneity in analytical choices and reported results.
 
-Despite its widespread use, FEA is often insufficiently documented [@Wijesooriya2022] 
-[doi:10.1371/journal.pcbi.1009935](https://doi.org/10.1371/journal.pcbi.1009935).
+Despite its widespread use, FEA is often insufficiently documented [@Wijesooriya2022].
 Critical parameters such as background gene sets or multiple testing correction
 methods are frequently missing or inconsistently reported in scientific papers,
 limiting reproducibility and interpretability. Currently, no standardized framework
 exists to ensure transparent and reproducible documentation of FEA workflows,
-comparable to the MIAME guidelines [@Brazma2001] 
-[doi:10.1038/ng1201-365]( https://doi.org/10.1038/ng1201-365).
+comparable to the MIAME guidelines [@Brazma2001].
 
-To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")`, a framework
-that automatically captures key analytical parameters and provenance information
+To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")` (standing for 
+**E**nrichment **M**ethods **MA**tters), a framework that automatically captures key 
+analytical parameters and provenance information
 during the execution of FEA methods.
 
 This vignette demonstrates how `EMMA` integrates with existing tools
@@ -137,12 +131,15 @@ Like: stepwise with bullet point
 Maybe a diagram that would show what EMMA puts in and avoids you to take notes of?
 
 
-# `EMMA` on the `macrophage` dataset
+
+# Usage example of `EMMA`: the `macrophage` dataset
+
+## About the data
 
 In the remainder of this vignette, we will illustrate the main features of `r BiocStyle::Biocpkg("EMMA")` on a publicly available dataset from Alasoo, et al. "Shared genetic effects on chromatin
 and gene expression indicate a role for enhancer priming in immune response",
 published in Nature Genetics, January 2018 
-[@Alasoo2018] [doi:10.1038/s41588-018-0046-7](https://doi.org/10.1038/s41588-018-0046-7).
+[@Alasoo2018].
 
 The data is made available via the `r BiocStyle::Biocpkg("macrophage")`
 Bioconductor package, which contains the files output from the Salmon
@@ -170,7 +167,7 @@ library("GO.db")
 We will show an example of how  `r BiocStyle::Biocpkg("EMMA")` fits into a
 regular bulk RNA-seq data analysis workflow.
 
-# Get a list of Differentially Expressed Genes
+## Getting a list of Differentially Expressed Genes
 
 For this, we will load the `macrophage` data and perform Differential Expression
 Analysis with `r BiocStyle::Biocpkg("DESeq2")`
@@ -206,15 +203,33 @@ de_res <- de_res[!(is.na(de_res$padj)) & de_res$padj <= 0.05, ]
 gene_universe <- rownames(dds_macrophage)
 ```
 
-# Perform Functional Enrichment Analysis (FEA) 
-
-## `EMMA` with available common packages/functions
+## Performing Functional Enrichment Analysis (FEA) 
 
 Now that we have a list of DE genes for this contrast, we can perform Functional
-Enrichment Analysis. In the following example, we will use the
+Enrichment Analysis.  
+We do this first *without* the functionality provided by `EMMA`.
+
+In the following example, we will use the
 function `enrichGO()` from `r BiocStyle::Biocpkg("clusterProfiler")`
 
-### `EMMA_run()` :Capturing the recorded information
+```{r withoutemma}
+fea_res <- enrichGO(gene = rownames(de_res),
+                    # TODO add universe, to have the first one "done right"
+                    keyType = "ENSEMBL",
+                    OrgDb = org.Hs.eg.db,
+                    ont = "BP",
+                    pAdjustMethod = "BH",
+                    pvalueCutoff = 0.05,
+                    qvalueCutoff = 0.1)
+```
+
+# Entering the `EMMA` framework
+
+From now on, we will complement the existing workflow with the functionality 
+provided by `EMMA`.
+
+
+## `EMMA_run()`: Capturing the recorded information
 
 `EMMA_run()` accepts a function call (e.g. `enrichGO(...)`) and executes it as
 it is, while capturing the associated parameters and provenance information:
@@ -222,6 +237,7 @@ it is, while capturing the associated parameters and provenance information:
 ```{r EMMA_run_1}
 # perform FEA, but with EMMA!
 fea_res <- enrichGO(gene = rownames(de_res),
+                    # TODO add universe, to have the first one "done right"
                     keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db,
                     ont = "BP",
@@ -238,23 +254,27 @@ fea_res
 ```{r EMMA_run_2, eval=FALSE}
 # you can also pass the function name and its namespace
 # e.g. `clusterProfiler::enrichGO(...)`
-fea_res <- EMMA_run(clusterProfiler::enrichGO(
-                    gene = rownames(de_res),
-                    keyType = "ENSEMBL",
-                    OrgDb = org.Hs.eg.db,
-                    ont = "BP",
-                    pAdjustMethod = "BH",
-                    pvalueCutoff = 0.05,
-                    qvalueCutoff = 0.1,
-                    readable = TRUE))
+fea_res <- EMMA_run(
+  clusterProfiler::enrichGO(
+    gene = rownames(de_res),
+    keyType = "ENSEMBL",
+    OrgDb = org.Hs.eg.db,
+    ont = "BP",
+    pAdjustMethod = "BH",
+    pvalueCutoff = 0.05,
+    qvalueCutoff = 0.1,
+    readable = TRUE
+  )
+)
 ```
 
 As you can see, `EMMA` returns the FEA results in their **native/standard** format.
 `EMMA` also warns you about good practices when performing FEA, like in this
 example, we didn't define a list of background genes (which can influence the 
-results), so we get warned about that.
+results leading e.g. to a larger amount of false discoveries, as a consequence 
+of over-optimistic smaller p-values [@Wijesooriya2022]), so we get warned about that.
 
-### `EMMA_show()` : Summarizing the recorded information
+## `EMMA_show()`: Summarizing the recorded information
 
 To get a quick summary of what `EMMA` captured while we ran the analysis, we use
 `EMMA_show()`:
@@ -267,11 +287,22 @@ EMMA_show(fea_res)
 results object. That's why it is always a good practice to save the original
 results, and not only the subsets of interest.
 
-### `EMMA_get_record()` : Retrieving the recorded information
+## `EMMA_get_record()`: Retrieving the recorded information
 
 To access the full recorded information, we use `EMMA_get_record()`:
 
+```{css}
+/*| echo: false */
+
+.scrollout {
+max-height: 500px;
+overflow-y: scroll;
+}
+```
+
 ```{r EMMA_get_record}
+#| class-output: scrollout
+
 emma_record <- EMMA_get_record(fea_res)
 
 # get all the record
@@ -313,6 +344,8 @@ used in our call or not. This can be useful, for example, to avoid unnecessarily
 increasing the size of the result object. For this, we can use the argument `args_form`:
 
 ```{r argument_form}
+#| class-output: scrollout
+
 fea_res_no_param <- enrichGO(gene = rownames(de_res),
                              universe = gene_universe,
                              keyType = "ENSEMBL",
@@ -332,7 +365,7 @@ EMMA_get_record(fea_res_no_param)
 We can also choose whether to save the R session information with the record
 using the argument `store_session_info`, which defaults to `TRUE`.
 
-### `EMMA_explain()`: Summarizing recorded information into text
+## `EMMA_explain()`: Summarizing recorded information into text
 
 `EMMA_explain()` generates a human-readable description of the FEA, similar
 to a Materials and Methods section of a paper, by summarizing the executed call,
@@ -349,11 +382,13 @@ You can also use a custom function that you developed, or a wrapper function
 `EMMA_run()` will attempt to capture as much metadata as possible:
 
 ```{r mosdef_eg}
+#| class-output: scrollout
+
 mosdef_fea_res <- mosdef::run_goseq(de_genes = rownames(de_res),
-                             bg_genes = gene_universe,
-                             mapping = "org.Hs.eg.db",
-                             id = "ensGene",
-                             genome = "hg19") |> 
+                                    bg_genes = gene_universe,
+                                    mapping = "org.Hs.eg.db",
+                                    id = "ensGene",
+                                    genome = "hg19") |> 
   EMMA_run(store_session_info = FALSE,
            args_form = "unevaluated")
 
@@ -362,6 +397,8 @@ EMMA_get_record(mosdef_fea_res)
 ```
 
 ```{r custom_eg}
+#| class-output: scrollout
+
 # a custom function (not from a package)
 my_custom_function <- function(gene, universe = NULL,
                                ontology = "BP", id_type = "ENTREZID",
@@ -399,39 +436,44 @@ frankenstein_fea <- my_custom_function(
 EMMA_get_record(frankenstein_fea)
 ```
 
-# `EMMA_add_custom_metadata()`: Adding extra information
+## `EMMA_add_custom_metadata()`: Adding extra information
 
 The user can always attach extra metadata that `EMMA` might not be able to
 capture automatically. To keep everything organized, we can use
 `EMMA_add_custom_metadata()` function
 
 ```{r add_custom_metadata}
+#| class-output: scrollout
+
 frankenstein_fea2 <- EMMA_add_custom_metadata(res = frankenstein_fea,
-                                             extra = list(
-                                               wrapped_function_topGO = "runTest",
-                                               notes = "any other meaningful info"))
+                                              extra = list(
+                                                wrapped_function_topGO = "runTest",
+                                                notes = "any other meaningful info"))
 
 EMMA_get_record(frankenstein_fea2)$extra
 ```
 
 Since the `EMMA_record` is attached as attribute to the original results objects,
 it can be preserved when integrating results into structured containers
-such as `DeeDeeExperiment`. This enables both FEA results and
+such as `r BiocStyle::Biocpkg("DeeDeeExperiment")` [@Abassi2026]. This enables both FEA results and
 their associated provenance information to be stored and managed together,
 facilitating reproducibility, organization, and sharing of complex omics analyses.
 
 ```{r emma_and_dde}
+#| class-output: scrollout
+
 dde <- DeeDeeExperiment::DeeDeeExperiment(sce = dds_macrophage,
                                           de_results = IFNg_vs_naive,
                                           enrich_results =  list(
-                                            IFNg_vs_naive = fea_res_no_param))
+                                            IFNg_vs_naive = fea_res_no_param)
+                                          )
 
 fea <- DeeDeeExperiment::getFEA(dde, format = "original")
 
 EMMA_get_record(fea)
 ```
 
-# `EMMA_freeze()`: Recording the Analysis Environment
+## `EMMA_freeze()`: Recording the Analysis Environment
 
 `EMMA_freeze()` records the R environment at the time of analysis by generating
 a lockfile using `renv`. By default, the snapshot is created with `force = TRUE`,
@@ -443,19 +485,29 @@ used in practice, rather than attempting to enforce a fully consistent state.
 
 ```{r EMMA_freeze}
 if (requireNamespace("renv", quietly = TRUE)) {
-   project_path <- tempfile("my_project_with_emma")
-   dir.create(project_path)
-EMMA_freeze(project = project_path,
-            file = "analysis.lock",
-            pkgs = loadedNamespaces(),
-            prompt = FALSE,
-            force = TRUE)
+  project_path <- tempfile("my_project_with_emma")
+  dir.create(project_path)
+  EMMA_freeze(project = project_path,
+              file = "analysis.lock",
+              pkgs = loadedNamespaces(),
+              prompt = FALSE,
+              force = TRUE)
 }
 ```
 
-# Session info {.unnumbered .smaller}
+# Session info {.unnumbered}
+
+```{css}
+/*| echo: false */
+
+.smaller {
+  font-size: 10px
+}
+```
 
 ```{r sessioinfo}
+#| class-output: smaller
+
 sessionInfo()
 ```
 
