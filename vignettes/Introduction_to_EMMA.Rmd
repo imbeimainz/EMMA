@@ -50,18 +50,16 @@ knitr::opts_chunk$set(
 Functional Enrichment Analysis (FEA) is a key downstream step in omics workflows,
 commonly applied after differential expression analysis to support biological
 interpretation and generate pathway-level hypotheses. A wide range of tools and
-methods are available, mainly Over-Representation Analysis (ORA) [@Khatri2012] [doi:10.1371/journal.pcbi.1002375](https://doi.org/10.1371/journal.pcbi.1002375)
-and Gene Set Enrichment Analysis (GSEA) [@Subramanian2005] [doi:10.1073/pnas.0506580102](https://doi.org/10.1073/pnas.0506580102), leading
+methods are available, mainly Over-Representation Analysis (ORA) [@Khatri2012] 
+and Gene Set Enrichment Analysis (GSEA) [@Subramanian2005], leading
 to substantial heterogeneity in analytical choices and reported results.
 
-Despite its widespread use, FEA is often insufficiently documented [@Wijesooriya2022] 
-[doi:10.1371/journal.pcbi.1009935](https://doi.org/10.1371/journal.pcbi.1009935).
+Despite its widespread use, FEA is often insufficiently documented [@Wijesooriya2022].
 Critical parameters such as background gene sets or multiple testing correction
 methods are frequently missing or inconsistently reported in scientific papers,
 limiting reproducibility and interpretability. Currently, no standardized framework
 exists to ensure transparent and reproducible documentation of FEA workflows,
-comparable to the MIAME guidelines [@Brazma2001] 
-[doi:10.1038/ng1201-365]( https://doi.org/10.1038/ng1201-365).
+comparable to the MIAME guidelines [@Brazma2001].
 
 To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")` (standing for 
 **E**nrichment **M**ethods **MA**tters), a framework that automatically captures key 
