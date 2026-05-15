@@ -99,6 +99,8 @@ While Bioconductor provides dedicated metadata slots for certain S4 classes
 result types. By relying on attributes, provenance information can be attached
 to any result object regardless of its underlying class.
 
+![](EMMA_workflow.png)
+
 # Getting started {#gettingstarted}
 
 To install this package, start R and enter:
@@ -117,27 +119,13 @@ as follows:
 library("EMMA")
 ```
 
-
-# A new section here: TODO?
-
-MAybe where we describe a schematics of the intuition overall?
-Like: stepwise with bullet point
-- run DE
-- run FEA as usual, passing the call (with a pipe or in a call itself) to EMMA_run
-- show how to retrieve info (just the names)
-- summarizing the info
-- explaining it
-(in my eyes, a "chunk not evaluated could be also good") + a figure would be fantastic with a simple diagram?
-Maybe a diagram that would show what EMMA puts in and avoids you to take notes of?
-
-
-
 # Usage example of `EMMA`: the `macrophage` dataset
 
 ## About the data
 
-In the remainder of this vignette, we will illustrate the main features of `r BiocStyle::Biocpkg("EMMA")` on a publicly available dataset from Alasoo, et al. "Shared genetic effects on chromatin
-and gene expression indicate a role for enhancer priming in immune response",
+In the remainder of this vignette, we will illustrate the main features of `r BiocStyle::Biocpkg("EMMA")` on a publicly available dataset from
+Alasoo, et al. "Shared genetic effects on chromatin and gene expression
+indicate a role for enhancer priming in immune response", 
 published in Nature Genetics, January 2018 
 [@Alasoo2018].
 
@@ -455,9 +443,10 @@ EMMA_get_record(frankenstein_fea2)$extra
 
 Since the `EMMA_record` is attached as attribute to the original results objects,
 it can be preserved when integrating results into structured containers
-such as `r BiocStyle::Biocpkg("DeeDeeExperiment")` [@Abassi2026]. This enables both FEA results and
-their associated provenance information to be stored and managed together,
-facilitating reproducibility, organization, and sharing of complex omics analyses.
+such as `r BiocStyle::Biocpkg("DeeDeeExperiment")` [@Abassi2026].
+This enables both FEA results and their associated provenance information
+to be stored and managed together, facilitating reproducibility, organization,
+and sharing of complex omics analyses.
 
 ```{r emma_and_dde}
 #| class-output: scrollout
