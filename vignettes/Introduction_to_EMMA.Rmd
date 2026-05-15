@@ -61,6 +61,14 @@ limiting reproducibility and interpretability. Currently, no standardized framew
 exists to ensure transparent and reproducible documentation of FEA workflows,
 comparable to the MIAME guidelines [@Brazma2001].
 
+Similar approaches have been developed outside the Bioconductor ecosystem to
+improve transparency and reproducibility in other analytical contexts.
+For example, `tidylog` records operations performed with `dplyr` and `tidyr`,
+while [`omicslog`](https://github.com/tidyomics/omicslog) tracks transformations
+applied to omics-oriented objects.
+However, no tool specifically addresses the metadata and provenance requirements
+of FEA workflows.
+
 To address this gap, we introduce `r BiocStyle::Biocpkg("EMMA")` (standing for 
 **E**nrichment **M**ethods **MA**tters), a framework that automatically captures key 
 analytical parameters and provenance information
