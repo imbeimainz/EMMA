@@ -100,6 +100,30 @@ test_that("test metadata content & structure", {
   expect_null(EMMA_get_record(empty)$annotation$gene_set_db_version)
   
   
+  geneList <- de_res_IFNg_vs_naive$log2FoldChange
+  names(geneList) <- rownames(de_res_IFNg_vs_naive)
+  geneList <- sort(geneList, decreasing = TRUE)
+  
+  expect_warning(gse_res <- gseGO( geneList = geneList, keyType = "ENSEMBL",
+                    OrgDb = org.Hs.eg.db, ont = "BP",
+                    minGSSize = 100, maxGSSize = 500,
+                    pvalueCutoff = 0.05, verbose = FALSE,
+                    pAdjustMethod = "BH") |>  EMMA_run())
+  
+  expect_equal(EMMA_get_record(gse_res)$method$function_name, "gseGO")
+  expect_null(EMMA_get_record(gse_res)$method$wrapped_function)
+  expect_null(EMMA_get_record(gse_res)$method$wrapped_package)
+  expect_equal(EMMA_get_record(gse_res)$annotation$gene_set_db, "GO")
+  
+  # pretending a function that doesn't exist in any package, so fallback
+  # to empty metadata
+  expect_warning(user_only_fea <- summary(as.data.frame(gse_res)) |> 
+    EMMA_run(store_session_info = FALSE, args_form = "unevaluated"))
+  
+  expect_null(EMMA_get_record(user_only_fea)$annotation$organism)
+  expect_null(EMMA_get_record(user_only_fea)$annotation$gene_set_db)
+  expect_null(EMMA_get_record(user_only_fea)$annotation$gene_set_db_version)
+  
 })
 
 
