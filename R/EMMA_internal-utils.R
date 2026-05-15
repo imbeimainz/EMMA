@@ -17,11 +17,11 @@
 #' (e.g. for `clusterProfiler`, `gprofiler2` ...) to standardize metadata
 #' collection across different enrichment tools
 #'
-#' @param info_call A list containing captured call information, including
-#' at least `function_name`, `package_name`, and the original `call`
-#'   
-#' @param args A list of evaluated arguments passed to the enrichment function 
 #' 
+#' @param call_class A named list returned by `.EMMA_classify_call()`. It must
+#' contain an `info_call` list with at least `function_name`, `package_name`,
+#' and the original `call`
+#' @param args A list of evaluated arguments passed to the enrichment function 
 #' @param envir The environment in which the original call was evaluated
 #' 
 #' @return A list containing annotation metadata(organism, gene set database and 
@@ -63,7 +63,6 @@
 #' 
 #' @param function_name A character string specifying the name of the
 #' `clusterProfiler` function used to perform FEA
-#'
 #' @param args A list containing the evaluated arguments passed into the
 #' function call to perform FEA 
 #' 
@@ -143,9 +142,6 @@
   return(meta)
 }
 
-
-### not tested yet since the kegg server is down and the function couldn't work
-
 #' This function assembles standardized metadata describing KEGG enrichment
 #' analyses performed with `clusterProfiler`. The metadata includes the
 #' organism, the geneset database used. The database version is currently not
@@ -212,10 +208,19 @@
 }
 
 
+#' This function retrieves metadata associated with FEAs performed using
+#' user-defined wrapper functions or fully custom functions
 #' 
+#' @param call_class A named list returned by `.EMMA_classify_call()`
+#' @param args A list of evaluated arguments passed to the enrichment function
+#' @param envir The environment in which the original call was evaluated
+#' 
+#' @return A named list
+#'
 #' @noRd
-.EMMA_get_custom_metadata <- function(call_class, args,
-                                     envir = parent.frame()) {
+.EMMA_get_custom_metadata <- function(call_class,
+                                      args,
+                                      envir = parent.frame()) {
   
   meta <- .EMMA_empty_metadata()
   
@@ -265,7 +270,7 @@
 
 
 
-# call info capture -----------------------------------------------------------------
+# call info capture ------------------------------------------------------------
 
 #' This function extracts call related metadata. It handles two call
 #' formats: bare function calls (e.g. `fun(...)`) and namespace-qualified
@@ -339,9 +344,9 @@
 }
 
 
-#' This function, used in in `.EMMA_walk()`, converts the head of a call into a character
-#' string representing the function being called. It supports both bare calls
-#' (e.g. `fun`) and namespace-qualified calls (e.g. `pkg::fun`)
+#' This function, used in in `.EMMA_walk()`, converts the head of a call into
+#' a character string representing the function being called. It supports both
+#' bare calls (e.g. `fun`) and namespace-qualified calls (e.g. `pkg::fun`)
 #'
 #' @param x The head of a call (the function being called)
 #' 
@@ -479,6 +484,11 @@
 
 #' decide if top-level function passed to EMMA_run is a known fun or a wrapper
 #'
+#' @param call A call object passed to `EMMA_run()`
+#' @param envir The environment in which `call` should be evaluated
+#' 
+#' @return A named list
+#'
 #' @noRd
 .EMMA_classify_call <- function(call, envir = parent.frame()) {
   # listing all the functions that are not wrappers
@@ -553,15 +563,15 @@
 #' to decide how to store the arguments
 #' @param metadata A list returned by `.EMMA_get_metadata()`
 #' @param start_time A timestamp marking when the enrichment analysis started
-#' @param store_session_info Logical. If `TRUE`, `sessionInfo()` is captured and stored in
-#' the record; if `FALSE` the `session_info` slot is `NULL`
+#' @param store_session_info Logical. If `TRUE`, `sessionInfo()` is captured
+#' and stored in the record; if `FALSE` the `session_info` slot is `NULL`
 #'  
 #' @return A named list of the recorded metadata
 #'   
 #' @noRd
 .EMMA_build_record <- function(info_call, args_form, metadata,
-                              wrapped_original, wrapper,
-                              start_time, store_session_info) {
+                               wrapped_original, wrapper,
+                               start_time, store_session_info) {
   emma_rec <- list(
                    method = list(
                      call = info_call$call,
@@ -584,8 +594,9 @@
                      gene_set_db_version = metadata$gene_set_db_version
                    ),
                    timestamp = start_time,
-                   session_info = if (isTRUE(store_session_info)) sessionInfo() else NULL,
-                   extra = list(),# free field for extra metadata (added by user)
+                   session_info = if (isTRUE(store_session_info)) sessionInfo() 
+                   else NULL,
+                   extra = list(),# free field for extra metadata added by user
                    emma_version = as.character(packageVersion(pkg = "EMMA"))
                    )
   
