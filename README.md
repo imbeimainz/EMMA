@@ -23,11 +23,11 @@ remotes::install_github("imbeimainz/EMMA",
 library(EMMA)
 # load data
 data("de_res_IFNg_vs_naive", package = "EMMA")
-data("universe", package = "EMMA")
+data("gene_universe", package = "EMMA")
 
 # run analysis
 fea_results <- enrichGO(gene = rownames(de_res_IFNg_vs_naive),
-                        universe = universe,
+                        universe = gene_universe,
                         keyType = "ENSEMBL",
                         OrgDb = org.Hs.eg.db,
                         ont = "BP") |> 

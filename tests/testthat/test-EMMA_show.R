@@ -62,7 +62,8 @@ test_that("EMMA_show", {
     method = list(
       call = substitute(gost(query = de_res_IFNg_vs_naive$SYMBOL,
                              organism = "hsapiens",
-                             correction_method = "fdr", custom_bg = universe,
+                             correction_method = "fdr",
+                             custom_bg = gene_universe,
                              sources = "GO:BP")),
       wrapper = FALSE,
       package_name = "gprofiler2",

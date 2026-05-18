@@ -31,11 +31,11 @@
 #'
 #' @examples
 #' data("de_res_IFNg_vs_naive", package = "EMMA")
-#' data("universe", package = "EMMA")
+#' data("gene_universe", package = "EMMA")
 #' library(gprofiler2)
 #' 
 #' EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
-#'   correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+#'   correction_method = "fdr", custom_bg = gene_universe, sources = "GO:BP"),
 #'   store_session_info = FALSE, args_form = "unevaluated")
 EMMA_run <- function(expr,
                      envir = parent.frame(),

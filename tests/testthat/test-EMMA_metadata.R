@@ -2,7 +2,7 @@ test_that("test metadata content & structure", {
   
   fea_res <- EMMA_run(mosdef::run_cluPro(de_genes = 
                                            rownames(de_res_IFNg_vs_naive),
-                                         bg_genes = universe,
+                                         bg_genes = gene_universe,
                                          mapping = "org.Hs.eg.db",
                                          keyType = "ENSEMBL",
                                          ont = "BP",
@@ -24,7 +24,7 @@ test_that("test metadata content & structure", {
   expect_true(emma_rec$method$wrapper)
   
   expect_null(.EMMA_find_original_wrapped_fun("mosdef::run_cluPro(de_genes = rownames(de_res_IFNg_vs_naive),
-                                                                bg_genes = universe,
+                                                                bg_genes = gene_universe,
                                                                 mapping = 'org.Hs.eg.db',
                                                                 keyType = 'ENSEMBL',
                                                                 ont = 'BP')"))
@@ -36,7 +36,7 @@ test_that("test metadata content & structure", {
   
   
   expect_warning(res <- EMMA_run(mosdef::run_goseq(de_genes = rownames(de_res_IFNg_vs_naive),
-                                   bg_genes = universe,
+                                   bg_genes = gene_universe,
                                    mapping = "org.Hs.eg.db",
                                    id = "ensGene",
                                    genome = "hg19")))
@@ -66,7 +66,7 @@ test_that("test metadata content & structure", {
   fea_res <- gprofiler2::gost(query = de_res_IFNg_vs_naive$SYMBOL,
                               organism = "hsapiens",
                               correction_method = "fdr",
-                              custom_bg = universe) |> EMMA_run()
+                              custom_bg = gene_universe) |> EMMA_run()
   
   rec <- EMMA_get_record(fea_res)
   

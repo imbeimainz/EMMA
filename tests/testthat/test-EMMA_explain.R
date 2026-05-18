@@ -37,7 +37,7 @@ test_that("EMMA_explain", {
   
   
   res_topGO <- run_topGO(de_genes = rownames(de_res),
-                         bg_genes = universe,
+                         bg_genes = gene_universe,
                          ontology = "BP",
                          gene_id = "ENSEMBL",
                          mapping = "org.Hs.eg.db",

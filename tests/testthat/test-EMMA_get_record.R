@@ -4,7 +4,7 @@ test_that("EMMA_get_record", {
   
   fea_no_emma <- mosdef::run_cluPro(de_genes = 
                                       rownames(de_res_IFNg_vs_naive),
-                                    bg_genes = universe,
+                                    bg_genes = gene_universe,
                                     mapping = "org.Hs.eg.db",
                                     keyType = "ENSEMBL",
                                     ont = "BP",

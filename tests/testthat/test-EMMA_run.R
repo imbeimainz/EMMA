@@ -6,7 +6,7 @@ test_that("EMMA_run", {
                                pAdjustMethod = "BH",
                                pvalueCutoff = 0.05,
                                qvalueCutoff = 0.1,
-                               universe = universe,
+                               universe = gene_universe,
                                readable = TRUE))
   expect_s4_class(fea_res, "enrichResult")
   
@@ -22,7 +22,7 @@ test_that("EMMA_run", {
                                                      pAdjustMethod = "BH",
                                                      pvalueCutoff = 0.05,
                                                      qvalueCutoff = 0.1,
-                                                     universe = universe,
+                                                     universe = gene_universe,
                                                      readable = TRUE)))
   
   expect_type(info, "list")
@@ -35,7 +35,7 @@ test_that("EMMA_run", {
                         pAdjustMethod = "BH",
                         pvalueCutoff = 0.05,
                         qvalueCutoff = 0.1,
-                        universe = universe,
+                        universe = gene_universe,
                         readable = TRUE))
   
   expect_error(EMMA_run("enrichGO(gene = rownames(de_res_IFNg_vs_naive),
@@ -48,7 +48,7 @@ test_that("EMMA_run", {
                         pAdjustMethod = "BH",
                         pvalueCutoff = 0.05,
                         qvalueCutoff = 0.1,
-                        universe = universe,
+                        universe = gene_universe,
                         readable = TRUE))
   
   expect_warning(EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
@@ -56,7 +56,7 @@ test_that("EMMA_run", {
                           OrgDb = org.Hs.eg.db,
                           pvalueCutoff = 0.05,
                           qvalueCutoff = 0.1,
-                          universe = universe,
+                          universe = gene_universe,
                           readable = TRUE)))
   
   expect_warning(EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive),
