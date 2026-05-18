@@ -20,3 +20,7 @@ EMMA_get_record
 data("fea_res", package = "EMMA")
 EMMA_get_record(fea_res)
 }
+\seealso{
+\code{\link[clusterProfiler:enrichGO]{enrichGO()}}, \code{\link[clusterProfiler:groupGO]{groupGO()}}, \code{\link[clusterProfiler:gseGO]{gseGO()}}, \code{\link[clusterProfiler:gseKEGG]{gseKEGG()}}, \code{\link[clusterProfiler:enrichKEGG]{enrichKEGG()}},
+\code{\link[gprofiler2:gost]{gost()}}, \code{\link[mosdef:run_cluPro]{run_cluPro()}}, \code{\link[mosdef:run_topGO]{run_topGO()}}, \code{\link[mosdef:run_goseq]{run_goseq()}}
+}

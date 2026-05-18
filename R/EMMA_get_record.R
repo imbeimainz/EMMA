@@ -5,6 +5,9 @@
 #'
 #' @return list of metadata recorded during FEA runtime
 #' @export
+#' 
+#' @seealso [enrichGO()], [groupGO()], [gseGO()], [gseKEGG()], [enrichKEGG()],
+#'  [gost()], [run_cluPro()], [run_topGO()], [run_goseq()]
 #'
 #' @examples
 #' data("fea_res", package = "EMMA")
