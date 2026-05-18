@@ -9,7 +9,7 @@ dds_macrophage
 # DE run
 # set seed for reproducibility
 set.seed(2711)
-# sample randomly for 2k genes
+# sample randomly for 500 genes
 selected_genes <- sample(rownames(dds_macrophage), 500)
 
 dds_macrophage <- dds_macrophage[selected_genes, ]
@@ -42,12 +42,12 @@ library("gprofiler2")
 fea_res <- gprofiler2::gost(query = de_res_IFNg_vs_naive$SYMBOL,
                             organism = "hsapiens",
                             correction_method = "fdr",
-                            custom_bg = universe,
+                            custom_bg = gene_universe,
                             sources = "GO:BP") |> EMMA_run(
                               store_session_info = FALSE,
                               args_form = "unevaluated")
 
 save(de_res_IFNg_vs_naive, file = "de_res_IFNg_vs_naive.RData", compress = "xz")
-save(universe, file = "universe.RData", compress = "xz")
+save(gene_universe, file = "gene_universe.RData", compress = "xz")
 save(fea_res, file = "fea_res.RData", compress = "xz")
 

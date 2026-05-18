@@ -40,7 +40,7 @@ NULL
 #' expression indicate a role for enhancer priming in immune response",
 #' Nature Genetics, January 2018 doi: 10.1038/s41588-018-0046-7.
 #'
-#' @name universe
+#' @name gene_universe
 #' @docType data
 NULL
 
