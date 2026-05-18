@@ -492,6 +492,16 @@ if (requireNamespace("renv", quietly = TRUE)) {
 }
 ```
 
+# Supported methods and future extensions
+
+`EMMA` currently provides metadata capture support for several commonly used
+FEA tools, including methods from `r BiocStyle::Biocpkg("clusterProfiler")`,
+`r BiocStyle::Biocpkg("gprofiler2")`, and related wrappers/custom functions
+such as `r BiocStyle::Biocpkg("mosdef")`.
+
+`EMMA` is designed to be extensible, and support for additional FEA methods
+and packages will continue to expand over time.
+
 # Session info {.unnumbered}
 
 ```{css}
