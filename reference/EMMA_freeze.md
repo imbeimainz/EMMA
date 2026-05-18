@@ -138,7 +138,6 @@ list.files(tmp)
 #> - SummarizedExperiment   [* -> 1.43.0]
 #> - UCSC.utils             [* -> 1.9.0]
 #> - XVector                [* -> 0.53.0]
-#> - apeglm                 [* -> 1.35.0]
 #> - biocViews              [* -> 1.81.0]
 #> - biomaRt                [* -> 2.69.0]
 #> - cigarillo              [* -> 1.3.0]
@@ -172,8 +171,6 @@ list.files(tmp)
 #> - RUnit                  [* -> 0.4.33.1]
 #> - Rcpp                   [* -> 1.1.1-1.1]
 #> - RcppArmadillo          [* -> 15.2.6-1]
-#> - RcppEigen              [* -> 0.3.4.0.2]
-#> - RcppNumerical          [* -> 0.7-0]
 #> - S7                     [* -> 0.2.2]
 #> - SparseM                [* -> 1.84-2]
 #> - XML                    [* -> 3.99-0.23]
@@ -183,8 +180,6 @@ list.files(tmp)
 #> - aplot                  [* -> 0.2.9]
 #> - askpass                [* -> 1.2.1]
 #> - base64enc              [* -> 0.1-6]
-#> - bbmle                  [* -> 1.0.25.1]
-#> - bdsmatrix              [* -> 1.3-7]
 #> - bit                    [* -> 4.6.0]
 #> - bit64                  [* -> 4.8.0]
 #> - bitops                 [* -> 1.0-9]
@@ -198,10 +193,8 @@ list.files(tmp)
 #> - cli                    [* -> 3.6.6]
 #> - clipr                  [* -> 0.8.0]
 #> - cluster                [* -> 2.1.8.2]
-#> - coda                   [* -> 0.19-4.1]
 #> - codetools              [* -> 0.2-20]
 #> - commonmark             [* -> 2.0.0]
-#> - covr                   [* -> 3.6.5]
 #> - cpp11                  [* -> 0.5.5]
 #> - crayon                 [* -> 1.5.3]
 #> - credentials            [* -> 2.0.3]
@@ -217,7 +210,6 @@ list.files(tmp)
 #> - downlit                [* -> 0.4.5]
 #> - dplyr                  [* -> 1.2.1]
 #> - ellipsis               [* -> 0.3.3]
-#> - emdbook                [* -> 1.3.14]
 #> - enrichit               [* -> 0.1.4]
 #> - evaluate               [* -> 1.0.5]
 #> - fansi                  [* -> 1.0.7]
@@ -277,9 +269,7 @@ list.files(tmp)
 #> - mgcv                   [* -> 1.9-4]
 #> - mime                   [* -> 0.13]
 #> - miniUI                 [* -> 0.1.2]
-#> - mvtnorm                [* -> 1.3-7]
 #> - nlme                   [* -> 3.1-169]
-#> - numDeriv               [* -> 2016.8-1.1]
 #> - openssl                [* -> 2.4.0]
 #> - otel                   [* -> 0.2.0]
 #> - pak                    [* -> 0.9.5]
@@ -308,7 +298,6 @@ list.files(tmp)
 #> - renv                   [* -> 1.2.2]
 #> - reshape2               [* -> 1.4.5]
 #> - restfulr               [* -> 0.0.16]
-#> - rex                    [* -> 1.2.2]
 #> - rjson                  [* -> 0.2.23]
 #> - rlang                  [* -> 1.2.0]
 #> - rmarkdown              [* -> 2.31]
@@ -364,8 +353,8 @@ list.files(tmp)
 #> The version of R recorded in the lockfile will be updated:
 #> - R                      [* -> 4.6.0]
 #> 
-#> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//Rtmp9nEzn5/emma_env149cb302cdb11/renv.lock".
-#> ℹ Environment snapshot saved to: "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//Rtmp9nEzn5/emma_env149cb302cdb11/renv.lock". 
+#> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpBOWOZS/emma_envcdf2a935e17/renv.lock".
+#> ℹ Environment snapshot saved to: "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpBOWOZS/emma_envcdf2a935e17/renv.lock". 
 #> To recreate this environment, use `renv::restore()`.
 #> [1] "renv.lock"
 ```

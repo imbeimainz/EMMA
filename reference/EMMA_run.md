@@ -62,12 +62,11 @@ enrichment function.
 
 ``` r
 data("de_res_IFNg_vs_naive", package = "EMMA")
-data("universe", package = "EMMA")
-#> Warning: data set ‘universe’ not found
+data("gene_universe", package = "EMMA")
 library(gprofiler2)
 
 EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
-  correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+  correction_method = "fdr", custom_bg = gene_universe, sources = "GO:BP"),
   store_session_info = FALSE, args_form = "unevaluated")
 #> ℹ Running Enrichment Analysis with  "gost" ...
 #> Detected custom background input, domain scope is set to 'custom'.
@@ -468,7 +467,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> 
 #> 
 #> $meta$timestamp
-#> [1] "2026-05-18T10:39:46.986402+00:00"
+#> [1] "2026-05-18T10:54:44.602369+00:00"
 #> 
 #> $meta$version
 #> [1] "e114_eg62_p19_27110d83"
@@ -478,7 +477,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> attr(,"EMMA_record")$method
 #> attr(,"EMMA_record")$method$call
 #> gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens", 
-#>     correction_method = "fdr", custom_bg = universe, sources = "GO:BP")
+#>     correction_method = "fdr", custom_bg = gene_universe, sources = "GO:BP")
 #> 
 #> attr(,"EMMA_record")$method$function_name
 #> [1] "gost"
@@ -511,7 +510,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> [1] "fdr"
 #> 
 #> attr(,"EMMA_record")$input$arguments$custom_bg
-#> universe
+#> gene_universe
 #> 
 #> attr(,"EMMA_record")$input$arguments$sources
 #> [1] "GO:BP"
@@ -531,7 +530,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> 
 #> 
 #> attr(,"EMMA_record")$timestamp
-#> [1] "2026-05-18 12:39:46 CEST"
+#> [1] "2026-05-18 12:54:43 CEST"
 #> 
 #> attr(,"EMMA_record")$session_info
 #> NULL

@@ -77,11 +77,11 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/imbeimainz/EMMA" class="external-link">EMMA</a></span><span class="op">)</span></span>
 <span><span class="co"># load data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"de_res_IFNg_vs_naive"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"universe"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"gene_universe"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># run analysis</span></span>
 <span><span class="va">fea_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">de_res_IFNg_vs_naive</span><span class="op">)</span>,</span>
-<span>                        universe <span class="op">=</span> <span class="va">universe</span>,</span>
+<span>                        universe <span class="op">=</span> <span class="va">gene_universe</span>,</span>
 <span>                        keyType <span class="op">=</span> <span class="st">"ENSEMBL"</span>,</span>
 <span>                        OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span>,</span>
 <span>                        ont <span class="op">=</span> <span class="st">"BP"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>

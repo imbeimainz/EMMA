@@ -245,7 +245,7 @@ fea_res
     #>  $ pvalue        : num  5.82e-40 3.27e-22 3.03e-21 2.06e-20 4.48e-20 ...
     #>  $ p.adjust      : num  3.08e-36 8.67e-19 5.34e-18 2.72e-17 4.75e-17 ...
     #>  $ qvalue        : num  3.08e-36 8.67e-19 5.34e-18 2.72e-17 4.75e-17 ...
-    #>  $ geneID        : chr  "ENSG00000196735/ENSG00000223865/ENSG00000137078/ENSG00000104951/ENSG00000120337/ENSG00000153898/ENSG00000163599"| __truncated__ "ENSG00000104951/ENSG00000035720/ENSG00000120337/ENSG00000282608/ENSG00000183734/ENSG00000173369/ENSG00000213809"| __truncated__ "ENSG00000196735/ENSG00000223865/ENSG00000241106/ENSG00000204257/ENSG00000139192/ENSG00000163131/ENSG00000204632"| __truncated__ "ENSG00000196735/ENSG00000223865/ENSG00000241106/ENSG00000204257/ENSG00000163131/ENSG00000204632/ENSG00000166710"| __truncated__ ...
+    #>  $ geneID        : chr  "ENSG00000117090/ENSG00000196126/ENSG00000137496/ENSG00000204287/ENSG00000096968/ENSG00000213809/ENSG00000041880"| __truncated__ "ENSG00000090339/ENSG00000117090/ENSG00000196126/ENSG00000204287/ENSG00000213809/ENSG00000041880/ENSG00000068079"| __truncated__ "ENSG00000196126/ENSG00000204287/ENSG00000179344/ENSG00000232629/ENSG00000223865/ENSG00000231389/ENSG00000241106"| __truncated__ "ENSG00000196126/ENSG00000204287/ENSG00000179344/ENSG00000232629/ENSG00000223865/ENSG00000231389/ENSG00000241106"| __truncated__ ...
     #>  $ Count         : int  100 84 30 25 59 23 77 17 17 84 ...
     #> #...Citation
     #> S Xu, E Hu, Y Cai, Z Xie, X Luo, L Zhan, W Tang, Q Wang, B Liu, R Wang, W Xie, T Wu, L Xie, G Yu. Using clusterProfiler to characterize multiomics data. Nature Protocols. 2024, 19(11):3292-3320
@@ -5119,7 +5119,7 @@ emma_record
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-18 12:40:51 CEST"
+#> [1] "2026-05-18 12:55:49 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -5359,7 +5359,7 @@ EMMA_get_record(fea_res_no_param)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-18 12:41:15 CEST"
+#> [1] "2026-05-18 12:56:13 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -5576,7 +5576,7 @@ EMMA_get_record(mosdef_fea_res)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-18 12:41:25 CEST"
+#> [1] "2026-05-18 12:56:23 CEST"
 #> 
 #> $session_info
 #> NULL
@@ -5695,7 +5695,7 @@ EMMA_get_record(frankenstein_fea)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-18 12:41:36 CEST"
+#> [1] "2026-05-18 12:56:35 CEST"
 #> 
 #> $session_info
 #> NULL
@@ -5822,7 +5822,7 @@ EMMA_get_record(fea)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-18 12:41:15 CEST"
+#> [1] "2026-05-18 12:56:13 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -6177,7 +6177,7 @@ if (requireNamespace("renv", quietly = TRUE)) {
     #> The version of R recorded in the lockfile will be updated:
     #> - R                      [* -> 4.6.0]
     #> 
-    #> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//Rtmprlhra7/my_project_with_emmac1c330ede44/analysis.lock".
+    #> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpikxZWk/my_project_with_emma14beffe85ff/analysis.lock".
 
 ## Session info
 
