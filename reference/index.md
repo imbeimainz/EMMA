@@ -28,7 +28,7 @@
   A sample `list` containing Functional Enrichment Analysis results,
   generated with `gprofiler2`
 
-- [`universe`](universe.md) :
+- [`gene_universe`](gene_universe.md) :
 
   A sample `character vector` containing the background gene list used
   to perform FEA on the `macrophage` dataset

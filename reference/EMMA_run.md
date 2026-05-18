@@ -63,11 +63,12 @@ enrichment function.
 ``` r
 data("de_res_IFNg_vs_naive", package = "EMMA")
 data("universe", package = "EMMA")
+#> Warning: data set ‘universe’ not found
 library(gprofiler2)
 
 EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
-correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
-store_session_info = FALSE, args_form = "unevaluated")
+  correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+  store_session_info = FALSE, args_form = "unevaluated")
 #> ℹ Running Enrichment Analysis with  "gost" ...
 #> Detected custom background input, domain scope is set to 'custom'.
 #> $result
@@ -467,7 +468,7 @@ store_session_info = FALSE, args_form = "unevaluated")
 #> 
 #> 
 #> $meta$timestamp
-#> [1] "2026-05-12T11:07:34.083326+00:00"
+#> [1] "2026-05-18T10:39:46.986402+00:00"
 #> 
 #> $meta$version
 #> [1] "e114_eg62_p19_27110d83"
@@ -530,7 +531,7 @@ store_session_info = FALSE, args_form = "unevaluated")
 #> 
 #> 
 #> attr(,"EMMA_record")$timestamp
-#> [1] "2026-05-12 13:07:33 CEST"
+#> [1] "2026-05-18 12:39:46 CEST"
 #> 
 #> attr(,"EMMA_record")$session_info
 #> NULL

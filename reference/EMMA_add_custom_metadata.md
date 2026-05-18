@@ -32,5 +32,5 @@ The input result object with updated `EMMA_record` attribute
 ``` r
 data("fea_res", package = "EMMA")
 fea_res <- EMMA_add_custom_metadata(fea_res, extra =
-list(note = "The background gene set list was all expressed genes in the assay"))
+  list(note = "The background gene set list was all expressed genes in the assay"))
 ```

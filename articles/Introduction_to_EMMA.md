@@ -18,6 +18,15 @@ and interpretability. Currently, no standardized framework exists to
 ensure transparent and reproducible documentation of FEA workflows,
 comparable to the MIAME guidelines (Brazma et al. 2001).
 
+Similar approaches have been developed outside the Bioconductor
+ecosystem to improve transparency and reproducibility in other
+analytical contexts. For example, `tidylog` records operations performed
+with `dplyr` and `tidyr`, while
+[`omicslog`](https://github.com/tidyomics/omicslog) tracks
+transformations applied to omics-oriented objects. However, no tool
+specifically addresses the metadata and provenance requirements of FEA
+workflows.
+
 To address this gap, we introduce
 *[EMMA](https://bioconductor.org/packages/3.24/EMMA)* (standing for
 **E**nrichment **M**ethods **MA**tters), a framework that automatically
@@ -65,6 +74,8 @@ these are not consistently available across all enrichment result types.
 By relying on attributes, provenance information can be attached to any
 result object regardless of its underlying class.
 
+![](EMMA_workflow.png)
+
 ## Getting started
 
 To install this package, start R and enter:
@@ -84,16 +95,6 @@ workspace as follows:
 
 library("EMMA")
 ```
-
-## A new section here: TODO?
-
-MAybe where we describe a schematics of the intuition overall? Like:
-stepwise with bullet point - run DE - run FEA as usual, passing the call
-(with a pipe or in a call itself) to EMMA_run - show how to retrieve
-info (just the names) - summarizing the info - explaining it (in my
-eyes, a “chunk not evaluated could be also good”) + a figure would be
-fantastic with a simple diagram? Maybe a diagram that would show what
-EMMA puts in and avoids you to take notes of?
 
 ## Usage example of `EMMA`: the `macrophage` dataset
 
@@ -244,7 +245,7 @@ fea_res
     #>  $ pvalue        : num  5.82e-40 3.27e-22 3.03e-21 2.06e-20 4.48e-20 ...
     #>  $ p.adjust      : num  3.08e-36 8.67e-19 5.34e-18 2.72e-17 4.75e-17 ...
     #>  $ qvalue        : num  3.08e-36 8.67e-19 5.34e-18 2.72e-17 4.75e-17 ...
-    #>  $ geneID        : chr  "ENSG00000196735/ENSG00000158481/ENSG00000117090/ENSG00000204632/ENSG00000166710/ENSG00000223865/ENSG00000137496"| __truncated__ "ENSG00000090339/ENSG00000158481/ENSG00000117090/ENSG00000204632/ENSG00000166710/ENSG00000158477/ENSG00000104951"| __truncated__ "ENSG00000196735/ENSG00000204632/ENSG00000166710/ENSG00000223865/ENSG00000204525/ENSG00000204592/ENSG00000241106"| __truncated__ "ENSG00000196735/ENSG00000158481/ENSG00000204632/ENSG00000166710/ENSG00000223865/ENSG00000158477/ENSG00000204525"| __truncated__ ...
+    #>  $ geneID        : chr  "ENSG00000196735/ENSG00000223865/ENSG00000137078/ENSG00000104951/ENSG00000120337/ENSG00000153898/ENSG00000163599"| __truncated__ "ENSG00000104951/ENSG00000035720/ENSG00000120337/ENSG00000282608/ENSG00000183734/ENSG00000173369/ENSG00000213809"| __truncated__ "ENSG00000196735/ENSG00000223865/ENSG00000241106/ENSG00000204257/ENSG00000139192/ENSG00000163131/ENSG00000204632"| __truncated__ "ENSG00000196735/ENSG00000223865/ENSG00000241106/ENSG00000204257/ENSG00000163131/ENSG00000204632/ENSG00000166710"| __truncated__ ...
     #>  $ Count         : int  100 84 30 25 59 23 77 17 17 84 ...
     #> #...Citation
     #> S Xu, E Hu, Y Cai, Z Xie, X Luo, L Zhan, W Tang, Q Wang, B Liu, R Wang, W Xie, T Wu, L Xie, G Yu. Using clusterProfiler to characterize multiomics data. Nature Protocols. 2024, 19(11):3292-3320
@@ -256,8 +257,9 @@ your call:
 
 # you can also pass the function name and its namespace
 # e.g. `clusterProfiler::enrichGO(...)`
-fea_res <- EMMA_run(
+fea_res_nobg <- EMMA_run(
   clusterProfiler::enrichGO(
+    # no universe set
     gene = rownames(de_res),
     keyType = "ENSEMBL",
     OrgDb = org.Hs.eg.db,
@@ -5117,7 +5119,7 @@ emma_record
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-12 13:08:42 CEST"
+#> [1] "2026-05-18 12:40:51 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -5357,7 +5359,7 @@ EMMA_get_record(fea_res_no_param)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-12 13:08:52 CEST"
+#> [1] "2026-05-18 12:41:15 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -5467,7 +5469,7 @@ parameters, software context, and reference databases used.
 EMMA_explain(fea_res, get_citation = TRUE)
 ```
 
-    #> ℹ You can always complete your text with additional information from `getEMMARecord()`!
+    #> ℹ You can always complete your text with additional information from `EMMA_get_record()`!
 
     #> ℹ References:
 
@@ -5574,7 +5576,7 @@ EMMA_get_record(mosdef_fea_res)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-12 13:09:02 CEST"
+#> [1] "2026-05-18 12:41:25 CEST"
 #> 
 #> $session_info
 #> NULL
@@ -5593,7 +5595,6 @@ my_custom_function <- function(gene, universe = NULL,
                                ontology = "BP", id_type = "ENTREZID",
                                org_db_name = "org.Hs.eg.db", 
                                organism = "hsapiens") {
-  # a wrapper of a wrapper :D
   res1 <- mosdef::run_topGO(de_genes = gene,
                             bg_genes = gene_universe,
                             ontology = ontology,
@@ -5694,7 +5695,7 @@ EMMA_get_record(frankenstein_fea)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-12 13:09:14 CEST"
+#> [1] "2026-05-18 12:41:36 CEST"
 #> 
 #> $session_info
 #> NULL
@@ -5821,7 +5822,7 @@ EMMA_get_record(fea)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-12 13:08:52 CEST"
+#> [1] "2026-05-18 12:41:15 CEST"
 #> 
 #> $session_info
 #> R version 4.6.0 (2026-04-24)
@@ -6176,7 +6177,7 @@ if (requireNamespace("renv", quietly = TRUE)) {
     #> The version of R recorded in the lockfile will be updated:
     #> - R                      [* -> 4.6.0]
     #> 
-    #> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpR7GaAa/my_project_with_emma6739302e5142/analysis.lock".
+    #> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//Rtmprlhra7/my_project_with_emmac1c330ede44/analysis.lock".
 
 ## Session info
 

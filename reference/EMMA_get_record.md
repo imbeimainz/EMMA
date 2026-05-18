@@ -19,6 +19,18 @@ EMMA_get_record(res)
 
 list of metadata recorded during FEA runtime
 
+## See also
+
+[`enrichGO()`](https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html),
+[`groupGO()`](https://rdrr.io/pkg/clusterProfiler/man/groupGO.html),
+[`gseGO()`](https://rdrr.io/pkg/clusterProfiler/man/gseGO.html),
+[`gseKEGG()`](https://rdrr.io/pkg/clusterProfiler/man/gseKEGG.html),
+[`enrichKEGG()`](https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html),
+[`gost()`](https://rdrr.io/pkg/gprofiler2/man/gost.html),
+[`run_cluPro()`](https://rdrr.io/pkg/mosdef/man/run_cluPro.html),
+[`run_topGO()`](https://rdrr.io/pkg/mosdef/man/run_topGO.html),
+[`run_goseq()`](https://rdrr.io/pkg/mosdef/man/run_goseq.html)
+
 ## Examples
 
 ``` r

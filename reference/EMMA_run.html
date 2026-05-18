@@ -108,11 +108,12 @@ internally invoke a know enrichment function.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"de_res_IFNg_vs_naive"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"universe"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>data set ‘universe’ not found</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gprofiler2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">EMMA_run</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/gprofiler2/man/gost.html" class="external-link">gost</a></span><span class="op">(</span>query <span class="op">=</span> <span class="va">de_res_IFNg_vs_naive</span><span class="op">$</span><span class="va">SYMBOL</span>, organism <span class="op">=</span> <span class="st">"hsapiens"</span>,</span></span>
-<span class="r-in"><span>correction_method <span class="op">=</span> <span class="st">"fdr"</span>, custom_bg <span class="op">=</span> <span class="va">universe</span>, sources <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>store_session_info <span class="op">=</span> <span class="cn">FALSE</span>, args_form <span class="op">=</span> <span class="st">"unevaluated"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  correction_method <span class="op">=</span> <span class="st">"fdr"</span>, custom_bg <span class="op">=</span> <span class="va">universe</span>, sources <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  store_session_info <span class="op">=</span> <span class="cn">FALSE</span>, args_form <span class="op">=</span> <span class="st">"unevaluated"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Running Enrichment Analysis with  <span style="color: #0000BB;">"gost"</span> ...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Detected custom background input, domain scope is set to 'custom'.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $result</span>
@@ -512,7 +513,7 @@ internally invoke a know enrichment function.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $meta$timestamp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2026-05-12T11:07:34.083326+00:00"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2026-05-18T10:39:46.986402+00:00"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $meta$version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "e114_eg62_p19_27110d83"</span>
@@ -575,7 +576,7 @@ internally invoke a know enrichment function.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"EMMA_record")$timestamp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2026-05-12 13:07:33 CEST"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2026-05-18 12:39:46 CEST"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"EMMA_record")$session_info</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>

@@ -1,5 +1,9 @@
 # Changelog
 
+## EMMA 0.99.0
+
+- Ready for Bioconductor submission!
+
 ## EMMA 0.3.0
 
 - Added the initial implementation of
