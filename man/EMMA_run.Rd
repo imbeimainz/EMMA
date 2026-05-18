@@ -50,6 +50,6 @@ data("universe", package = "EMMA")
 library(gprofiler2)
 
 EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
-correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
-store_session_info = FALSE, args_form = "unevaluated")
+  correction_method = "fdr", custom_bg = universe, sources = "GO:BP"),
+  store_session_info = FALSE, args_form = "unevaluated")
 }
