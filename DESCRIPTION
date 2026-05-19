@@ -38,6 +38,7 @@ Suggests:
     BiocStyle,
     macrophage,
     DESeq2,
+    apeglm,
     clusterProfiler,
     gprofiler2,
     org.Hs.eg.db,
