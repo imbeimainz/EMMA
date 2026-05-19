@@ -22,10 +22,10 @@ EMMA_show <- function(res){
     if (is.list(res) && !is.data.frame(res)) {
       # e.g. case of gost, returns a list but it's 1 FEA (result)
       if ("result" %in% names(res)) {
-        cat("Number of Pathways: ", NROW(res$result), "\n")
+        cat("Number of Pathways:", NROW(res$result), "\n")
       } else {
         # let's say if we have of list of FEAs (returned by custom function)
-        cat("Number of FEAs: ", length(res), "\n")
+        cat("Number of FEAs:", length(res), "\n")
         
         nms <- names(res)
         if (is.null(nms) || any(nms == "")) {
@@ -34,23 +34,23 @@ EMMA_show <- function(res){
         
         for (i in seq_along(res)) {
           # check the number of pathways for each element of the list
-          cat(" -", nms[i], ": ", NROW(res[[i]]), " pathways\n")
+          cat(" -", nms[i], ":", NROW(res[[i]]), " pathways\n")
         }
       }
     } else {
-      cat("Number of Pathways: ", NROW(res), "\n")
+      cat("Number of Pathways:", NROW(res), "\n")
     }
     
     method_info <- emma_rec$method
     db_info <- emma_rec$annotation
     
-    cat("Call: ", paste(deparse(method_info$call), collapse = " "), " \n")
-    cat("Wrapper: ", method_info$wrapper, " \n")
-    cat("Package: ", paste(method_info$package_name , "v.",
+    cat("Call:", paste(deparse(method_info$call), collapse = " "), " \n")
+    cat("Wrapper:", method_info$wrapper, " \n")
+    cat("Package:", paste0(method_info$package_name , " v. ",
                            method_info$package_version), " \n")
-    cat("Organism : ", db_info$organism, " \n")
-    cat("Gene set library : ", paste(db_info$gene_set_db, collapse = ", "), " \n")
-    cat("Gene set library version : ",db_info$gene_set_db_version, " \n")
+    cat("Organism:", db_info$organism, " \n")
+    cat("Gene set library:", paste(db_info$gene_set_db, collapse = ","), " \n")
+    cat("Gene set library version:",db_info$gene_set_db_version, " \n")
     cat("\n")
     
   } else {
