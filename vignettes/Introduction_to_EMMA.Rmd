@@ -176,8 +176,14 @@ dds_macrophage <- DESeqDataSet(gse, design = ~ line + condition)
 # preprocess
 rownames(dds_macrophage) <- substr(rownames(dds_macrophage), 1, 15)
 keep <- rowSums(counts(dds_macrophage) >= 10) >= 6
-
 dds_macrophage <- dds_macrophage[keep, ]
+
+# set seed for reproducibility
+set.seed(2711)
+# sample randomly for 2k genes
+selected_genes <- sample(rownames(dds_macrophage), 2000)
+
+dds_macrophage <- dds_macrophage[selected_genes, ]
 
 # run DESeq
 dds_macrophage <- DESeq(dds_macrophage)
@@ -191,10 +197,26 @@ IFNg_vs_naive <- lfcShrink(dds_macrophage, coef = "condition_IFNg_vs_naive",
                            type = "apeglm")
 IFNg_vs_naive$SYMBOL <- rowData(dds_macrophage)$SYMBOL
 
-# sort by adjusted p value
-de_res <- IFNg_vs_naive[order(IFNg_vs_naive$padj), ]
-de_res <- de_res[!(is.na(de_res$padj)) & de_res$padj <= 0.05, ]
+# get de res for 2st contrast
+SL1344_vs_naive <- results(dds_macrophage,
+                         contrast = c("condition", "SL1344", "naive"),
+                         lfcThreshold = 1, alpha = 0.05)
+SL1344_vs_naive <- lfcShrink(dds_macrophage, coef = "condition_SL1344_vs_naive",
+                           res = SL1344_vs_naive,
+                           type = "apeglm")
+SL1344_vs_naive$SYMBOL <- rowData(dds_macrophage)$SYMBOL
 
+# sort by adjusted p value
+de_list <- list(
+  IFNg_vs_naive = IFNg_vs_naive,
+  SL1344_vs_naive = SL1344_vs_naive
+)
+
+de_list <- lapply(de_list, function(df) {
+  df <- df[order(df$padj), ]
+  df <- df[!is.na(df$padj) & df$padj <= 0.05, ]
+  df
+})
 # set background gene list
 gene_universe <- rownames(dds_macrophage)
 ```
@@ -209,6 +231,8 @@ In the following example, we will use the
 function `enrichGO()` from `r BiocStyle::Biocpkg("clusterProfiler")`
 
 ```{r withoutemma}
+de_res <- de_list$IFNg_vs_naive
+
 fea_res <- enrichGO(gene = rownames(de_res),
                     universe = gene_universe,
                     keyType = "ENSEMBL",
@@ -482,7 +506,7 @@ used in practice, rather than attempting to enforce a fully consistent state.
 
 ```{r EMMA_freeze}
 if (requireNamespace("renv", quietly = TRUE)) {
-  project_path <- tempfile("my_project_with_emma")
+  project_path <- tempdir()
   dir.create(project_path)
   EMMA_freeze(project = project_path,
               file = "analysis.lock",
@@ -490,6 +514,51 @@ if (requireNamespace("renv", quietly = TRUE)) {
               prompt = FALSE,
               force = TRUE)
 }
+```
+
+## `EMMA` with iterative workflows
+
+In real-world analyses, multiple FEA results from different contrasts
+are often analyzed in parallel This can be conveniently handled using
+iterative approaches such as `lapply()`.
+
+```{r emma_with_lapply}
+fea_res_list <- lapply(de_list, function(dea){
+  #### perform fea with EMMA_run ####
+  enrichGO(gene = rownames(dea),
+           universe = gene_universe,
+           keyType = "ENSEMBL",
+           OrgDb = org.Hs.eg.db,
+           ont = "BP",
+           pAdjustMethod = "BH",
+           pvalueCutoff = 0.05,
+           qvalueCutoff = 0.1,
+           readable = TRUE) |> 
+    EMMA_run()
+})
+
+#### print the metadata summary for each contrast ####
+invisible(lapply(names(fea_res_list), function(nm) {
+  cat("\n###", nm)
+  EMMA_show(fea_res_list[[nm]])
+}))
+
+#### add more info to the metadata ####
+fea_res_list <- setNames(lapply(names(fea_res_list), function(nm) {
+  EMMA_add_custom_metadata(fea_res_list[[nm]], extra = list(contrast_name = nm))
+  }), 
+names(fea_res_list))
+
+#### get the raw metadata ####
+record_list <- list()
+
+record_list <- setNames(lapply(names(fea_res_list), function(mn){
+  EMMA_get_record(fea_res_list[[mn]])
+  }),
+names(fea_res_list))
+
+record_list$SL1344_vs_naive$extra
+record_list$SL1344_vs_naive$method$package_name
 ```
 
 # Supported methods and future extensions
