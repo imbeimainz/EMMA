@@ -50,7 +50,7 @@ test_that("EMMA_show", {
       gene_set_db_version = NA
     )
   )
-  expect_output(EMMA_show(fea2), "Number of FEAs:  2")
+  expect_output(EMMA_show(fea2), "Number of FEAs: 2")
   expect_output(EMMA_show(fea2), "- FEA_1")
   expect_output(EMMA_show(fea2),"FEA_2")
   
@@ -76,7 +76,7 @@ test_that("EMMA_show", {
     )
   )
   
-  expect_output(EMMA_show(fea_gost), "Number of Pathways:  2")
+  expect_output(EMMA_show(fea_gost), "Number of Pathways: 2")
   
   
 })
