@@ -53,10 +53,8 @@ the provenance information. Use
 ## Details
 
 `EMMA_run()` accepts both direct calls to known enrichment functions
-([`enrichGO()`](https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html),
-[`GSEA()`](https://rdrr.io/pkg/clusterProfiler/man/GSEA.html), `fgsea()`
-...) and calls to wrapper functions that internally invoke a know
-enrichment function.
+(`enrichGO()`, `GSEA()`, `fgsea()` ...) and calls to wrapper functions
+that internally invoke a know enrichment function.
 
 ## Examples
 
@@ -467,7 +465,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> 
 #> 
 #> $meta$timestamp
-#> [1] "2026-05-18T10:54:44.602369+00:00"
+#> [1] "2026-05-19T13:50:13.834859+00:00"
 #> 
 #> $meta$version
 #> [1] "e114_eg62_p19_27110d83"
@@ -530,7 +528,7 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> 
 #> 
 #> attr(,"EMMA_record")$timestamp
-#> [1] "2026-05-18 12:54:43 CEST"
+#> [1] "2026-05-19 15:50:13 CEST"
 #> 
 #> attr(,"EMMA_record")$session_info
 #> NULL
@@ -539,6 +537,6 @@ EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
 #> list()
 #> 
 #> attr(,"EMMA_record")$emma_version
-#> [1] "0.3.0"
+#> [1] "0.99.0"
 #> 
 ```

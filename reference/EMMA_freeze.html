@@ -11,7 +11,7 @@ By default, all currently loaded namespaces are recorded."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">EMMA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,20 +124,19 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-in"><span><span class="co"># renv::restore(project = tmp)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The following Bioconductor packages appear to be from a separate Bioconductor release:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - IRanges     [installed 2.45.0  != latest 2.47.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - EMMA        [installed 0.3.0   != latest &lt;NA&gt;]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - SparseArray [installed 1.11.13 != latest 1.13.2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - EMMA        [installed 0.99.0  != latest &lt;NA&gt;]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - edgeR       [installed 4.9.9   != latest 4.11.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - SparseArray [installed 1.11.13 != latest 1.13.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - DESeq2      [installed 1.51.7  != latest 1.53.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - IRanges     [installed 2.45.0  != latest 2.47.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> renv may be unable to restore these packages.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bioconductor version: 3.24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The following package(s) will be updated in the lockfile:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Bioconductor ---------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - EMMA                   [* -&gt; 0.3.0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - EMMA                   [* -&gt; 0.99.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - GO.db                  [* -&gt; 3.23.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - org.Hs.eg.db           [* -&gt; 3.23.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Bioconductor 3.23 ----------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - SparseArray            [* -&gt; 1.11.13]</span>
@@ -159,39 +158,24 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - DeeDeeExperiment       [* -&gt; 1.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - DelayedArray           [* -&gt; 0.39.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - GOSemSim               [* -&gt; 2.39.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - GenomeInfoDb           [* -&gt; 1.49.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - GenomicAlignments      [* -&gt; 1.49.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - GenomicFeatures        [* -&gt; 1.65.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - GenomicRanges          [* -&gt; 1.65.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - KEGGREST               [* -&gt; 1.53.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - MatrixGenerics         [* -&gt; 1.25.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - RBGL                   [* -&gt; 1.89.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Rhtslib                [* -&gt; 3.9.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Rsamtools              [* -&gt; 2.29.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - S4Arrays               [* -&gt; 1.13.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - S4Vectors              [* -&gt; 0.51.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Seqinfo                [* -&gt; 1.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - SingleCellExperiment   [* -&gt; 1.35.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - SummarizedExperiment   [* -&gt; 1.43.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - UCSC.utils             [* -&gt; 1.9.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - XVector                [* -&gt; 0.53.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - biocViews              [* -&gt; 1.81.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - biomaRt                [* -&gt; 2.69.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - cigarillo              [* -&gt; 1.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - clusterProfiler        [* -&gt; 4.21.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - enrichplot             [* -&gt; 1.33.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - geneLenDataBase        [* -&gt; 1.49.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggtree                 [* -&gt; 4.3.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - goseq                  [* -&gt; 1.65.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - graph                  [* -&gt; 1.91.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - limma                  [* -&gt; 3.69.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - macrophage             [* -&gt; 1.29.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - mosdef                 [* -&gt; 1.9.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - qvalue                 [* -&gt; 2.45.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - rtracklayer            [* -&gt; 1.73.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - topGO                  [* -&gt; 2.65.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - treeio                 [* -&gt; 1.37.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - txdbmaker              [* -&gt; 1.9.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # CRAN -----------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - BH                     [* -&gt; 1.90.0-1]</span>
@@ -209,7 +193,6 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Rcpp                   [* -&gt; 1.1.1-1.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - RcppArmadillo          [* -&gt; 15.2.6-1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - S7                     [* -&gt; 0.2.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - SparseM                [* -&gt; 1.84-2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - XML                    [* -&gt; 3.99-0.23]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - abind                  [* -&gt; 1.4-8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - aisdk                  [* -&gt; 1.1.0]</span>
@@ -222,31 +205,25 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bitops                 [* -&gt; 1.0-9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - blob                   [* -&gt; 1.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bookdown               [* -&gt; 0.46]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - brew                   [* -&gt; 1.0-10]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - brio                   [* -&gt; 1.1.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - bslib                  [* -&gt; 0.10.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cachem                 [* -&gt; 1.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - callr                  [* -&gt; 3.7.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cli                    [* -&gt; 3.6.6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - clipr                  [* -&gt; 0.8.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cluster                [* -&gt; 2.1.8.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - codetools              [* -&gt; 0.2-20]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - commonmark             [* -&gt; 2.0.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - cpp11                  [* -&gt; 0.5.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - crayon                 [* -&gt; 1.5.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - credentials            [* -&gt; 2.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - crosstalk              [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - curl                   [* -&gt; 7.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - data.table             [* -&gt; 1.18.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - dbplyr                 [* -&gt; 2.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - desc                   [* -&gt; 1.4.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - devtools               [* -&gt; 2.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - dichromat              [* -&gt; 2.0-0.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - diffobj                [* -&gt; 0.3.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - digest                 [* -&gt; 0.6.39]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - downlit                [* -&gt; 0.4.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - dplyr                  [* -&gt; 1.2.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - ellipsis               [* -&gt; 0.3.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - enrichit               [* -&gt; 0.1.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - evaluate               [* -&gt; 1.0.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - fansi                  [* -&gt; 1.0.7]</span>
@@ -263,7 +240,6 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - futile.options         [* -&gt; 1.0.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - gdtools                [* -&gt; 0.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - generics               [* -&gt; 0.1.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - gert                   [* -&gt; 2.3.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggforce                [* -&gt; 0.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggfun                  [* -&gt; 0.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggiraph                [* -&gt; 0.9.6]</span>
@@ -272,8 +248,6 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggplotify              [* -&gt; 0.1.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggrepel                [* -&gt; 0.9.8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ggtangle               [* -&gt; 0.1.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - gh                     [* -&gt; 1.5.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - gitcreds               [* -&gt; 0.1.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - glue                   [* -&gt; 1.8.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - gprofiler2             [* -&gt; 0.2.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - gridExtra              [* -&gt; 2.3]</span>
@@ -281,14 +255,11 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - gson                   [* -&gt; 0.1.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - gtable                 [* -&gt; 0.3.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - highr                  [* -&gt; 0.12]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - hms                    [* -&gt; 1.1.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - htmltools              [* -&gt; 0.5.9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - htmlwidgets            [* -&gt; 1.6.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - httpuv                 [* -&gt; 1.6.17]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - httr                   [* -&gt; 1.4.8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - httr2                  [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - igraph                 [* -&gt; 2.3.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - ini                    [* -&gt; 0.3.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - isoband                [* -&gt; 0.3.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - jquerylib              [* -&gt; 0.1.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - jsonlite               [* -&gt; 2.0.0]</span>
@@ -303,61 +274,42 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - magrittr               [* -&gt; 2.0.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - matrixStats            [* -&gt; 1.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - memoise                [* -&gt; 2.0.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - mgcv                   [* -&gt; 1.9-4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - mime                   [* -&gt; 0.13]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - miniUI                 [* -&gt; 0.1.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - nlme                   [* -&gt; 3.1-169]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - openssl                [* -&gt; 2.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - otel                   [* -&gt; 0.2.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - pak                    [* -&gt; 0.9.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - patchwork              [* -&gt; 1.3.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - pillar                 [* -&gt; 1.11.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - pkgbuild               [* -&gt; 1.4.8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - pkgconfig              [* -&gt; 2.0.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - pkgdown                [* -&gt; 2.2.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - pkgload                [* -&gt; 1.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - plotly                 [* -&gt; 4.12.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - plyr                   [* -&gt; 1.8.9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - png                    [* -&gt; 0.1-9]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - polyclip               [* -&gt; 1.10-7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - praise                 [* -&gt; 1.0.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - prettyunits            [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - processx               [* -&gt; 3.9.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - profvis                [* -&gt; 0.4.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - progress               [* -&gt; 1.2.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - promises               [* -&gt; 1.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ps                     [* -&gt; 1.9.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - purrr                  [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - ragg                   [* -&gt; 1.5.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rappdirs               [* -&gt; 0.3.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - rcmdcheck              [* -&gt; 1.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - remotes                [* -&gt; 2.5.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - renv                   [* -&gt; 1.2.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - reshape2               [* -&gt; 1.4.5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - restfulr               [* -&gt; 0.0.16]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - rjson                  [* -&gt; 0.2.23]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rlang                  [* -&gt; 1.2.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rmarkdown              [* -&gt; 2.31]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - roxygen2               [* -&gt; 8.0.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - rprojroot              [* -&gt; 2.1.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rstudioapi             [* -&gt; 0.18.0]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - rversions              [* -&gt; 3.0.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - rvest                  [* -&gt; 1.0.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - sass                   [* -&gt; 0.4.10]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - scales                 [* -&gt; 1.4.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - scatterpie             [* -&gt; 0.2.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - selectr                [* -&gt; 0.5-1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - sessioninfo            [* -&gt; 1.2.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - shiny                  [* -&gt; 1.13.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - snow                   [* -&gt; 0.4-4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - sourcetools            [* -&gt; 0.1.7-2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - statmod                [* -&gt; 1.5.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringdist             [* -&gt; 0.9.17]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringi                [* -&gt; 1.8.7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - stringr                [* -&gt; 1.6.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - sys                    [* -&gt; 3.4.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - systemfonts            [* -&gt; 1.3.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - testthat               [* -&gt; 3.3.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - textshaping            [* -&gt; 1.0.5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tibble                 [* -&gt; 3.3.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tidydr                 [* -&gt; 0.0.6]</span>
@@ -366,22 +318,16 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tidytree               [* -&gt; 0.4.7]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tinytex                [* -&gt; 0.59]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - tweenr                 [* -&gt; 2.0.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - urlchecker             [* -&gt; 1.0.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - usethis                [* -&gt; 3.2.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - utf8                   [* -&gt; 1.2.6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - vctrs                  [* -&gt; 0.7.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - viridisLite            [* -&gt; 0.4.3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - waldo                  [* -&gt; 0.6.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - whisker                [* -&gt; 0.4.1]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - withr                  [* -&gt; 3.0.2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - writexl                [* -&gt; 1.5.4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - xfun                   [* -&gt; 0.57]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - xml2                   [* -&gt; 1.5.2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - xopen                  [* -&gt; 1.0.1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - xtable                 [* -&gt; 1.8-8]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - yaml                   [* -&gt; 2.3.12]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - yulab.utils            [* -&gt; 0.2.4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - zip                    [* -&gt; 2.3.3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # https://bioc.r-universe.dev ------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - DESeq2                 [* -&gt; 1.51.7]</span>
@@ -390,8 +336,8 @@ creation even if inconsistencies are detected in the environment.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> The version of R recorded in the lockfile will be updated:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - R                      [* -&gt; 4.6.0]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpBOWOZS/emma_envcdf2a935e17/renv.lock".</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Environment snapshot saved to: <span style="color: #0000BB;">"/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpBOWOZS/emma_envcdf2a935e17/renv.lock"</span>. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Lockfile written to "/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpiRIbbO/emma_envbc785d575ff/renv.lock".</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Environment snapshot saved to: <span style="color: #0000BB;">"/var/folders/5q/v_ms_h9x6mv05dzlf94g48d00000gn/T//RtmpiRIbbO/emma_envbc785d575ff/renv.lock"</span>. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> To recreate this environment, use `renv::restore()`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "renv.lock"</span>
 </code></pre></div>

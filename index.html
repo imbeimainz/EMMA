@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">EMMA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"gene_universe"</span>, package <span class="op">=</span> <span class="st">"EMMA"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># run analysis</span></span>
-<span><span class="va">fea_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">de_res_IFNg_vs_naive</span><span class="op">)</span>,</span>
+<span><span class="va">fea_results</span> <span class="op">&lt;-</span> <span class="fu">enrichGO</span><span class="op">(</span>gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">de_res_IFNg_vs_naive</span><span class="op">)</span>,</span>
 <span>                        universe <span class="op">=</span> <span class="va">gene_universe</span>,</span>
 <span>                        keyType <span class="op">=</span> <span class="st">"ENSEMBL"</span>,</span>
 <span>                        OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span>,</span>

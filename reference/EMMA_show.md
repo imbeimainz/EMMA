@@ -27,13 +27,13 @@ EMMA_show(res)
 data("fea_res", package = "EMMA")
 EMMA_show(fea_res)
 #> ℹ Found EMMA record!
-#> Number of Pathways:  180 
-#> Call:  gprofiler2::gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",      correction_method = "fdr", custom_bg = universe, sources = "GO:BP")  
-#> Wrapper:  FALSE  
-#> Package:  gprofiler2 v. 0.2.4  
-#> Organism :  hsapiens  
-#> Gene set library :  GO:BP  
-#> Gene set library version :  annotations: BioMart
+#> Number of Pathways: 180 
+#> Call: gprofiler2::gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",      correction_method = "fdr", custom_bg = universe, sources = "GO:BP")  
+#> Wrapper: FALSE  
+#> Package: gprofiler2 v. 0.2.4  
+#> Organism: hsapiens  
+#> Gene set library: GO:BP  
+#> Gene set library version: annotations: BioMart
 #> classes: releases/2026-01-23  
 #> 
 ```

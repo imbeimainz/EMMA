@@ -18,13 +18,13 @@ Source:
 
 Abassi N, Nedwed A, Marini F (2026). *EMMA: EMMA: Enrichment Methods
 Matter for enabling fully reproducible and provenance-aware pathway
-analysis*. R package version 0.3.0,
+analysis*. R package version 0.99.0,
 <https://github.com/imbeimainz/EMMA>.
 
     @Manual{,
       title = {EMMA: EMMA: Enrichment Methods Matter for enabling fully reproducible and provenance-aware pathway analysis},
       author = {Najla Abassi and Annekathrin Nedwed and Federico Marini},
       year = {2026},
-      note = {R package version 0.3.0},
+      note = {R package version 0.99.0},
       url = {https://github.com/imbeimainz/EMMA},
     }
