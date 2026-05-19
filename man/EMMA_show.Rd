@@ -11,14 +11,13 @@ EMMA_show(res)
 \code{EMMA_run()}}
 }
 \value{
-A list of the recorded information
+\code{base::invisible()}
 }
 \description{
-This function prints the EMMA record associated with a functional enrichment
-analysis object, including the executed call, parameters, and provenance
-information.
+This function displays a human-readable summary of the \code{EMMA_record} attribute
+attached to a result object produced by \code{EMMA_run()}
 }
 \examples{
-res <- EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))
-EMMA_show(res)
+data("fea_res", package = "EMMA")
+EMMA_show(fea_res)
 }

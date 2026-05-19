@@ -4,24 +4,52 @@
 \alias{EMMA_run}
 \title{EMMA_run}
 \usage{
-EMMA_run(expr, envir = parent.frame())
+EMMA_run(
+  expr,
+  envir = parent.frame(),
+  store_session_info = TRUE,
+  args_form = c("evaluated", "unevaluated")
+)
 }
 \arguments{
 \item{expr}{A function call that performs functional enrichment analysis.
 The call is captured and executed by EMMA to record analysis parameters and
-provenance information}
+provenance information. Both bare calls (\code{enrichGO(...)}) and
+namespace-qualified calls (\code{clusterProfiler::enrichGO(...)}) are supported.}
 
 \item{envir}{An environment in which to evaluate \code{expr}}
+
+\item{store_session_info}{Logical, indicating whether to store the output of
+\code{sessionInfo()} or not. If \code{TRUE} (default), the session is stored in the
+provenance record}
+
+\item{args_form}{A character string indicating whether to store the evaluated
+or the unevaluated arguments in the provenance record. It default to
+\code{"evaluated"}}
 }
 \value{
-Functional enrichment analysis results in the native format
-returned by the original \code{expr}
+The result object returned by the enrichment function in \code{expr},
+in standard format, with an additional \code{EMMA_record} attribute containing the
+provenance information. Use \code{EMMA_get_record()} to retrieve this record
 }
 \description{
-This function executes functional enrichment analysis using existing tools
-and captures the associated parameters and provenance information for the
-analysis during runtime.
+This function executes any functional enrichment analysis function and
+attaches a provenance record (\code{EMMA_record}) describing the analysis. The
+captured record includes the original call, metadata derived from the call
+and its arguments, runtime information, and optionally the current session
+information.
+}
+\details{
+\code{EMMA_run()} accepts both direct calls to known enrichment functions
+(\code{enrichGO()}, \code{GSEA()}, \code{fgsea()} ...) and calls to wrapper functions that
+internally invoke a know enrichment function.
 }
 \examples{
-EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))
+data("de_res_IFNg_vs_naive", package = "EMMA")
+data("gene_universe", package = "EMMA")
+library(gprofiler2)
+
+EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
+  correction_method = "fdr", custom_bg = gene_universe, sources = "GO:BP"),
+  store_session_info = FALSE, args_form = "unevaluated")
 }

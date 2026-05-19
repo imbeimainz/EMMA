@@ -1,7 +1,7 @@
 Package: EMMA
-Title: EMMA: Enrichment Methods Matter for enabeling fully reproducible and 
+Title: EMMA: Enrichment Methods Matter for enabling fully reproducible and 
     provenance-aware pathway analysis
-Version: 0.0.1
+Version: 0.99.0
 Authors@R: 
     c(
         person(
@@ -28,15 +28,27 @@ Description: EMMA is a package that provides a provenance-aware execution
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
+Imports:
+    AnnotationDbi,
+    cli
 Suggests: 
     knitr,
     rmarkdown,
+    macrophage,
+    DESeq2,
+    clusterProfiler,
+    gprofiler2,
     org.Hs.eg.db,
+    GO.db,
+    mosdef,
+    topGO,
+    renv,
+    DeeDeeExperiment,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/imbeimainz/EMMA
 BugReports: https://github.com/imbeimainz/EMMA/issues
-biocViews:  Pathways, GO, KEGG, GeneSetEnrichment, Annotation, ImmunoOncology,
-    ReproducibleResearch, Transcriptomics, SingleCell, Software
+biocViews: Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
+    Transcriptomics, SingleCell, GeneExpression, DifferentialExpression
 Config/testthat/edition: 3

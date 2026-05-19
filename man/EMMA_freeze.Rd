@@ -4,9 +4,64 @@
 \alias{EMMA_freeze}
 \title{EMMA_freeze}
 \usage{
-EMMA_freeze()
+EMMA_freeze(
+  project = getwd(),
+  file = "renv.lock",
+  pkgs = loadedNamespaces(),
+  prompt = interactive(),
+  force = TRUE
+)
+}
+\arguments{
+\item{project}{Character string corresponding to the path to the project
+directory where the lockfile should be written. If the directory does not
+exist, it will be created. It defaults to the current working directory}
+
+\item{file}{Character string referring to the name of the lockfile to generate.
+It defaults to "renv.lock"}
+
+\item{pkgs}{Character vector of package names to snapshot. It defaults to all
+currently loaded namespaces via \code{loadedNamespaces()}}
+
+\item{prompt}{Logical indicating whether to prompt before taking actions.
+Defaults to \code{interactive()}}
+
+\item{force}{Logical indicating whether to force creation of the lockfile.
+Defaults to \code{TRUE}}
+}
+\value{
+Invisibly returns the path to the generated lockfile.
+The lockfile is written in JSON format and can be used with \code{renv::restore()}
+to recreate the package environment
 }
 \description{
 This function records the R environment during analysis runtime and generates
-a lockfile that can be used with tools such as \code{renv}
+a lockfile that can be used with tools such as \code{renv}.
+By default, all currently loaded namespaces are recorded.
+}
+\details{
+This function calls \code{renv::snapshot()} with the specified packages.
+The resulting lockfile can later be restored with \code{renv::restore()} to
+recreate the same package environment.
+
+By default, the lockfile is created with \code{force = TRUE}, allowing snapshot
+creation even if inconsistencies are detected in the environment.
+}
+\examples{
+# create a lockfile
+if (requireNamespace("renv", quietly = TRUE)) {
+tmp <- tempfile("emma_env")
+dir.create(tmp)
+
+EMMA_freeze(project = tmp)
+
+# inspect generated files
+list.files(tmp)
+
+# to restore the environment later
+# renv::restore(project = tmp)
+}
+}
+\seealso{
+\code{\link[renv]{snapshot}}, \code{\link[renv]{restore}}
 }

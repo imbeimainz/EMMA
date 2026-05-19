@@ -1,20 +1,48 @@
 #' EMMA_run
 #' 
-#' This function executes functional enrichment analysis using existing tools
-#' and captures the associated parameters and provenance information for the
-#' analysis during runtime.
+#' This function executes any functional enrichment analysis function and
+#' attaches a provenance record (`EMMA_record`) describing the analysis. The
+#' captured record includes the original call, metadata derived from the call
+#' and its arguments, runtime information, and optionally the current session
+#' information.
+#' 
+#' `EMMA_run()` accepts both direct calls to known enrichment functions
+#' (`enrichGO()`, `GSEA()`, `fgsea()` ...) and calls to wrapper functions that
+#' internally invoke a know enrichment function.
+#' 
+#'
 #' @param expr A function call that performs functional enrichment analysis.
 #' The call is captured and executed by EMMA to record analysis parameters and
-#' provenance information
+#' provenance information. Both bare calls (`enrichGO(...)`) and
+#' namespace-qualified calls (`clusterProfiler::enrichGO(...)`) are supported.
 #' @param envir An environment in which to evaluate `expr`
+#' @param store_session_info Logical, indicating whether to store the output of
+#' `sessionInfo()` or not. If `TRUE` (default), the session is stored in the
+#' provenance record
+#' @param args_form A character string indicating whether to store the evaluated
+#' or the unevaluated arguments in the provenance record. It default to
+#' `"evaluated"`
 #'
-#' @returns Functional enrichment analysis results in the native format
-#' returned by the original `expr`
+#' @returns The result object returned by the enrichment function in `expr`,
+#' in standard format, with an additional `EMMA_record` attribute containing the
+#' provenance information. Use `EMMA_get_record()` to retrieve this record
+#' 
 #' @export
 #'
 #' @examples
-#' EMMA_run(enrichGO(gene = rownames(de_res_IFNg_vs_naive), universe = universe, keyType = "ENSEMBL", OrgDb = org.Hs.eg.db, ont = "BP"))
-EMMA_run <- function(expr, envir = parent.frame()) {
+#' data("de_res_IFNg_vs_naive", package = "EMMA")
+#' data("gene_universe", package = "EMMA")
+#' library(gprofiler2)
+#' 
+#' EMMA_run(gost(query = de_res_IFNg_vs_naive$SYMBOL, organism = "hsapiens",
+#'   correction_method = "fdr", custom_bg = gene_universe, sources = "GO:BP"),
+#'   store_session_info = FALSE, args_form = "unevaluated")
+EMMA_run <- function(expr,
+                     envir = parent.frame(),
+                     store_session_info = TRUE,
+                     args_form = c("evaluated", "unevaluated")) {
+  
+  args_form <- match.arg(args_form)
   
   # capture call
   call <- substitute(expr)
@@ -23,77 +51,62 @@ EMMA_run <- function(expr, envir = parent.frame()) {
   if (!is.call(call)) {
     stop("`expr` must be a function call, e.g. enrichGO(...)!")
   }
-
-  # capture function name
-  function_name <- paste(deparse(call[[1]]), collapse = "")
   
-  # capture args (unevaluated)
-  arg_list <- as.list(call)[-1]
-  
-  arg_names <- names(arg_list)
-  
-  # now we'll put some warning on important args if
-  # the user did not define them (like the fdr correction ...)
-  
-  checks <- list(
-    list(params = c("pAdjustMethod", "correction_method"),
-         label  = "multiple-testing correction method"),
-    list(params = c("universe", "background"),
-         label  = "background gene set")
-    )
-  
-  
-  for (check in checks) {
-    if (!any(check$params %in% arg_names)) {
-      warning(
-        sprintf(
-          "No %s was specified for %s(). 
-Consider using the corresponding parameter for your call.",
-          check$label,
-          function_name
-        ),
-        call. = FALSE
-      )
-    }
+  if (!is.environment(envir)) {
+    stop("`envir` must be an environment!")
   }
   
-  # maybe warn when the organism and the gene names dont match? like u have 
-  # mouse data but u defined organism as human
+  if (!is.logical(store_session_info) || length(store_session_info) != 1L || is.na(store_session_info)) {
+    stop("`store_session_info` must be a single TRUE or FALSE value")
+  }
+  
+  # decide whether we are dealing with a known function or a wrapper
+  call_class <- .EMMA_classify_call(call, envir = envir)
+  info_call <- call_class$info_call
+  function_name <- info_call$function_name
+  package_name <- info_call$package_name
+  wrapper <- call_class$wrapper
+  wrapped_original <- call_class$wrapped_original
+  
+  # capture args (unevaluated)
+  arg_list <- info_call$arg_list
+  arg_names <- names(arg_list)
+  
+  # some good practice warning, i.e. when multiple testing correction is skipped
+  # or bg geneset not set
+  .EMMA_warnings(arg_names = arg_names,
+                function_name = function_name)
   
   #capture analysis time
   start_time <- Sys.time()
-  message("Running Enrichment Analysis with ", function_name, " ...") # maybe we can print the list of arg used also in the msg?
+  
+  cli::cli_alert_info(
+    "Running Enrichment Analysis with  {.val {function_name}} ...")
   
   # capture the value of the arguments
   args <- lapply(arg_list, eval, envir = envir)
+  info_call$args <- args 
   
   # get the function
   fun <- eval(call[[1]], envir = envir)
   
-  # run the analysis
+  ##### run the analysis ####
   results <- do.call(fun, args)
   
-  # capture pkg used
-  enrich_function <- match.fun(function_name)
-  pkg <- environmentName(environment(enrich_function))
-
-  
-  # store everything
-  EMMA_record <- list(
-    call = call,
-    package = pkg,
-    package_version = if (!is.na(pkg)) 
-      as.character(packageVersion(pkg)) else NA,
-    arguments = args,
-    gene_set_library = NA, #placeholder
-    gene_set_library_version = NA,
-    organism = NA,
-    runtime = start_time, 
-    session = sessionInfo()
+  # capture metadata from the used function and arguments
+  metadata <- .EMMA_get_metadata(
+    call_class,
+    args,
+    envir = envir
   )
   
-  # store the emma records as attribute of the results obj
+  # record everything in EMMA_record
+  EMMA_record <- .EMMA_build_record(info_call, args_form, metadata, 
+                                   wrapped_original,wrapper,
+                                   start_time, store_session_info)
+    
+  # attach EMMA_record as attribute of the results obj
   attr(results, "EMMA_record") <- EMMA_record
-  
+
   return(results)
 }
