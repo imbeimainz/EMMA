@@ -1,3 +1,5 @@
+<img src="inst/www/EMMA-logo.png" align="right" alt="" width="120" />
+
 # EMMA - Enrichment Methods MAtter
 
 EMMA enables the execution of Functional Enrichment Analyses using a wide range
