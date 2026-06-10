@@ -1,5 +1,7 @@
 # EMMA - Enrichment Methods MAtter
 
+![](inst/www/EMMA-logo.png)
+
 EMMA enables the execution of Functional Enrichment Analyses using a
 wide range of existing tools (e.g. `clusterProfiler`, `topGO`,
 `gprofiler2` among others) while systematically capturing analysis
@@ -9,7 +11,17 @@ reusable metadata.
 
 ## Installation
 
-You can install the development version of `EMMA` from GitHub with
+You can install the release version of `EMMA` from Bioconductor with:
+
+``` r
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")}
+
+BiocManager::install("EMMA")
+```
+
+And the development version from GitHub with:
 
 ``` r
 
