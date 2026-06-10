@@ -1,3 +1,7 @@
+# EMMA 0.99.4
+
+* Addressed the points raised in the Bioc review.
+
 # EMMA 0.99.0
 
 * Ready for Bioconductor submission!
