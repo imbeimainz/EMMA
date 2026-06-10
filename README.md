@@ -8,7 +8,16 @@ alongside structured and reusable metadata.
 
 ## Installation
 
-You can install the development version of `EMMA` from GitHub with
+You can install the release version of `EMMA` from Bioconductor with:
+
+``` r
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")}
+
+BiocManager::install("EMMA")
+```
+
+And the development version from GitHub with:
 
 ``` r
 library("remotes")
