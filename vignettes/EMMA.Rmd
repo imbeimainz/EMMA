@@ -24,7 +24,7 @@ output:
     code_folding: show
     code_download: yes
 vignette: >
-  %\VignetteIndexEntry{Introduction_to_EMMA}
+  %\VignetteIndexEntry{EMMA}
   %\VignetteEncoding{UTF-8}  
   %\VignettePackage{EMMA}
   %\VignetteKeywords{Pathways, GeneSetEnrichment, Annotation, ReproducibleResearch, Transcriptomics}
@@ -109,7 +109,7 @@ to any result object regardless of its underlying class.
 
 ![](EMMA_workflow.png)
 
-# Getting started {#gettingstarted}
+# Installation {#installation}
 
 To install this package, start R and enter:
 
@@ -170,7 +170,7 @@ Analysis with `r BiocStyle::Biocpkg("DESeq2")`
 
 ```{r differential_expression}
 # load data
-data(gse, "macrophage")
+data(gse, package = "macrophage")
 # set up design
 dds_macrophage <- DESeqDataSet(gse, design = ~ line + condition)
 # preprocess
