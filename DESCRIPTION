@@ -1,7 +1,7 @@
 Package: EMMA
 Title: EMMA: Enrichment Methods Matter for enabling fully reproducible and 
     provenance-aware pathway analysis
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: 
     c(
         person(
