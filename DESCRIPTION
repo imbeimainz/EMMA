@@ -1,7 +1,7 @@
 Package: EMMA
 Title: EMMA: Enrichment Methods Matter for enabling fully reproducible and 
     provenance-aware pathway analysis
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: 
     c(
         person(
@@ -28,7 +28,6 @@ Description: EMMA is a package that provides a provenance-aware execution
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.0.0
 Imports:
     AnnotationDbi,
     cli
