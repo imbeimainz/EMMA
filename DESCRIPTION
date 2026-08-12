@@ -54,3 +54,4 @@ BugReports: https://github.com/imbeimainz/EMMA/issues
 biocViews: Software, Pathways, GO, KEGG, GeneSetEnrichment, ImmunoOncology,
     Transcriptomics, SingleCell, GeneExpression, DifferentialExpression
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
