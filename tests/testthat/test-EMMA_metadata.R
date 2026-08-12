@@ -106,8 +106,8 @@ test_that("test metadata content & structure", {
   
   expect_warning(gse_res <- gseGO( geneList = geneList, keyType = "ENSEMBL",
                     OrgDb = org.Hs.eg.db, ont = "BP",
-                    minGSSize = 100, maxGSSize = 500,
-                    pvalueCutoff = 0.05, verbose = FALSE,
+                    minGSSize = 1, maxGSSize = 200,
+                    pvalueCutoff = 0.1, verbose = FALSE,
                     pAdjustMethod = "BH") |>  EMMA_run())
   
   expect_equal(EMMA_get_record(gse_res)$method$function_name, "gseGO")

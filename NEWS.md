@@ -1,3 +1,9 @@
+# EMMA 1.0.0
+
+* EMMA is on Bioconductor!
+* Fix the unit tests for `gseGO()` after the recent update to `enrichit` v0.2.1
+(a dependency of `clusterProfiler`)
+
 # EMMA 0.99.4
 
 * Addressed the points raised in the Bioc review.
