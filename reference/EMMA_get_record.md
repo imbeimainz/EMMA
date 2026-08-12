@@ -92,7 +92,7 @@ EMMA_get_record(fea_res)
 #> 
 #> 
 #> $timestamp
-#> [1] "2026-05-06 10:13:37 UTC"
+#> [1] "2026-05-06 12:13:37 CEST"
 #> 
 #> $session_info
 #> NULL
