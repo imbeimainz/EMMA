@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/imbeimainz/EMMA/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/imbeimainz/EMMA/blob/devel/DESCRIPTION)
 
 Abassi N, Nedwed A, Marini F (2026). *EMMA: EMMA: Enrichment Methods
 Matter for enabling fully reproducible and provenance-aware pathway
